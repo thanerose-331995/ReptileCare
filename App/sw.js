@@ -1,7 +1,7 @@
 //these two only run once per session, can be useful for caching
 
 //a new cache
-const staticCacheName = 'site-static';
+const staticCacheName = 'site-static-v1';
 
 
 //asset array, in this case 'asset' means anything requested from the server (in url form)
@@ -37,6 +37,17 @@ self.addEventListener('install', evt => {
 //activate event
 self.addEventListener('activate', evt => {
     //console.log("service worked activated");
+    evt.waitUntil(
+        //find each keys of the caches
+        caches.keys().then(keys =>{
+            //promise all takes an array of promises and waits for them to resolve before resolving itself
+            return Promise.all(keys
+                //if key doesnt equal cash name
+                .filter(key => key!== staticCacheName)
+                //delete key
+                .map(key => caches.delete(key)))
+        })
+    )
 })
 
 //fetch event
