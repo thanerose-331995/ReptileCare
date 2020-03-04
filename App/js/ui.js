@@ -1,3 +1,4 @@
+
 //when browser loads
 document.addEventListener('DOMContentLoaded', function () {
     //connecting up the sidenavs to their content
@@ -10,3 +11,30 @@ document.addEventListener('DOMContentLoaded', function () {
     M.Sidenav.init(forms, { edge: 'left' });
 });
 
+// display pet data
+function displayPet(data, id) {
+    const pets = document.querySelector('.pets');
+    console.log(pets)
+
+    //this is a template html
+    const html = `
+        <div class="card-panel pet white row" data-id="${id}">
+            <img src="/img/dish.png" alt="recipe thumb">
+            <div class="recipe-details">
+                <div class="recipe-title">${data.name}</div>
+                <div class="recipe-ingredients">Breed: ${data.breed}, Age: ${data.age}</div>
+            </div>
+            <div class="recipe-delete">
+                <i class="material-icons" data-id="${id}">delete_outline</i>
+            </div>
+        </div>
+    `;
+
+    pets.innerHTML += html;
+}
+
+function removePet(id){
+    //attribute selector which looks for pet attribute with this data-id val
+    const pet = document.querySelector(`.pet[data-id=${id}]`);
+    pet.remove();
+}

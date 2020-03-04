@@ -42,47 +42,8 @@
     </ul>
 
     <!-- recipes -->
-    <div class="recipes container grey-text text-darken-1">
-        <div class="card-panel recipe white row">
-            <img src="/img/dish.png" alt="recipe thumb">
-            <div class="recipe-details">
-                <div class="recipe-title">Edame Noodles</div>
-                <div class="recipe-ingredients">Edame Beans, Noodels, Garlic oil</div>
-            </div>
-            <div class="recipe-delete">
-                <i class="material-icons">delete_outline</i>
-            </div>
-        </div>
-        <div class="card-panel recipe white row">
-            <img src="/img/dish.png" alt="recipe thumb">
-            <div class="recipe-details">
-                <div class="recipe-title">Edame Noodles</div>
-                <div class="recipe-ingredients">Edame Beans, Noodels, Garlic oil</div>
-            </div>
-            <div class="recipe-delete">
-                <i class="material-icons">delete_outline</i>
-            </div>
-        </div>
-        <div class="card-panel recipe white row">
-            <img src="/img/dish.png" alt="recipe thumb">
-            <div class="recipe-details">
-                <div class="recipe-title">Edame Noodles</div>
-                <div class="recipe-ingredients">Edame Beans, Noodels, Garlic oil</div>
-            </div>
-            <div class="recipe-delete">
-                <i class="material-icons">delete_outline</i>
-            </div>
-        </div>
-        <div class="card-panel recipe white row">
-            <img src="/img/dish.png" alt="recipe thumb">
-            <div class="recipe-details">
-                <div class="recipe-title">Edame Noodles</div>
-                <div class="recipe-ingredients">Edame Beans, Noodels, Garlic oil</div>
-            </div>
-            <div class="recipe-delete">
-                <i class="material-icons">delete_outline</i>
-            </div>
-        </div>
+    <div class="pets container grey-text text-darken-1">
+        <h3>Pets</h3>
     </div>
 
     <div class="center">
@@ -95,15 +56,19 @@
     <!-- add recipe side nav -->
     <div id="side-form" class="sidenav side-form">
         <form class="add-recipe container section">
-            <h6>New Recipe</h6>
+            <h6>New Pet</h6>
             <div class="divider"></div>
             <div class="input-field">
-                <input placeholder="e.g. Ninja soup" id="title" type="text" class="validate">
-                <label for="title">Recipe Title</label>
+                <input placeholder="e.g. Gaz" id="name" type="text" class="validate">
+                <label for="name">Pet Name</label>
             </div>
             <div class="input-field">
-                <input placeholder="e.g. Tofu, mushroom, garlic" id="ingredients" type="text" class="validate">
-                <label for="ingredients">Ingredients</label>
+                <input placeholder="1" id="age" type="number" class="validate">
+                <label for="name">Age</label>
+            </div>
+            <div class="input-field">
+                <input placeholder="e.g. gecko, snake" id="breed" type="text" class="validate">
+                <label for="ingredients">Breed</label>
             </div>
             <div class="input-field center">
                 <button class="btn-small">Add</button>
@@ -111,7 +76,33 @@
         </form>
     </div>
 
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-firestore.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-analytics.js"></script> -->
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyAx_54I7b7cpNMPO87eJzpV6-HkDgl8pMc",
+            authDomain: "petapp-616ba.firebaseapp.com",
+            databaseURL: "https://petapp-616ba.firebaseio.com",
+            projectId: "petapp-616ba",
+            storageBucket: "petapp-616ba.appspot.com",
+            messagingSenderId: "535826044325",
+            appId: "1:535826044325:web:c46b30b76358f49585c44c",
+            measurementId: "G-NG8VX73KQ1"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+    </script>
+
     <script src="/js/app.js"></script>
+    <script src="/js/db.js"></script>
     <script src="/js/ui.js"></script>
 </body>
 
