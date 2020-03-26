@@ -9,7 +9,12 @@ document.addEventListener('DOMContentLoaded', function () {
     //form
     const forms = document.querySelectorAll('.side-form');
     M.Sidenav.init(forms, { edge: 'left' });
+
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems, options);
 });
+
+
 
 // display pet data
 function displayPet(data, id) {
