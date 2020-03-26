@@ -19,7 +19,7 @@ function displayPet(data, id) {
     //this is a template html
     const html = `
         <div class="card-panel pet white row" data-id="${id}">
-            <img src="/img/dish.png" alt="recipe thumb">
+            <img src="./img/dish.png" alt="recipe thumb">
             <div class="recipe-details">
                 <div class="recipe-title">${data.name}</div>
                 <div class="recipe-ingredients">Breed: ${data.breed}, Age: ${data.age}</div>
