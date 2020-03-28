@@ -10,21 +10,29 @@ document.addEventListener('DOMContentLoaded', function () {
     const forms = document.querySelectorAll('.side-form');
     M.Sidenav.init(forms, { edge: 'left' });
 
-    var elems = document.querySelectorAll('select');
-    var instances = M.FormSelect.init(elems, options);
+    // var elems = document.querySelectorAll('select');
+    // const options = {
+    //     "one": "crested gecko",
+    //     "one": "lepord gecko",
+    //     "one": "bearded dragon"
+    // }
+    M.FormSelect.init(document.querySelectorAll('select'));
 });
 
+
+
+
+// ------- PET DATA -------
 
 
 // display pet data
 function displayPet(data, id) {
     const pets = document.querySelector('.pets');
-    console.log(pets)
 
     //this is a template html
     const html = `
         <div class="card-panel pet white row" data-id="${id}">
-            <img src="./img/dish.png" alt="recipe thumb">
+            <img src="./img/lizard.png" alt="recipe thumb">
             <div class="recipe-details">
                 <div class="recipe-title">${data.name}</div>
                 <div class="recipe-ingredients">Breed: ${data.breed}, Age: ${data.age}</div>
@@ -38,8 +46,9 @@ function displayPet(data, id) {
     pets.innerHTML += html;
 }
 
-function removePet(id){
+function removePet(id) {
     //attribute selector which looks for pet attribute with this data-id val
     const pet = document.querySelector(`.pet[data-id=${id}]`);
     pet.remove();
 }
+

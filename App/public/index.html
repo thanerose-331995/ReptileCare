@@ -10,8 +10,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" href="./css/style.css" rel="stylesheet">
     <!-- js links -->
+    <script type="text/javascript" src="./js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="./js/materialize.min.js"></script>
-    <script type="text/javascript" src="./js/ui.js"></script>
     <!-- link to manifest -->
     <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#FFE1C4">
@@ -41,6 +41,7 @@
         </li>
     </ul>
 
+    <h3 class="h3 center welcome-message"></h3>
     <!-- recipes -->
     <div class="pets container grey-text text-darken-1">
         <h3>Pets</h3>
@@ -68,13 +69,14 @@
             </div>
             <div class="input-field">
                 <select>
-                  <option value="" disabled selected>Choose your option</option>
-                  <option value="1">Option 1</option>
-                  <option value="2">Option 2</option>
-                  <option value="3">Option 3</option>
+                    <option id="breed" value="" disabled selected>Choose your option</option>
+                    <option value="Crested Gecko">Crested Gecko</option>
+                    <option value="Bearded Dragon">Bearded Dragon</option>
+                    <option value="Lepord Gecko">Lepord Gecko</option>
                 </select>
-                <label>Materialize Select</label>
-              </div>
+                <label>Breed</label>
+            </div>
+            <br>
             <div class="input-field center">
                 <button class="btn-small">Add</button>
             </div>
@@ -84,10 +86,6 @@
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-firestore.js"></script>
-
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-    <!-- <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-analytics.js"></script> -->
 
     <script>
         // Your web app's Firebase configuration
@@ -110,5 +108,25 @@
     <script src="./js/db.js"></script>
     <script src="./js/ui.js"></script>
 </body>
+<script>
+
+    $(document).ready(() => {
+        console.log("jqeury loaded");
+        if (sessionStorage.getItem("logged_in")) {
+            db.collection('users').where('username', '==', sessionStorage.getItem("currentUser")).get().then((snapshot) => {
+                snapshot.docs.forEach((doc) => {
+                    user = doc.data();
+                })
+                console.log("current user:");
+                console.log(user);  
+                $(".welcome-message").html("Welcome "+user.firstName);
+
+            })
+        } else {
+            window.location.href = "./pages/signup_login.html";
+        }
+    });
+
+</script>
 
 </html>

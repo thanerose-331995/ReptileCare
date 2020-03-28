@@ -1,0 +1,120 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Reptile Care</title>
+    <!-- ccs / materialise -->
+    <link type="text/css" href="../css/materialize.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" href="../css/style.css" rel="stylesheet">
+    <!-- js links -->
+    <script type="text/javascript" src="../js/materialize.min.js"></script>
+    <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/signup_login.js"></script>
+    <!-- link to manifest -->
+    <link rel="manifest" href="../manifest.json">
+    <meta name="theme-color" content="#FFE1C4">
+</head>
+<body>
+    <div class="container">
+        <!-- LOGIN FORM -->
+        <div class="login-form">
+            <h3>Login</h3>
+            <div class="row">
+                <form class="login col s12">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="username" type="text" class="validate" required>
+                            <label for="username">Username</label>
+                            <div></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="password" type="password" class="validate" required>
+                            <label for="password">Password</label>
+                        </div>
+                    </div>
+                </form>
+                <a class="waves-effect waves-light indigo btn" onclick="showForm(this, '.signup-form')">Sign Up</a>
+                <br>
+                <button class="btn waves-effect waves-light indigo disabled" type="submit" name="action">Submit
+                    <i class="material-icons right" onclick="login()">send</i>
+                </button>
+            </div>
+        </div>
+
+
+        <!-- SIGN UP FORM -->
+        <div class="signup-form hide">
+            <h3>Sign Up</h3>
+            <div class="row">
+                <form class="signup col s12">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input placeholder="Jane" id="first_name" type="text" class="validate">
+                            <label for="first_name">First Name</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input placeholder="Doe" id="last_name" type="text" class="validate">
+                            <label for="last_name">Last Name</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="username" type="text" class="validate">
+                            <label for="username">Username</label>
+                            <i class="tiny material-icons scale-transition scale-in">close</i>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="email" type="email" class="validate">
+                            <label for="email">Email</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="password" type="password" class="validate">
+                            <label for="password">Password</label>
+                        </div>
+                    </div>
+                </form>
+                <a class="waves-effect waves-light indigo btn" onclick="showForm(this, '.login-form')">Login</a>
+                <br>
+                <button class="btn waves-effect waves-light indigo disabled" onclick="addUser()">Submit
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- DB Link -->
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-firestore.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyAx_54I7b7cpNMPO87eJzpV6-HkDgl8pMc",
+            authDomain: "petapp-616ba.firebaseapp.com",
+            databaseURL: "https://petapp-616ba.firebaseio.com",
+            projectId: "petapp-616ba",
+            storageBucket: "petapp-616ba.appspot.com",
+            messagingSenderId: "535826044325",
+            appId: "1:535826044325:web:c46b30b76358f49585c44c",
+            measurementId: "G-NG8VX73KQ1"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+    </script>
+
+    <script src="../js/app.js"></script>
+</body>
+</html>
