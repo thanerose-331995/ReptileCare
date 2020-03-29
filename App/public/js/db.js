@@ -49,8 +49,9 @@ form.addEventListener('submit', evt => {
 
     var elems = document.querySelectorAll('select');
 
+    const name = form.name.value.replace(form.name.value[0], form.name.value[0].toUpperCase());
     const pet = {
-        name: form.name.value,
+        name: name,
         age: form.age.value,
         breed: elems[0].value
     }
