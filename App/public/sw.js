@@ -1,17 +1,20 @@
 //these two only run once per session, can be useful for caching
 
 //a new cache
-const staticCache = 'site-static-v7';
-const dynamicCache = 'site-dynamic-v7';
+const staticCache = 'site-static-v8';
+const dynamicCache = 'site-dynamic-v8';
 
 //asset array, in this case 'asset' means anything requested from the server (in url form)
 //these are called 'shell assets'
 const assets = [
     '/',
     '/index.html',
+    '/signup_login.html',
     '/js/app.js',
     '/js/ui.js',
+    '/js/db.js',
     '/js/materialize.min.js',
+    '/js/jquery-3.4.1.min.js',
     '/css/style.css',
     '/css/materialize.min.css',
     '/img/lizard.png',
@@ -51,7 +54,6 @@ self.addEventListener('install', evt => {
 
 //activate event
 self.addEventListener('activate', evt => {
-    //console.log("service worked activated");
     evt.waitUntil(
         //find each keys of the caches
         caches.keys().then(keys => {
@@ -67,7 +69,6 @@ self.addEventListener('activate', evt => {
 
 //fetch event
 self.addEventListener('fetch', evt => {
-    //console.log('fetch event', evt.request.url);
     //make sure its not a request to the db
     if (evt.request.url.indexOf('firestore.googleapis.com') === -1) {
         evt.respondWith(

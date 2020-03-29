@@ -20,7 +20,6 @@ db.collection('pets').onSnapshot((snapshot) => {
     //gets a snapshot of this collection whenever theres a change
     console.log(snapshot.docChanges());
     snapshot.docChanges().forEach(change => {
-        console.log(change, change.doc.data(), change.doc.id);
         if (change.type === 'added') {
             db.collection('users').where('username', '==', sessionStorage.getItem("currentUser")).get().then((snapshot) => {
                 snapshot.docs.forEach((doc) => {
@@ -47,10 +46,8 @@ const form = document.querySelector('form');
 
 form.addEventListener('submit', evt => {
     evt.preventDefault(); //so the page doesnt automatically refresh
-    console.log(form);
 
     var elems = document.querySelectorAll('select');
-    console.log(elems[0].value);
 
     const pet = {
         name: form.name.value,
@@ -61,13 +58,11 @@ form.addEventListener('submit', evt => {
     db.collection('users').where('username', '==', sessionStorage.getItem("currentUser")).get().then((snapshot) => {
         snapshot.docs.forEach((doc) => {
             user = doc.data();
-            console.log(doc.id);
             user.id = doc.id;
         })
     
         pet.user = user.id;
     
-        console.log(pet);
         db.collection('pets').add(pet)
             .catch(err => { console.log(err) });
     
