@@ -1,8 +1,8 @@
 //these two only run once per session, can be useful for caching
 
 //a new cache
-const staticCache = 'site-static-v6';
-const dynamicCache = 'site-dynamic-v6';
+const staticCache = 'site-static-v7';
+const dynamicCache = 'site-dynamic-v7';
 
 //asset array, in this case 'asset' means anything requested from the server (in url form)
 //these are called 'shell assets'
@@ -14,7 +14,7 @@ const assets = [
     '/js/materialize.min.js',
     '/css/style.css',
     '/css/materialize.min.css',
-    '/img/dish.png',
+    '/img/lizard.png',
     '/pages/fallback.html',
     'https://fonts.googleapis.com/icon?family=Material+Icons',
     'https://fonts.gstatic.com/s/materialicons/v47/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2'

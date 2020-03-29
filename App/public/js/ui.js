@@ -10,13 +10,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const forms = document.querySelectorAll('.side-form');
     M.Sidenav.init(forms, { edge: 'left' });
 
-    // var elems = document.querySelectorAll('select');
+    var elems = document.querySelectorAll('select');
     // const options = {
     //     "one": "crested gecko",
     //     "one": "lepord gecko",
     //     "one": "bearded dragon"
     // }
-    M.FormSelect.init(document.querySelectorAll('select'));
+    M.FormSelect.init(elems);
 });
 
 

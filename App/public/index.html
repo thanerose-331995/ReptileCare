@@ -39,6 +39,9 @@
         <li><a href="./pages/contact.html" class="waves-effect">
                 <i class="material-icons">mail_outline</i>Contact</a>
         </li>
+        <li><a onclick="logout()" class="waves-effect">
+                <i class="material-icons">exit_to_app</i>Logout</a>
+        </li>
     </ul>
 
     <h3 class="h3 center welcome-message"></h3>
@@ -51,6 +54,10 @@
         <!-- as this is identified as a sidenav-trigger it says its hiding and will open whatever the data target is -->
         <a class="btn-floating btn-small btn-large add-btn sidenav-trigger" data-target="side-form">
             <i class="material-icons">add</i>
+        </a>
+        <br>
+        <a class="">
+            <i></i>
         </a>
     </div>
 
@@ -126,6 +133,11 @@
             window.location.href = "./pages/signup_login.html";
         }
     });
+
+    function logout(){
+        sessionStorage.setItem("logged_in", false);
+        window.location.href = "./pages/signup_login.html";
+    }
 
 </script>
 
