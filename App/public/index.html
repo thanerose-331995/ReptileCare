@@ -4,141 +4,88 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Reptile Care</title>
-    <!-- ccs / materialise -->
+    <!-- styles -->
+    <!-- <link type="text/css" href="/css/style.css" rel="stylesheet"> -->
     <link type="text/css" href="./css/materialize.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" href="./css/style.css" rel="stylesheet">
     <!-- js links -->
-    <script type="text/javascript" src="./js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="./js/materialize.min.js"></script>
+    <script type="text/javascript" src="./js/jquery-3.4.1.min.js"></script>
+    <title>Fish Pond</title>
     <!-- link to manifest -->
     <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#FFE1C4">
 </head>
 
-<body class="grey lighten-3">
-    <!-- top nav -->
-    <nav class="z-depth-0">
-        <div class="nav-wrapper container">
-            <a href="./">Rep<span>Tool</span></a>
-            <span class="right grey-text text-darken-1">
-                <i class="material-icons sidenav-trigger" data-target="side-menu">menu</i>
-            </span>
+<body class="green lighten-2">
+    <div class="container">
+        <div class="row valign-wrapper" style="height: 90%">
+            <div class="col s12">
+                <div class="card white hoverable">
+                    <div class="card-content center">
+                        <h5 style="margin: 0px;">Welcome to Reptool</h5>
+                        <br>
+                        <button data-target="modal-login" class="btn green darken-2 modal-trigger">Login</button>
+                        <button data-target="modal-signup" class="btn green darken-2 modal-trigger">Sign Up</button>
+                    </div>
+                </div>
+            </div>
         </div>
-    </nav>
-
-    <!-- side nav -->
-    <ul id="side-menu" class="sidenav side-menu">
-        <li><a class="subheader">RepTool</a></li>
-        <li><a href="/" class="waves-effect">Home</a></li>
-        <li><a href="./pages/about.html" class="waves-effect">About</a></li>
-        <li>
-            <div class="divider"></div>
-        </li>
-        <li><a href="./pages/contact.html" class="waves-effect">
-                <i class="material-icons">mail_outline</i>Contact</a>
-        </li>
-        <li><a onclick="logout()" class="waves-effect">
-                <i class="material-icons">exit_to_app</i>Logout</a>
-        </li>
-    </ul>
-
-    <h3 class="h3 center welcome-message"></h3>
-    <!-- recipes -->
-    <div class="pets container grey-text text-darken-1">
-        <h3>Pets</h3>
+        <div id="modal-login" class="modal">
+            <div class="modal-content">
+                <h4>Login</h4>
+                <form id="login">
+                    <div class="input-field">
+                        <input type="email" class="validate" required name="email" value="">
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="input-field">
+                        <input type="password" class="validate" required name="password" value="">
+                        <label for="password">Password</label>
+                    </div>
+                    <button class="modal-close waves-effect green lighten-3 btn-flat">Login</button>
+                </form>
+            </div>
+        </div>
+        <div id="modal-signup" class="modal">
+            <div class="modal-content">
+                <h4>Sign Up</h4>
+                <br>
+                <form id="signup">
+                    <div class="input-field">
+                        <input placeholder="Jane" type="text" class="validate" name="first_name" value="">
+                        <label for="first_name">First Name</label>
+                    </div>
+                    <div class="input-field">
+                        <input placeholder="Doe" type="text" class="validate" name="last_name" value="">
+                        <label for="last_name">Last Name</label>
+                    </div>
+                    <div class="input-field">
+                        <input type="email" class="validate" name="email" value="">
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="input-field">
+                        <input type="password" class="validate" name="password" value="">
+                        <label for="password">Password</label>
+                    </div>
+                    <button class="modal-close waves-effect green lighten-3 btn-flat">Sign Up</button>
+                </form>
+            </div>
+        </div>
     </div>
-
-    <div class="center">
-        <!-- as this is identified as a sidenav-trigger it says its hiding and will open whatever the data target is -->
-        <a class="btn-floating btn-small btn-large add-btn sidenav-trigger" data-target="side-form">
-            <i class="material-icons">add</i>
-        </a>
-        <br>
-        <a class="">
-            <i></i>
-        </a>
-    </div>
-
-    <!-- add recipe side nav -->
-    <div id="side-form" class="sidenav side-form">
-        <form class="add-recipe container section">
-            <h6>New Pet</h6>
-            <div class="divider"></div>
-            <div class="input-field">
-                <input placeholder="e.g. Gaz" id="name" type="text" class="validate">
-                <label for="name">Pet Name</label>
-            </div>
-            <div class="input-field">
-                <input placeholder="1" id="age" type="number" class="validate">
-                <label for="name">Age</label>
-            </div>
-            <div class="input-field">
-                <select>
-                    <option id="breed" value="" disabled selected>Choose your option</option>
-                    <option value="Crested Gecko">Crested Gecko</option>
-                    <option value="Bearded Dragon">Bearded Dragon</option>
-                    <option value="Lepord Gecko">Lepord Gecko</option>
-                </select>
-                <label>Breed</label>
-            </div>
-            <br>
-            <div class="input-field center">
-                <button class="btn-small">Add</button>
-            </div>
-        </form>
-    </div>
-
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-firestore.js"></script>
-
-    <script>
-        // Your web app's Firebase configuration
-        var firebaseConfig = {
-            apiKey: "AIzaSyAx_54I7b7cpNMPO87eJzpV6-HkDgl8pMc",
-            authDomain: "petapp-616ba.firebaseapp.com",
-            databaseURL: "https://petapp-616ba.firebaseio.com",
-            projectId: "petapp-616ba",
-            storageBucket: "petapp-616ba.appspot.com",
-            messagingSenderId: "535826044325",
-            appId: "1:535826044325:web:c46b30b76358f49585c44c",
-            measurementId: "G-NG8VX73KQ1"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-    </script>
-
+    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-auth.js"></script>
+    <!-- other scripts -->
     <script src="./js/app.js"></script>
     <script src="./js/db.js"></script>
-    <script src="./js/ui.js"></script>
+    <script src="./js/auth.js"></script>
 </body>
 <script>
-
-    $(document).ready(() => {
-        console.log("Jqeury Loaded");
-        if (sessionStorage.getItem("logged_in")) {
-            db.collection('users').where('username', '==', sessionStorage.getItem("currentUser")).get().then((snapshot) => {
-                snapshot.docs.forEach((doc) => {
-                    user = doc.data();
-                })
-                console.log("current user:");
-                console.log(user);  
-                $(".welcome-message").html("Welcome "+user.firstName);
-
-            })
-        } else {
-            window.location.href = "./pages/signup_login.html";
-        }
+    $(document).ready(function () {
+        var elems = document.querySelectorAll('.modal');
+        M.Modal.init(elems);
     });
-
-    function logout(){
-        sessionStorage.setItem("logged_in", false);
-        window.location.href = "./pages/signup_login.html";
-    }
-
 </script>
-
 </html>

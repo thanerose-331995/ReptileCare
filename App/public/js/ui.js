@@ -11,11 +11,6 @@ document.addEventListener('DOMContentLoaded', function () {
     M.Sidenav.init(forms, { edge: 'left' });
 
     var elems = document.querySelectorAll('select');
-    // const options = {
-    //     "one": "crested gecko",
-    //     "one": "lepord gecko",
-    //     "one": "bearded dragon"
-    // }
     M.FormSelect.init(elems);
 });
 
@@ -31,8 +26,8 @@ function displayPet(data, id) {
 
     //this is a template html
     const html = `
-        <div class="card-panel pet white row" data-id="${id}">
-            <img src="./img/lizard.png" alt="recipe thumb">
+        <div class="card-panel pet white row waves-effect" onclick="petClicked('${id}')" data-id="${id}">
+            <img src="../img/lizard.png" alt="recipe thumb">
             <div class="recipe-details">
                 <div class="recipe-title">${data.name}</div>
                 <div class="recipe-ingredients">Breed: ${data.breed}, Age: ${data.age}</div>
@@ -52,3 +47,27 @@ function removePet(id) {
     pet.remove();
 }
 
+function petClicked(id) {
+    getData("pets", id, function (data) {
+        console.log(data);
+        $(".pet-info-long").append(
+            '<div class= "row center">' +
+            '<div class="col s12 m6">' +
+            '<div class="card">' +
+            '<div class="card-content">' +
+            '<span class="card-title">Card Title</span>' +
+            '<p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>' +
+            '</div>' +
+            '<div class="card-action">' +
+            '<a class="btn-small waves-effect">' +
+            '<i class="material-icons">close</i>' +
+            '</a>' +
+            '</div>' +
+            '</div>' +
+            '</div >' +
+            '</div > '
+        );
+    });
+
+
+}
