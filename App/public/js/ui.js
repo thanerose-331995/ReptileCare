@@ -15,7 +15,14 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-
+//logout
+$("#logout-btn").click(e => {
+    e.preventDefault();
+    auth.signOut().then(() => {
+        console.log("User Signed Out");
+        window.location.href = "../";
+    })
+})
 
 // ------- PET DATA -------
 
@@ -36,9 +43,23 @@ function displayPet(data, id) {
                 <i class="material-icons" data-id="${id}">delete_outline</i>
             </div>
         </div>
+        <div id="pet-modal-${id}" class="modal">
+            <div class="modal-content center">
+                <h4><b>${data.name}</b></h4>
+                <img src="../img/lizard.png" alt="recipe thumb" class="responsive-img circle z-depth-2">
+                <h6><b>Breed:</b> ${data.breed}</h6>
+                <h6><b>Age:</b> ${data.age}</h6>
+                <h6><b>User:</b> ${data.user}</h6>
+                <br>
+                <p>ANY MORE PET INFO CAN GO HERE</p>
+            </div>
+        </div>
     `;
 
     pets.innerHTML += html;
+    
+    var elems = document.querySelectorAll('.modal');
+    M.Modal.init(elems);
 }
 
 function removePet(id) {
@@ -48,26 +69,16 @@ function removePet(id) {
 }
 
 function petClicked(id) {
+    console.log("check");
+    const modal = $("#pet-modal-"+id);
+    M.Modal.getInstance(modal).open();
     getData("pets", id, function (data) {
         console.log(data);
-        $(".pet-info-long").append(
-            '<div class= "row center">' +
-            '<div class="col s12 m6">' +
-            '<div class="card">' +
-            '<div class="card-content">' +
-            '<span class="card-title">Card Title</span>' +
-            '<p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>' +
-            '</div>' +
-            '<div class="card-action">' +
-            '<a class="btn-small waves-effect">' +
-            '<i class="material-icons">close</i>' +
-            '</a>' +
-            '</div>' +
-            '</div>' +
-            '</div >' +
-            '</div > '
-        );
+
+        const html = `
+            <div>check</div>
+        `;
+
+        $(".pet-info-"+id).append(html);
     });
-
-
 }
