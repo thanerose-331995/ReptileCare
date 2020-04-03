@@ -1,7 +1,6 @@
 
 //when browser loads
-document.addEventListener('DOMContentLoaded', function () {
-    //connecting up the sidenavs to their content
+$(document).ready(() => {
     //nav
     const menus = document.querySelectorAll('.side-menu');
     //M connects to materialize and initialises the menu, specifies open from the right
@@ -12,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var elems = document.querySelectorAll('select');
     M.FormSelect.init(elems);
-});
+})
 
 
 //logout
@@ -57,7 +56,7 @@ function displayPet(data, id) {
     `;
 
     pets.innerHTML += html;
-    
+
     var elems = document.querySelectorAll('.modal');
     M.Modal.init(elems);
 }
@@ -70,7 +69,7 @@ function removePet(id) {
 
 function petClicked(id) {
     console.log("check");
-    const modal = $("#pet-modal-"+id);
+    const modal = $("#pet-modal-" + id);
     M.Modal.getInstance(modal).open();
     getData("pets", id, function (data) {
         console.log(data);
@@ -79,6 +78,6 @@ function petClicked(id) {
             <div>check</div>
         `;
 
-        $(".pet-info-"+id).append(html);
+        $(".pet-info-" + id).append(html);
     });
 }

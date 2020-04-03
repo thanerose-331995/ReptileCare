@@ -31,8 +31,6 @@ db.enablePersistence()
         }
     })
 
-
-
 //realtime listener
 function getSnapshot() {
     db.collection('pets').onSnapshot((snapshot) => {
@@ -95,4 +93,13 @@ function getData(collection, data, callback) {
     db.collection(collection).doc(data).get().then((snapshot) => {
         callback(snapshot.data());
     })
+}
+
+//FORM FORMATTING
+function objectifyForm(formArray) {//serialize data function
+    var returnArray = {};
+    for (var i = 0; i < formArray.length; i++) {
+        returnArray[formArray[i]['name']] = formArray[i]['value'];
+    }
+    return returnArray;
 }

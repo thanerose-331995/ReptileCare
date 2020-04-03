@@ -21,6 +21,7 @@ $("#signup").submit(e => {
     e.preventDefault();
     const user = objectifyForm($("#signup").serializeArray());
 
+    //formatting name
     user.first_name = user.first_name.replace(user.first_name[0], user.first_name[0].toUpperCase());
     user.last_name = user.last_name.replace(user.last_name[0], user.last_name[0].toUpperCase());
 
@@ -44,7 +45,6 @@ $("#login").submit(e => {
 
 //FORM FORMATTING
 function objectifyForm(formArray) {//serialize data function
-
     var returnArray = {};
     for (var i = 0; i < formArray.length; i++) {
         returnArray[formArray[i]['name']] = formArray[i]['value'];
