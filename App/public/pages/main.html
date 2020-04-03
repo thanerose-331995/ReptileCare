@@ -17,7 +17,7 @@
     <meta name="theme-color" content="#FFE1C4">
 </head>
 
-<body style="background: rgb(220,237,200);background: linear-gradient(137deg, rgba(220,237,200,1) 0%, rgba(156,204,101,1) 48%, rgba(139,195,74,1) 100%);">
+<body>
     <!-- top nav -->
     <nav class="z-depth-0">
         <div class="nav-wrapper container">
@@ -31,12 +31,13 @@
     <!-- side nav -->
     <ul id="side-menu" class="sidenav side-menu">
         <li><a class="subheader">RepTool</a></li>
-        <li><a href="../" class="waves-effect">Home</a></li>
-        <li><a href="../pages/about.html" class="waves-effect">About</a></li>
+        <li><a href="./main.html" class="waves-effect">Home</a></li>
+        <li><a href="./profile.html" class="waves-effect">Profile</a></li>
+        <li><a href="./care-sheets.html" class="waves-effect">Care Sheets</a></li>
         <li>
             <div class="divider"></div>
         </li>
-        <li><a href="../pages/contact.html" class="waves-effect">
+        <li><a href="../contact.html" class="waves-effect">
                 <i class="material-icons">mail_outline</i>Contact</a>
         </li>
         <li><a id="logout-btn" class="waves-effect">
@@ -44,9 +45,9 @@
         </li>
     </ul>
 
-    <h3 class="h3 center welcome-message"></h3>
+    <h5 class="h3 center" id="welcome-message"></h5>
     <!-- recipes -->
-    
+
     <div class="pets container grey-text text-darken-1">
         <h3>Pets</h3>
     </div>
@@ -101,6 +102,12 @@
 <script>
     $(document).ready(() => {
         getSnapshot();
+
+        const user = JSON.parse(sessionStorage.getItem("user"));
+        getData("users", user.uid, data => {
+            console.log("user:", data);
+            $("#welcome-message").append("<b>Welcome, " + data.first_name + "</b>");
+        })
     });
 </script>
 

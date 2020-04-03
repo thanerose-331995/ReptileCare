@@ -4,6 +4,11 @@
     --secondary: #689f38;
     --title: #8bc34a;
   }
+
+  body{
+    background: rgb(220,237,200);
+    background: linear-gradient(137deg, rgba(220,237,200,1) 0%, rgba(156,204,101,1) 48%, rgba(139,195,74,1) 100%);
+  }
   
   /* layout styles */
   nav{

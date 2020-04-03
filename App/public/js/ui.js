@@ -11,6 +11,7 @@ $(document).ready(() => {
 
     var elems = document.querySelectorAll('select');
     M.FormSelect.init(elems);
+
 })
 
 
@@ -68,16 +69,15 @@ function removePet(id) {
 }
 
 function petClicked(id) {
-    console.log("check");
     const modal = $("#pet-modal-" + id);
     M.Modal.getInstance(modal).open();
     getData("pets", id, function (data) {
-        console.log(data);
-
+        
         const html = `
             <div>check</div>
         `;
 
+        $(".pet-info-" + id).empty();
         $(".pet-info-" + id).append(html);
     });
 }

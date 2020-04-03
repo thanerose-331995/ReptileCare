@@ -88,9 +88,9 @@ petContainer.addEventListener('click', evt => {
     }
 });
 
+//GET ANY DATA
 function getData(collection, data, callback) {
-    console.log(collection, data);
-    db.collection(collection).doc(data).get().then((snapshot) => {
+    db.collection(collection).doc(data).get().then(snapshot => {
         callback(snapshot.data());
     })
 }
