@@ -16,11 +16,12 @@
     <link rel="manifest" href="../manifest.json">
     <meta name="theme-color" content="#FFE1C4">
 </head>
+
 <body>
     <!-- top nav -->
     <nav class="z-depth-0">
         <div class="nav-wrapper container">
-            <a href="../">Rep<span>Tool</span></a>
+            <a href="./main.html">Rep<span>Tool</span></a>
             <span class="right grey-text text-lighten-1">
                 <i class="material-icons sidenav-trigger" data-target="side-menu">menu</i>
             </span>
@@ -44,7 +45,32 @@
         </li>
     </ul>
 
-    <h2>Care Sheets</h2>
+
+    <div class="container grey lighten-3 z-depth-2 center" style="padding:15px;margin:15px;">
+        <h4>Care Sheets</h4>
+        <div class="divider"></div>
+        <br>
+        <div id="icon-container" class="row">
+            <div class="preloader-wrapper active">
+                <div class="spinner-layer spinner-green-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="care-sheet-data" class="modal">
+        <div class="modal-content center">
+            <p>Content</p>
+        </div>
+    </div>
     <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-auth.js"></script>
@@ -53,4 +79,15 @@
     <script src="../js/ui.js"></script>
     <script src="../js/db.js"></script>
 </body>
+<script>
+    $(document).ready(() => {
+        db.collection('care_sheets').onSnapshot((snapshot) => {
+            $("#icon-container").empty();
+            snapshot.docChanges().forEach(change => {
+                displayCareSheets(change.doc.data());
+            });
+        });
+    });
+</script>
+
 </html>

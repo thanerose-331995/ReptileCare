@@ -7,6 +7,7 @@ auth.onAuthStateChanged(user => {
         console.log("User Logged In:", user);
         sessionStorage.setItem("user", JSON.stringify(user));
         window.location.href = "./pages/main.html";
+        console.log("check");
     }
     else {
         console.log("User Logged Out");

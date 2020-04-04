@@ -1,25 +1,25 @@
-<html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Food Ninja</title>
-    <!-- materialize icons, css & js -->
+    <title>Reptile Care</title>
+    <!-- ccs / materialise -->
     <link type="text/css" href="../css/materialize.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" href="../css/style.css" rel="stylesheet">
-    <script type="text/javascript" src="../js/materialize.min.js"></script>
+    <!-- js links -->
     <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/materialize.min.js"></script>
     <!-- link to manifest -->
     <link rel="manifest" href="../manifest.json">
+    <meta name="theme-color" content="#FFE1C4">
 </head>
 
-<body class="grey lighten-4">
+<body>
     <!-- top nav -->
     <nav class="z-depth-0">
         <div class="nav-wrapper container">
-            <a href="../">Rep<span>Tool</span></a>
+            <a href="./main.html">Rep<span>Tool</span></a>
             <span class="right grey-text text-lighten-1">
                 <i class="material-icons sidenav-trigger" data-target="side-menu">menu</i>
             </span>
@@ -29,8 +29,9 @@
     <!-- side nav -->
     <ul id="side-menu" class="sidenav side-menu">
         <li><a class="subheader">RepTool</a></li>
-        <li><a href="./" class="waves-effect">Home</a></li>
-        <li><a href="./about.html" class="waves-effect">About</a></li>
+        <li><a href="./main.html" class="waves-effect">Home</a></li>
+        <li><a href="./profile.html" class="waves-effect">Profile</a></li>
+        <li><a href="./care-sheets.html" class="waves-effect">Care Sheets</a></li>
         <li>
             <div class="divider"></div>
         </li>
@@ -60,13 +61,13 @@
     <script src="../js/ui.js"></script>
 </body>
 
-<script>
+<script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-auth.js"></script>
 
-    function logout() {
-        sessionStorage.setItem("logged_in", false);
-        window.location.href = "../pages/signup_login.html";
-    }
-
-</script>
+<script src="../js/app.js"></script>
+<script src="../js/ui.js"></script>
+<script src="../js/db.js"></script>
+</body>
 
 </html>

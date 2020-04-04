@@ -26,7 +26,6 @@ $("#logout-btn").click(e => {
 
 // ------- PET DATA -------
 
-
 // display pet data
 function displayPet(data, id) {
     const pets = document.querySelector('.pets');
@@ -35,11 +34,11 @@ function displayPet(data, id) {
     const html = `
         <div class="card-panel pet white row waves-effect" onclick="petClicked('${id}')" data-id="${id}">
             <img src="../img/lizard.png" alt="recipe thumb">
-            <div class="recipe-details">
-                <div class="recipe-title">${data.name}</div>
-                <div class="recipe-ingredients">Breed: ${data.breed}, Age: ${data.age}</div>
+            <div class="pet-details">
+                <div class="pet-title">${data.name}</div>
+                <div class="pet-flavour-text">Breed: ${data.breed}, Age: ${data.age}</div>
             </div>
-            <div class="recipe-delete">
+            <div class="pet-delete">
                 <i class="material-icons" data-id="${id}">delete_outline</i>
             </div>
         </div>
@@ -80,4 +79,22 @@ function petClicked(id) {
         $(".pet-info-" + id).empty();
         $(".pet-info-" + id).append(html);
     });
+}
+
+// ------- CARE SHEET DATA -------
+
+function displayCareSheets(data){
+    const html = `
+            <div class="col s6" onlick="careSheetClicked('${data.breed}')" style="padding:15px;">
+                <a class="btn-flat btn-large green lighten-3 waves-effect green-text text-darken-3">
+                    <i class="material-icons">book</i>
+                </a>
+                <p style="margin:0px">${data.breed}</p>
+            </div>
+    `;
+    $("#icon-container").append(html);
+}
+
+function careSheetClicked(breed){
+    console.log(breed);
 }
