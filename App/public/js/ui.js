@@ -70,8 +70,8 @@ function removePet(id) {
 function petClicked(id) {
     const modal = $("#pet-modal-" + id);
     M.Modal.getInstance(modal).open();
-    getData("pets", id, function (data) {
-        
+    getData("pets", id, data => {
+
         const html = `
             <div>check</div>
         `;
@@ -83,18 +83,35 @@ function petClicked(id) {
 
 // ------- CARE SHEET DATA -------
 
-function displayCareSheets(data){
-    const html = `
-            <div class="col s6" onlick="careSheetClicked('${data.breed}')" style="padding:15px;">
-                <a class="btn-flat btn-large green lighten-3 waves-effect green-text text-darken-3">
+function displayCareSheets(data, id) {
+    var html = `
+        <div class="col s6" style="padding:15px;">
+                <a class="btn-flat btn-large green lighten-3 waves-effect green-text text-darken-3" onclick="careSheetClicked('${id}')">
                     <i class="material-icons">book</i>
                 </a>
                 <p style="margin:0px">${data.breed}</p>
             </div>
+        <div id="sheet-modal-${id}" class="modal">
+        <div style='width:100%;height:auto;' class="green">
+            <h4 style='padding:30px;margin:0px'>${data.breed}</h4>
+        </div>
+            <div class="modal-content center">
     `;
+
+    for (let [key, value] of Object.entries(data)) {
+        var name = key.replace(key[0], key[0].toUpperCase());
+        html += `<p><b>${name}:</b> ${value}</p>`;
+    }
+
+    html += "</div></div>";
     $("#icon-container").append(html);
+
+    var elems = document.querySelectorAll('.modal');
+    M.Modal.init(elems);
+
 }
 
-function careSheetClicked(breed){
-    console.log(breed);
+function careSheetClicked(id) {
+    const modal = $("#sheet-modal-" + id);
+    M.Modal.getInstance(modal).open();
 }

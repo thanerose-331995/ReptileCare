@@ -18,34 +18,43 @@
 </head>
 
 <body>
-    <!-- top nav -->
+    <!-- TOP/BOTTOM NAV -->
     <nav class="z-depth-0">
-        <div class="nav-wrapper container">
-            <a href="./main.html">Rep<span>Tool</span></a>
-            <span class="right grey-text text-lighten-1">
-                <i class="material-icons sidenav-trigger" data-target="side-menu">menu</i>
-            </span>
-        </div>
+        <ul id="top-bar" class="center row text-green">
+            <li class="col s3">
+                <a href="./main.html"  class="green-text text-darken-1">REP<span>TOOL</span></a>
+            </li>
+            <li class="col s9 right-align">
+                <div id="logout">
+                    <i style="padding: 0px" id="logout-btn" class="btn-flat material-icons green-text text-darken-1">exit_to_app</i>
+                </div>
+            </li>
+        </ul>
     </nav>
+    <div class="end grey lighten-3">
+        <div class="container">
+            <div class="row">
+                <ul class="center">
+                    <li class="col s3">
+                        <a href="./main.html" class="btn-floating green waves-effect"><i class="material-icons">home</i></a>
+                    </li>
+                    <li class="col s3">
+                        <a href="./care-sheets.html" class="disabled btn-floating green waves-effect"><i
+                                class="material-icons">assignment</i></a>
+                    </li>
+                    <li class="col s3">
+                        <a class="btn-floating green waves-effect"><i class="material-icons">chat_bubble</i></a>
+                    </li>
+                    <li class="col s3">
+                        <a href="./profile.html" class="btn-floating green waves-effect"><i
+                                class="material-icons">account_circle</i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
-    <!-- side nav -->
-    <ul id="side-menu" class="sidenav side-menu">
-        <li><a class="subheader">RepTool</a></li>
-        <li><a href="./main.html" class="waves-effect">Home</a></li>
-        <li><a href="./profile.html" class="waves-effect">Profile</a></li>
-        <li><a href="./care-sheets.html" class="waves-effect">Care Sheets</a></li>
-        <li>
-            <div class="divider"></div>
-        </li>
-        <li><a href="../contact.html" class="waves-effect">
-                <i class="material-icons">mail_outline</i>Contact</a>
-        </li>
-        <li><a id="logout-btn" class="waves-effect">
-                <i class="material-icons">exit_to_app</i>Logout</a>
-        </li>
-    </ul>
-
-
+    <!-- MAIN -->
     <div class="container grey lighten-3 z-depth-2 center" style="padding:15px;margin:15px;">
         <h4>Care Sheets</h4>
         <div class="divider"></div>
@@ -84,7 +93,7 @@
         db.collection('care_sheets').onSnapshot((snapshot) => {
             $("#icon-container").empty();
             snapshot.docChanges().forEach(change => {
-                displayCareSheets(change.doc.data());
+                displayCareSheets(change.doc.data(), change.doc.id);
             });
         });
     });
