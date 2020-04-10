@@ -18,7 +18,8 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const auth = firebase.auth();
-
+const storage = firebase.storage();
+const storageRef = storage.ref(); // a reference point for the storage
 
 //offline data
 db.enablePersistence()
@@ -55,20 +56,16 @@ function getSnapshot() {
 // ------- PET DATA -------
 
 //add pet
-const form = document.querySelector('form');
-
-form.addEventListener('submit', evt => {
-    evt.preventDefault(); //so the page doesnt automatically refresh
-
-    var elems = document.querySelectorAll('select');
-
+$("#add-pet").on("submit", e => {
+    e.preventDefault();
+    var form = $("#add-pet")[0];
+    var elems = $("#select-breed");
     const name = form.name.value.replace(form.name.value[0], form.name.value[0].toUpperCase());
     const pet = {
         name: name,
         age: form.age.value,
         breed: elems[0].value
     }
-
     var user = JSON.parse(sessionStorage.getItem("user"));
     pet.user = user.uid;
 
@@ -77,24 +74,42 @@ form.addEventListener('submit', evt => {
 
     form.name.value = "";
     form.age.value = "";
-});
+})
+
 //delete pet
-const petContainer = document.querySelector('.pets');
+function deletePet(id) {
+    console.log("deleting: ", id);
+    db.collection('pets').doc(id).delete();
+    const modal = $("#pet-modal-" + id);
+    M.Modal.getInstance(modal).close();
+}
 
-petContainer.addEventListener('click', evt => {
-    if (evt.target.tagName === 'I') {
-        const id = evt.target.getAttribute('data-id');
-        db.collection('pets').doc(id).delete();
-    }
-});
+// ------- FILE HANDING ---
 
+//upload file
+function upload(file, urlRef, callback) {
+    storageRef.child(urlRef).put(file).then(function (snapshot) {
+        callback(snapshot);
+    })
+}
+
+//get file url to use in app
+function download(urlRef, callback) {
+    storageRef.child(urlRef).getDownloadURL().then(function (url) {
+        callback(url)
+    }).catch(err => { console.log(err) })
+}
+
+// ------- GENERAL -------
+
+//get any data
 function getData(collection, data, callback) {
     db.collection(collection).doc(data).get().then(snapshot => {
         callback(snapshot.data());
     })
 }
 
-//FORM FORMATTING
+//format form to obj
 function objectifyForm(formArray) {//serialize data function
     var returnArray = {};
     for (var i = 0; i < formArray.length; i++) {

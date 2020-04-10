@@ -1,4 +1,5 @@
 
+
 //when browser loads
 $(document).ready(() => {
     //nav
@@ -13,7 +14,6 @@ $(document).ready(() => {
     M.FormSelect.init(elems);
 
 })
-
 
 //logout
 $("#logout-btn").click(e => {
@@ -38,19 +38,18 @@ function displayPet(data, id) {
                 <div class="pet-title">${data.name}</div>
                 <div class="pet-flavour-text">Breed: ${data.breed}, Age: ${data.age}</div>
             </div>
-            <div class="pet-delete">
-                <i class="material-icons" data-id="${id}">delete_outline</i>
-            </div>
         </div>
         <div id="pet-modal-${id}" class="modal">
-            <div class="modal-content center">
+            <div class="modal-content">
                 <h4><b>${data.name}</b></h4>
-                <img src="../img/lizard.png" alt="recipe thumb" class="responsive-img circle z-depth-2">
+                <img src="../img/lizard.png" alt="recipe thumb" class="circle z-depth-2" style="width:100px;height:auto">
                 <h6><b>Breed:</b> ${data.breed}</h6>
                 <h6><b>Age:</b> ${data.age}</h6>
                 <h6><b>User:</b> ${data.user}</h6>
                 <br>
-                <p>ANY MORE PET INFO CAN GO HERE</p>
+                <p>ANY MORE PET INFO CAN GO HERE</p>                
+                <a class="btn-floating btn-small green darken-3 pet-delete" onclick="deletePet('${id}')"><i class="material-icons">delete_outline</i></a>
+                <a class="btn-floating btn-small green darken-3" onclick="editPet('${id}')"><i class="material-icons">edit</i></a>
             </div>
         </div>
     `;
@@ -61,28 +60,59 @@ function displayPet(data, id) {
     M.Modal.init(elems);
 }
 
+//remove from screen
 function removePet(id) {
     //attribute selector which looks for pet attribute with this data-id val
     const pet = document.querySelector(`.pet[data-id=${id}]`);
     pet.remove();
 }
 
+//open pet modal
 function petClicked(id) {
     const modal = $("#pet-modal-" + id);
     M.Modal.getInstance(modal).open();
+}
+
+//edit pet data
+function editPet(id) {
     getData("pets", id, data => {
-
         const html = `
-            <div>check</div>
+        <div class="modal-content">    
+            <form>
+                <div class="input-field">
+                    <input placeholder="${data.name}" id="name" type="text" class="validate">
+                </div>
+                <img id="edit-pet-profile-pic" src="../img/lizard.png" class="circle" style="width:50px;height:auto;">
+                <input type="file" name="file">
+                <div class="input-field">
+                    <input placeholder="${data.age}" id="age" type="number" class="validate">
+                </div>
+                <div class="input-field">
+                    <select id="select-breed">
+                        <option id="breed" value="" disabled selected>Choose your option</option>
+                        <option value="Crested Gecko">Crested Gecko</option>
+                        <option value="Bearded Dragon">Bearded Dragon</option>
+                        <option value="Leopard Gecko">Leopard Gecko</option>
+                    </select>
+                    <label>Breed</label>
+                </div>
+                <a class="btn btn-small green darken-3"><i class="material-icons">done</i></a>
+                <a class="btn btn-small green darken-3"><i class="material-icons">close</i></a>
+            </form>
+        </div>
         `;
-
-        $(".pet-info-" + id).empty();
-        $(".pet-info-" + id).append(html);
-    });
+    
+        $("#pet-modal-"+id).empty();
+        $("#pet-modal-"+id).append(html);
+        var elems = document.querySelectorAll('select');
+        M.FormSelect.init(elems);
+    })
+    
 }
 
 // ------- CARE SHEET DATA -------
 
+//display all sheets
 function displayCareSheets(data, id) {
     var html = `
         <div class="col s6" style="padding:15px;">
@@ -111,6 +141,7 @@ function displayCareSheets(data, id) {
 
 }
 
+//open sheet modal
 function careSheetClicked(id) {
     const modal = $("#sheet-modal-" + id);
     M.Modal.getInstance(modal).open();
