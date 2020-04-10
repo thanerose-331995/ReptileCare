@@ -38,7 +38,7 @@ function getSnapshot() {
         //gets a snapshot of this collection whenever theres a change
         console.log(snapshot.docChanges());
         snapshot.docChanges().forEach(change => {
-            if (change.type === 'added') {
+            if (change.type === 'added' || change.type === 'modified') {
                 var user = JSON.parse(sessionStorage.getItem("user"));
                 if (user.uid == change.doc.data().user) {
                     //add data
@@ -109,11 +109,17 @@ function getData(collection, data, callback) {
     })
 }
 
+function update(collection, id, data){
+    db.ref(collection + '/' + id).set(data);
+}
+
 //format form to obj
 function objectifyForm(formArray) {//serialize data function
     var returnArray = {};
     for (var i = 0; i < formArray.length; i++) {
-        returnArray[formArray[i]['name']] = formArray[i]['value'];
+        if (formArray[i]['value'] != "" && formArray[i]['name'] != "") {
+            returnArray[formArray[i]['name']] = formArray[i]['value'];
+        }
     }
     return returnArray;
 }

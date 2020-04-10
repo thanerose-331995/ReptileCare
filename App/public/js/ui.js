@@ -52,12 +52,43 @@ function displayPet(data, id) {
                 <a class="btn-floating btn-small green darken-3" onclick="editPet('${id}')"><i class="material-icons">edit</i></a>
             </div>
         </div>
+        <div id="pet-edit-modal-${id}" class="modal">
+            <div class="modal-content">
+                <form>
+                    <div class="input-field">
+                        <input placeholder="${data.name}" name="name" type="text" value="" class="validate">
+                    </div>
+                    <img id="edit-pet-profile-pic" src="../img/lizard.png" class="circle" style="width:50px;height:auto;">
+                    <input type="file" name="file">
+                    <div class="input-field">
+                        <input placeholder="${data.age}" name="age" type="number" value="" class="validate">
+                    </div>
+                    <div class="input-field">
+                        <select name="breed">
+                            <option id="breed" value="" disabled selected>Choose your option</option>
+                            <option value="Crested Gecko">Crested Gecko</option>
+                            <option value="Bearded Dragon">Bearded Dragon</option>
+                            <option value="Leopard Gecko">Leopard Gecko</option>
+                        </select>
+                        <label>Breed</label>
+                    </div>
+                    <a class="btn btn-small green darken-3" onclick="saveEdit('${id}')"><i class="material-icons">done</i></a>
+                    <a class="btn btn-small green darken-3" onclick="closeEdit('${id}')"><i class="material-icons">close</i></a>
+                </form>
+            </div>
+        </div>
     `;
 
     pets.innerHTML += html;
 
-    var elems = document.querySelectorAll('.modal');
-    M.Modal.init(elems);
+    // var elems = document.querySelectorAll('.modal');
+    // M.Modal.init(elems);
+    $("#pet-modal-"+id).modal();
+    $('#pet-edit-modal-'+id).modal({
+        onCloseEnd: test(),
+    });
+    var elems = document.querySelectorAll('select');
+    M.FormSelect.init(elems);
 }
 
 //remove from screen
@@ -73,41 +104,38 @@ function petClicked(id) {
     M.Modal.getInstance(modal).open();
 }
 
-//edit pet data
+//open edit page
 function editPet(id) {
-    getData("pets", id, data => {
-        const html = `
-        <div class="modal-content">    
-            <form>
-                <div class="input-field">
-                    <input placeholder="${data.name}" id="name" type="text" class="validate">
-                </div>
-                <img id="edit-pet-profile-pic" src="../img/lizard.png" class="circle" style="width:50px;height:auto;">
-                <input type="file" name="file">
-                <div class="input-field">
-                    <input placeholder="${data.age}" id="age" type="number" class="validate">
-                </div>
-                <div class="input-field">
-                    <select id="select-breed">
-                        <option id="breed" value="" disabled selected>Choose your option</option>
-                        <option value="Crested Gecko">Crested Gecko</option>
-                        <option value="Bearded Dragon">Bearded Dragon</option>
-                        <option value="Leopard Gecko">Leopard Gecko</option>
-                    </select>
-                    <label>Breed</label>
-                </div>
-                <a class="btn btn-small green darken-3"><i class="material-icons">done</i></a>
-                <a class="btn btn-small green darken-3"><i class="material-icons">close</i></a>
-            </form>
-        </div>
-        `;
-    
-        $("#pet-modal-"+id).empty();
-        $("#pet-modal-"+id).append(html);
-        var elems = document.querySelectorAll('select');
-        M.FormSelect.init(elems);
-    })
-    
+    closeModal("pet-modal-" + id);
+    openModal("pet-edit-modal-" + id);
+}
+
+//close edit page
+function closeEdit(id) {    
+    closeModal("pet-edit-modal-" + id);
+    openModal("pet-modal-" + id);
+}
+
+//save edit
+function saveEdit(id) {
+    newData = objectifyForm($("#pet-edit-modal-" + id).find('form')[0]);
+    closeModal("pet-edit-modal-"+id);
+    // db.collection("pets").doc(id).update(newData);
+
+}
+
+function closeModal(id){
+    var modal = $("#" + id);
+    M.Modal.getInstance(modal).close();
+}
+
+function openModal(id){
+    var modal = $("#" + id);
+    M.Modal.getInstance(modal).open();
+}
+
+function test(){
+    console.log("check");
 }
 
 // ------- CARE SHEET DATA -------
