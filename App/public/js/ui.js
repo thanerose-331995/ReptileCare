@@ -1,5 +1,7 @@
 
 
+// ------- PAGE CONTROLS ---
+
 //when browser loads
 $(document).ready(() => {
     //nav
@@ -23,6 +25,16 @@ $("#logout-btn").click(e => {
         window.location.href = "../";
     })
 })
+
+function closeModal(id) {
+    var modal = $("#" + id);
+    M.Modal.getInstance(modal).close();
+}
+
+function openModal(id) {
+    var modal = $("#" + id);
+    M.Modal.getInstance(modal).open();
+}
 
 // ------- PET DATA -------
 
@@ -59,7 +71,7 @@ function displayPet(data, id) {
                         <input placeholder="${data.name}" name="name" type="text" value="" class="validate">
                     </div>
                     <img id="edit-pet-profile-pic" src="../img/lizard.png" class="circle" style="width:50px;height:auto;">
-                    <input type="file" name="file">
+                    <input id="pfp-upload" onchange="pfpUpdate()" type="file" name="file">
                     <div class="input-field">
                         <input placeholder="${data.age}" name="age" type="number" value="" class="validate">
                     </div>
@@ -80,13 +92,9 @@ function displayPet(data, id) {
     `;
 
     pets.innerHTML += html;
-
-    // var elems = document.querySelectorAll('.modal');
-    // M.Modal.init(elems);
-    $("#pet-modal-"+id).modal();
-    $('#pet-edit-modal-'+id).modal({
-        onCloseEnd: test(),
-    });
+    
+    $("#pet-modal-" + id).modal();
+    $('#pet-edit-modal-' + id).modal();
     var elems = document.querySelectorAll('select');
     M.FormSelect.init(elems);
 }
@@ -100,8 +108,7 @@ function removePet(id) {
 
 //open pet modal
 function petClicked(id) {
-    const modal = $("#pet-modal-" + id);
-    M.Modal.getInstance(modal).open();
+    openModal("pet-modal-"+id);
 }
 
 //open edit page
@@ -111,7 +118,7 @@ function editPet(id) {
 }
 
 //close edit page
-function closeEdit(id) {    
+function closeEdit(id) {
     closeModal("pet-edit-modal-" + id);
     openModal("pet-modal-" + id);
 }
@@ -119,22 +126,18 @@ function closeEdit(id) {
 //save edit
 function saveEdit(id) {
     newData = objectifyForm($("#pet-edit-modal-" + id).find('form')[0]);
-    closeModal("pet-edit-modal-"+id);
-    // db.collection("pets").doc(id).update(newData);
-
+    closeModal("pet-edit-modal-" + id);
+    openModal("loader");
+    setTimeout(
+        function () {
+            removePet(id);
+            db.collection("pets").doc(id).update(newData).then(() => {
+                closeModal("loader");
+            });
+        }, 2000);
 }
 
-function closeModal(id){
-    var modal = $("#" + id);
-    M.Modal.getInstance(modal).close();
-}
-
-function openModal(id){
-    var modal = $("#" + id);
-    M.Modal.getInstance(modal).open();
-}
-
-function test(){
+function pfpUpdate(){
     console.log("check");
 }
 

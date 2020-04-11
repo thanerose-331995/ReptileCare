@@ -18,6 +18,7 @@
 </head>
 
 <body>
+
     <!-- top nav -->
     <nav class="z-depth-0">
         <ul id="top-bar" class="center row text-green">
@@ -107,7 +108,23 @@
             </div>
         </form>
     </div>
-
+    <div id="loader" class="modal z-depth-0">
+        <div class="modal-content center">
+            <div class="preloader-wrapper large active">
+                <div class="spinner-layer spinner-green-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-firestore.js"></script>
@@ -120,6 +137,8 @@
 </body>
 <script>
     $(document).ready(() => {
+        $(".modal").modal();
+
         const user = JSON.parse(sessionStorage.getItem("user"));
         getData("users", user.uid, data => {
             console.log("user:", data);

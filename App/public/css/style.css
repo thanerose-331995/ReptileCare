@@ -64,3 +64,7 @@
     bottom: 0;
     width: 100%;
   }
+
+  #loader{
+    background: transparent;
+  }
