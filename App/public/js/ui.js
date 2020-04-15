@@ -42,10 +42,11 @@ function openModal(id) {
 function displayPet(data, id) {
     const pets = document.querySelector('.pets');
 
+
     //this is a template html
     const html = `
         <div class="card-panel pet white row waves-effect" onclick="petClicked('${id}')" data-id="${id}">
-            <img src="../img/lizard.png" alt="recipe thumb">
+            <img class="pet-pfp circle" alt="recipe thumb">
             <div class="pet-details">
                 <div class="pet-title">${data.name}</div>
                 <div class="pet-flavour-text">Breed: ${data.breed}, Age: ${data.age}</div>
@@ -54,7 +55,7 @@ function displayPet(data, id) {
         <div id="pet-modal-${id}" class="modal">
             <div class="modal-content">
                 <h4><b>${data.name}</b></h4>
-                <img src="../img/lizard.png" alt="recipe thumb" class="circle z-depth-2" style="width:100px;height:auto">
+                <img class="pet-pfp" alt="recipe thumb" class="circle z-depth-2" style="width:100px;height:auto">
                 <h6><b>Breed:</b> ${data.breed}</h6>
                 <h6><b>Age:</b> ${data.age}</h6>
                 <h6><b>User:</b> ${data.user}</h6>
@@ -66,11 +67,11 @@ function displayPet(data, id) {
         </div>
         <div id="pet-edit-modal-${id}" class="modal">
             <div class="modal-content">
-                <form>
+                <form id="edit-pet-form">
                     <div class="input-field">
                         <input placeholder="${data.name}" name="name" type="text" value="" class="validate">
                     </div>
-                    <img id="edit-pet-profile-pic" src="../img/lizard.png" class="circle" style="width:50px;height:auto;">
+                    <img id="edit-pet-profile-pic" class="circle pet-pfp" style="width:50px;height:50px;background-size:cover;">
                     <input id="pfp-upload" onchange="pfpUpdate()" type="file" name="file">
                     <div class="input-field">
                         <input placeholder="${data.age}" name="age" type="number" value="" class="validate">
@@ -92,7 +93,19 @@ function displayPet(data, id) {
     `;
 
     pets.innerHTML += html;
-    
+
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    download("images/" + user.uid + "/" + id + "/pfp", url => {
+        if (url.code == null) {
+            $(".pet-pfp").attr("src", url);
+        }
+        else {
+            download("images/defaults/lizard.png", url => {
+                $(".pet-pfp").attr("src", url);
+            })
+        }
+    })
+
     $("#pet-modal-" + id).modal();
     $('#pet-edit-modal-' + id).modal();
     var elems = document.querySelectorAll('select');
@@ -108,7 +121,7 @@ function removePet(id) {
 
 //open pet modal
 function petClicked(id) {
-    openModal("pet-modal-"+id);
+    openModal("pet-modal-" + id);
 }
 
 //open edit page
@@ -128,6 +141,14 @@ function saveEdit(id) {
     newData = objectifyForm($("#pet-edit-modal-" + id).find('form')[0]);
     closeModal("pet-edit-modal-" + id);
     openModal("loader");
+    var keys = Object.keys(newData);
+    if (keys.includes("file")) {
+        const user = JSON.parse(sessionStorage.getItem("user"));
+        var url = "images/" + user.uid + "/" + id + "/pfp";
+        upload($("#edit-pet-form")[0].file.files[0], url, () => { });
+    }
+    delete newData.file;
+    delete newData.select - breed;
     setTimeout(
         function () {
             removePet(id);
@@ -137,8 +158,14 @@ function saveEdit(id) {
         }, 2000);
 }
 
-function pfpUpdate(){
-    console.log("check");
+function pfpUpdate() {
+    const user = JSON.parse(sessionStorage.getItem("user"));
+
+    upload($("#edit-pet-form")[0].file.files[0], 'temp/' + user.uid, () => {
+        download('temp/' + user.uid, url => {
+            $("#edit-pet-profile-pic").attr("src", url);
+        })
+    })
 }
 
 // ------- CARE SHEET DATA -------

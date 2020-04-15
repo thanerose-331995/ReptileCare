@@ -33,6 +33,7 @@
             </li>
         </ul>
     </nav>
+    <!-- bottom nav -->
     <div class="end grey lighten-3">
         <div class="container">
             <div class="row">
@@ -55,27 +56,19 @@
             </div>
         </div>
     </div>
+    <!-- main element -->
     <div class="container grey lighten-3 z-depth-2" style="padding:15px;margin:15px;">
         <h5 class="h3 center" id="welcome-message"></h5>
         <div class="divider"></div>
-
         <div class="pets grey-text text-darken-1">
             <h4>Pets</h4>
         </div>
-
         <div class="center">
             <!-- as this is identified as a sidenav-trigger it says its hiding and will open whatever the data target is -->
             <a class="btn-floating btn-small btn-large green darken-3 add-btn sidenav-trigger" data-target="side-form">
                 <i class="material-icons">add</i>
             </a>
             <br>
-        </div>
-        <div class="white">
-            <form id="file-upload">
-                <input type="file" name="file">
-                <button type="submit">Send</button>
-            </form>
-            <img id="dl-img" style="width: 100%;height: 100px;">
         </div>
     </div>
 
@@ -147,15 +140,15 @@
         getSnapshot();
     });
 
-    $("#file-upload").on("submit", (e) => {
-        e.preventDefault();
-        upload($("#file-upload")[0].file.files[0], 'images/mountains.jpg', snap => {
-            console.log(snap);
-            download('images/mountains.jpg', url => {
-                $("#dl-img").attr("src", url);
-            })
-        })
-    });
+    // $("#file-upload").on("submit", (e) => {
+    //     e.preventDefault();
+    //     upload($("#file-upload")[0].file.files[0], 'images/mountains.jpg', snap => {
+    //         console.log(snap);
+    //         download('images/mountains.jpg', url => {
+    //             $("#dl-img").attr("src", url);
+    //         })
+    //     })
+    // });
 </script>
 
 </html>

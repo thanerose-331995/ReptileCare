@@ -97,7 +97,7 @@ function upload(file, urlRef, callback) {
 function download(urlRef, callback) {
     storageRef.child(urlRef).getDownloadURL().then(function (url) {
         callback(url)
-    }).catch(err => { console.log(err) })
+    }).catch(err => { callback(err) })
 }
 
 // ------- GENERAL -------
