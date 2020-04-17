@@ -39,20 +39,12 @@
         <div class="pets grey-text text-darken-3 center-align">
             <h4>Your Pets</h4>
         </div>
-
         <div class="center">
             <!-- as this is identified as a sidenav-trigger it says its hiding and will open whatever the data target is -->
             <a class="btn-floating btn-small btn-large green darken-3 add-btn sidenav-trigger z-depth-1" data-target="side-form">
                 <i class="material-icons teal accent-4">add</i>
             </a>
             <br>
-        </div>
-        <div class="white">
-            <form id="file-upload">
-                <input type="file" name="file">
-                <button type="submit">Send</button>
-            </form>
-            <img id="dl-img" style="width: 100%;height: 100px;">
         </div>
     </div>
 
@@ -148,15 +140,15 @@
         getSnapshot();
     });
 
-    $("#file-upload").on("submit", (e) => {
-        e.preventDefault();
-        upload($("#file-upload")[0].file.files[0], 'images/mountains.jpg', snap => {
-            console.log(snap);
-            download('images/mountains.jpg', url => {
-                $("#dl-img").attr("src", url);
-            })
-        })
-    });
+    // $("#file-upload").on("submit", (e) => {
+    //     e.preventDefault();
+    //     upload($("#file-upload")[0].file.files[0], 'images/mountains.jpg', snap => {
+    //         console.log(snap);
+    //         download('images/mountains.jpg', url => {
+    //             $("#dl-img").attr("src", url);
+    //         })
+    //     })
+    // });
 </script>
 
 </html>

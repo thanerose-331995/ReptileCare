@@ -1,7 +1,7 @@
 //these two only run once per session, can be useful for caching
 
 //a new cache
-const staticCache = 'site-static-v10';
+const staticCache = 'site-static-v11';
 const dynamicCache = 'site-dynamic-v10';
 
 //asset array, in this case 'asset' means anything requested from the server (in url form)
@@ -9,7 +9,7 @@ const dynamicCache = 'site-dynamic-v10';
 const assets = [
     '/',
     '/index.html',
-    '/signup_login.html',
+    '/pages/main.html',
     '/js/app.js',
     '/js/ui.js',
     '/js/db.js',
@@ -24,23 +24,23 @@ const assets = [
 ];
 
 //size limiter func
-// function limitCacheSize(name, size) {
-//     caches.open(name).then(cache => {
-//         //get each key in cache
-//         cache.keys().then(keys => {
-//             //if cache too big
-//             if (keys.length > size) {
-//                 //delete the first key and recall function
-//                 cache.delete(keys[0]).then(limitCacheSize(name, size));
-//             }
-//         })
-//     })
-// }
+function limitCacheSize(name, size) {
+    // caches.open(name).then(cache => {
+    //     //get each key in cache
+    //     cache.keys().then(keys => {
+    //         //if cache too big
+    //         if (keys.length > size) {
+    //             //delete the first key and recall function
+    //             cache.delete(keys[0]).then(limitCacheSize(name, size));
+    //         }
+    //     })
+    // })
+}
 
 //install event
 self.addEventListener('install', evt => {
-    console.log("service worker installed");
-    //have to wait as the install event may complete before we have fully written into the cache, js is async
+    // console.log("service worker installed");
+    // //have to wait as the install event may complete before we have fully written into the cache, js is async
     // evt.waitUntil(
     //     //open or create this cache
     //     caches.open(staticCache).then(cache => {
@@ -69,7 +69,7 @@ self.addEventListener('activate', evt => {
 
 //fetch event
 self.addEventListener('fetch', evt => {
-    //make sure its not a request to the db
+    // // make sure its not a request to the db
     // if (evt.request.url.indexOf('firestore.googleapis.com') === -1) {
     //     evt.respondWith(
     //         //check if req is in cache

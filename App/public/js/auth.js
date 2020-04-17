@@ -22,6 +22,8 @@ $("#signup").submit(e => {
     e.preventDefault();
     const user = objectifyForm($("#signup").serializeArray());
 
+    delete user.password;
+
     //formatting name
     user.first_name = user.first_name.replace(user.first_name[0], user.first_name[0].toUpperCase());
     user.last_name = user.last_name.replace(user.last_name[0], user.last_name[0].toUpperCase());
