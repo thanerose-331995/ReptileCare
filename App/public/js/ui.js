@@ -45,11 +45,11 @@ function displayPet(data, id) {
 
     //this is a template html
     const html = `
-        <div class="card-panel pet white row waves-effect" onclick="petClicked('${id}')" data-id="${id}">
-            <img class="pet-pfp circle" alt="recipe thumb">
-            <div class="pet-details">
+        <div class="card-panel pet light-green lighten-1 row waves-effect" onclick="petClicked('${id}')" data-id="${id}">
+            <img src="../img/lizard.png" alt="recipe thumb">
+            <div class="pet-details grey-text text-lighten-3 right-align">
                 <div class="pet-title">${data.name}</div>
-                <div class="pet-flavour-text">Breed: ${data.breed}, Age: ${data.age}</div>
+                <div class="pet-flavour-text">${data.breed} <br> ${data.age} | SEX | WEIGHT</div>
             </div>
         </div>
         <div id="pet-modal-${id}" class="modal">
@@ -173,12 +173,16 @@ function pfpUpdate() {
 //display all sheets
 function displayCareSheets(data, id) {
     var html = `
-        <div class="col s6" style="padding:15px;">
-                <a class="btn-flat btn-large green lighten-3 waves-effect green-text text-darken-3" onclick="careSheetClicked('${id}')">
-                    <i class="material-icons">book</i>
+        <div class="">
+            <div class="card light-green lighten-1 z-depth-1">
+                <a class="white-text" onclick="careSheetClicked('${id}')">
+                    <div class="card-content">
+                        <!--<i class="material-icons">book</i>-->
+                        <h5 style="margin:0px">${data.breed}</h5>
+                    </div>
                 </a>
-                <p style="margin:0px">${data.breed}</p>
             </div>
+
         <div id="sheet-modal-${id}" class="modal">
         <div style='width:100%;height:auto;' class="green">
             <h4 style='padding:30px;margin:0px'>${data.breed}</h4>

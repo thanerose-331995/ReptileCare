@@ -23,50 +23,26 @@
     <nav class="z-depth-0">
         <ul id="top-bar" class="center row text-green">
             <li class="col s3">
-                <a href="./main.html" class="green-text text-darken-1">REP<span>TOOL</span></a>
+                <a href="./main.html" class="green-text text-darken-1"> REP<span>TOOL</span></a>
             </li>
             <li class="col s9 right-align">
                 <div id="logout">
                     <i style="padding: 0px" id="logout-btn"
-                        class="btn-flat material-icons green-text text-darken-1">exit_to_app</i>
+                        class="btn-flat material-icons red-text text-darken-4">exit_to_app</i>
                 </div>
             </li>
         </ul>
     </nav>
-    <!-- bottom nav -->
-    <div class="end grey lighten-3">
-        <div class="container">
-            <div class="row">
-                <ul class="center">
-                    <li class="col s3">
-                        <a class="btn-floating disabled green waves-effect"><i class="material-icons">home</i></a>
-                    </li>
-                    <li class="col s3">
-                        <a href="./care-sheets.html" class="btn-floating green waves-effect"><i
-                                class="material-icons">assignment</i></a>
-                    </li>
-                    <li class="col s3">
-                        <a class="btn-floating green waves-effect"><i class="material-icons">chat_bubble</i></a>
-                    </li>
-                    <li class="col s3">
-                        <a href="./profile.html" class="btn-floating green waves-effect"><i
-                                class="material-icons">account_circle</i></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!-- main element -->
+
     <div class="container grey lighten-3 z-depth-2" style="padding:15px;margin:15px;">
-        <h5 class="h3 center" id="welcome-message"></h5>
-        <div class="divider"></div>
-        <div class="pets grey-text text-darken-1">
-            <h4>Pets</h4>
+
+        <div class="pets grey-text text-darken-3 center-align">
+            <h4>Your Pets</h4>
         </div>
         <div class="center">
             <!-- as this is identified as a sidenav-trigger it says its hiding and will open whatever the data target is -->
-            <a class="btn-floating btn-small btn-large green darken-3 add-btn sidenav-trigger" data-target="side-form">
-                <i class="material-icons">add</i>
+            <a class="btn-floating btn-small btn-large green darken-3 add-btn sidenav-trigger z-depth-1" data-target="side-form">
+                <i class="material-icons teal accent-4">add</i>
             </a>
             <br>
         </div>
@@ -75,7 +51,7 @@
 
     <!-- add pet side nav -->
     <div id="side-form" class="sidenav side-form">
-        <form class="container section" id="add-pet">
+        <form class="container section green-text darken-1" id="add-pet">
             <h6>New Pet</h6>
             <div class="divider"></div>
             <div class="input-field">
@@ -88,16 +64,16 @@
             </div>
             <div class="input-field">
                 <select id="edit-breed">
-                    <option id="breed" value="" disabled selected>Choose your option</option>
+                    <option id="breed" value="" disabled selected>Choose species</option>
                     <option value="Crested Gecko">Crested Gecko</option>
                     <option value="Bearded Dragon">Bearded Dragon</option>
                     <option value="Leopard Gecko">Leopard Gecko</option>
                 </select>
-                <label>Breed</label>
+                <label>Species</label>
             </div>
             <br>
             <div class="input-field center">
-                <button class="btn-small green darken-3">Add</button>
+                <button class="btn-small teal accent-4">Add</button>
             </div>
         </form>
     </div>
@@ -127,6 +103,30 @@
     <script src="../js/app.js"></script>
     <script src="../js/ui.js"></script>
     <script src="../js/db.js"></script>
+
+    <div class="end green darken-1">
+        <div class="container">
+            <div class="row">
+                <ul class="center">
+                    <li class="col s3">
+                        <a class="btn-floating disabled teal accent-4 waves-effect"><i class="material-icons">home</i></a>
+                    </li>
+                    <li class="col s3">
+                        <a href="./care-sheets.html" class="btn-floating teal accent-4 waves-effect"><i
+                                class="material-icons">assignment</i></a>
+                    </li>
+                    <li class="col s3">
+                        <a class="btn-floating teal accent-4 waves-effect"><i class="material-icons">chat_bubble</i></a>
+                    </li>
+                    <li class="col s3">
+                        <a href="./profile.html" class="btn-floating teal accent-4 waves-effect"><i
+                                class="material-icons">account_circle</i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
 </body>
 <script>
     $(document).ready(() => {
