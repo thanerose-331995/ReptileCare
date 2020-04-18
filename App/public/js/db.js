@@ -59,7 +59,8 @@ function getSnapshot() {
 $("#add-pet").on("submit", e => {
     e.preventDefault();
     var form = $("#add-pet")[0];
-    var elems = $("#select-breed");
+    var elems = $("#breed");
+    console.log(elems[0]);
     const name = form.name.value.replace(form.name.value[0], form.name.value[0].toUpperCase());
     const pet = {
         name: name,

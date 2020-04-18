@@ -1,12 +1,15 @@
 //----------- STATE CHANGE
 
+
 auth.onAuthStateChanged(user => {
     console.log(user);
     if (user) {
         //user is logged in
         console.log("User Logged In:", user);
         sessionStorage.setItem("user", JSON.stringify(user));
-        window.location.href = "./pages/main.html";
+        var state = window.location.href.indexOf("http") != 0 ? "live" : "dev";
+        console.log("state:", state);
+        window.location.href = state == "live" ? "https://petapp-616ba.web.app/pages/main.html" : "./pages/main.html";
         console.log("check");
     }
     else {
