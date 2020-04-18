@@ -177,12 +177,10 @@ function displayCareSheets(data, id) {
             <div class="card light-green lighten-1 z-depth-1">
                 <a class="white-text" onclick="careSheetClicked('${id}')">
                     <div class="card-content">
-                        <!--<i class="material-icons">book</i>-->
                         <h5 style="margin:0px">${data.breed}</h5>
                     </div>
                 </a>
             </div>
-
         <div id="sheet-modal-${id}" class="modal">
         <div style='width:100%;height:auto;' class="green">
             <h4 style='padding:30px;margin:0px'>${data.breed}</h4>
@@ -196,7 +194,7 @@ function displayCareSheets(data, id) {
     }
 
     html += "</div></div>";
-    $("#icon-container").append(html);
+    $("#data-container").append(html);
 
     var elems = document.querySelectorAll('.modal');
     M.Modal.init(elems);

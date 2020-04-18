@@ -22,11 +22,12 @@
     <nav class="z-depth-0">
         <ul id="top-bar" class="center row text-green">
             <li class="col s3">
-                <a href="../pages/main.html"  class="green-text text-darken-1">REP<span>TOOL</span></a>
+                <a href="../pages/main.html" class="green-text text-darken-1">REP<span>TOOL</span></a>
             </li>
             <li class="col s9 right-align">
                 <div id="logout">
-                    <i style="padding: 0px" id="logout-btn" class="btn-flat material-icons red-text text-darken-4">exit_to_app</i>
+                    <i style="padding: 0px" id="logout-btn"
+                        class="btn-flat material-icons red-text text-darken-4">exit_to_app</i>
                 </div>
             </li>
         </ul>
@@ -36,7 +37,8 @@
             <div class="row">
                 <ul class="center">
                     <li class="col s3">
-                        <a href="../pages/main.html" class="btn-floating teal accent-4 waves-effect"><i class="material-icons">home</i></a>
+                        <a href="../pages/main.html" class="btn-floating teal accent-4 waves-effect"><i
+                                class="material-icons">home</i></a>
                     </li>
                     <li class="col s3">
                         <a href="../pages/care-sheets.html" class="disabled btn-floating teal accent-4 waves-effect"><i
@@ -56,18 +58,11 @@
 
     <!-- MAIN -->
     <div class="container grey lighten-3 z-depth-2 center grey-text text-darken-3" style="padding:15px;margin:15px;">
-        <h4>Tortoises and Turtles</h4>
+        <h4 id="title"></h4>
         <div class="divider"></div>
         <br>
-        <div id="icon-container" class="row">
-            <div class="card light-green lighten-1 z-depth-1">
-                <a href="../pages/about.html">
-                    <div class="card-content">
-                        <h5 class="white-text">Snakes</h5>
-                    </div>
-                </a>
-            </div>
-            <!--
+        <div id="data-container"></div>
+        <div id="preload">
             <div class="preloader-wrapper active">
                 <div class="spinner-layer spinner-green-only">
                     <div class="circle-clipper left">
@@ -81,32 +76,48 @@
                     </div>
                 </div>
             </div>
-            -->
         </div>
     </div>
-    <div id="care-sheet-data" class="modal">
-        <div class="modal-content center">
-            <p>Content</p>
-        </div>
+
+    <div class="center">
+        <a class="btn-floating btn-smallgreen darken-3 z-depth-1" href="care-sheets.html">
+            <i class="material-icons teal accent-4">arrow_back</i>
+        </a>
+        <br>
     </div>
     <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-storage.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-auth.js"></script>
 
     <script src="../js/app.js"></script>
     <script src="../js/ui.js"></script>
     <script src="../js/db.js"></script>
 </body>
-<!--
+
 <script>
     $(document).ready(() => {
-        db.collection('care_sheets').onSnapshot((snapshot) => {
-            $("#icon-container").empty();
-            snapshot.docChanges().forEach(change => {
-                displayCareSheets(change.doc.data(), change.doc.id);
-            });
-        });
+        if (window.location.href.split('?').length > 1) {
+            var data = window.location.href.split('?')[1];
+            $("#title").html(data);
+            db.collection("care_sheets").where("type", "==", data).get().then(snapshot => {
+                if (snapshot.size != 0) {
+                    snapshot.forEach(snap => {
+                        console.log(snap.data());
+                        displayCareSheets(snap.data(), snap.data().id);
+                    });
+                }
+                else{
+                    $("#data-container").append("<p>Sorry! No care sheets found</p>");
+                }
+                $("#preload").hide();
+            })
+        }
+        else {
+            console.log("err");
+        }
     });
 </script>
--->
+
+
 </html>

@@ -1,0 +1,36 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Reptile Care</title>
+    <!-- ccs / materialise -->
+    <link type="text/css" href="../css/materialize.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" href="../css/style.css" rel="stylesheet">
+    <!-- js links -->
+    <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/materialize.min.js"></script>
+    <!-- link to manifest -->
+    <link rel="manifest" href="../manifest.json">
+    <meta name="theme-color" content="#FFE1C4">
+</head>
+
+<body>
+    <p>this is a test!</p>
+    <script>
+        $(document).ready(() => {
+            var data = new Array();
+            if (window.location.href.split('?').length > 1) {
+                var params = (window.location.search.split('?')[1].split('&'));
+                for (var i = 0; i < params.length; i++) {
+                    data[params[i].split('=')[0]] = decodeURIComponent(params[i].split('=')[1]);
+                }
+                console.log(data);
+            }
+        });
+    </script>
+</body>
+
+</html>
