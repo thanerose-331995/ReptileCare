@@ -52,17 +52,37 @@ function displayPet(data, id) {
                 <div class="pet-flavour-text">${data.breed} <br> ${data.age} | SEX | WEIGHT</div>
             </div>
         </div>
-        <div id="pet-modal-${id}" class="modal">
-            <div class="modal-content">
-                <h4><b>${data.name}</b></h4>
+        <div id="pet-modal-${id}" class="modal" style="border-radius: 8px;">
+            <div class="modal-content grey lighten-2">
                 <img class="pet-pfp" alt="recipe thumb" class="circle z-depth-2" style="width:100px;height:auto">
-                <h6><b>Breed:</b> ${data.breed}</h6>
-                <h6><b>Age:</b> ${data.age}</h6>
-                <h6><b>User:</b> ${data.user}</h6>
-                <br>
-                <p>ANY MORE PET INFO CAN GO HERE</p>                
-                <a class="btn-floating btn-small green darken-3 pet-delete" onclick="deletePet('${id}')"><i class="material-icons">delete_outline</i></a>
-                <a class="btn-floating btn-small green darken-3" onclick="editPet('${id}')"><i class="material-icons">edit</i></a>
+                <h4><b>${data.name}</b></h4>
+                <div class="card" style="border-radius: 8px;>
+                    <div class="card-content">
+                        <div class="container">
+                            <div class="container">
+                                <br>
+                                <h6 ><b class="left">Breed:</b><span class="right">${data.breed}</span></h6>
+                                <br>
+                                <h6 ><b class="left">Age:</b><span class="right">${data.age}</span></h6>
+                                <br><br>
+                                <p>ANY MORE PET INFO CAN GO HERE</p>
+                                <br>
+                            </div>
+                        </div> 
+                    </div>    
+                </div>
+
+                <div class="row">
+                    <ul class="center">
+                        <li class="col s3">
+                            <a class="btn-floating btn-small teal accent-4 pet-delete" onclick="deletePet('${id}')"><i class="material-icons">delete_outline</i></a>
+                        </li>
+                        <li class="col s3">
+                            <a class="btn-floating btn-small teal accent-4" onclick="editPet('${id}')"><i class="material-icons">edit</i></a>
+                        </li>
+                    </ul>
+                </div>  
+                
             </div>
         </div>
         <div id="pet-edit-modal-${id}" class="modal">
@@ -183,16 +203,16 @@ function displayCareSheets(data, id) {
                 </a>
             </div>
 
-        <div id="sheet-modal-${id}" class="modal">
-        <div style='width:100%;height:auto;' class="green">
-            <h4 style='padding:30px;margin:0px'>${data.breed}</h4>
-        </div>
-            <div class="modal-content center">
+            <div id="sheet-modal-${id}" class="modal">
+                <div style='width:100%;height:auto;' class="green darken-1 white-text">
+                    <h4 style='padding:30px;margin:0px'>${data.breed}</h4>
+                </div>
+            <div class="modal-content center grey lighten-2">
     `;
 
     for (let [key, value] of Object.entries(data)) {
         var name = key.replace(key[0], key[0].toUpperCase());
-        html += `<p><b>${name}:</b> ${value}</p>`;
+        html += `<div class="row"><div class="col s12 l6"><div class="card" style="border-radius: 8px;"><div class="card-content"><h6 style="font-size: x-large">${name}</h6><div class="divider"></div><br><p>${value}</p></div></div></div></div>`;
     }
 
     html += "</div></div>";
