@@ -20,7 +20,7 @@
 <body>
 
     <!-- top nav -->
-    <nav class="z-depth-0">
+    <nav class="top z-depth-0">
         <ul id="top-bar" class="center row text-green">
             <li class="col s3">
                 <a href="./main.html" class="green-text text-darken-1"> REP<span>TOOL</span></a>
@@ -33,74 +33,78 @@
             </li>
         </ul>
     </nav>
+    <div class="page-content center">
 
-    <div class="container grey lighten-3 z-depth-2" style="padding:15px;margin:15px;">
+        <div class="container grey lighten-3 z-depth-2 center" style="padding:15px;margin-top:15px;">
 
-        <div class="pets grey-text text-darken-3 center-align">
-            <h4>Your Pets</h4>
+            <div class="pets grey-text text-darken-3 center-align">
+                <h4>Your Pets</h4>
+            </div>
+            <div class="center">
+                <!-- as this is identified as a sidenav-trigger it says its hiding and will open whatever the data target is -->
+                <a class="btn-floating btn-small btn-large green darken-3 add-btn sidenav-trigger z-depth-1"
+                    data-target="side-form">
+                    <i class="material-icons teal accent-4">add</i>
+                </a>
+                <br>
+            </div>
         </div>
-        <div class="center">
-            <!-- as this is identified as a sidenav-trigger it says its hiding and will open whatever the data target is -->
-            <a class="btn-floating btn-small btn-large green darken-3 add-btn sidenav-trigger z-depth-1" data-target="side-form">
-                <i class="material-icons teal accent-4">add</i>
-            </a>
-            <br>
+
+
+        <!-- add pet side nav -->
+        <div id="side-form" class="sidenav side-form">
+            <form class="container section green-text darken-1" id="add-pet">
+                <h6>New Pet</h6>
+                <div class="divider"></div>
+                <div class="input-field">
+                    <input placeholder="e.g. Gaz" id="name" type="text" class="validate">
+                    <label for="name">Pet Name</label>
+                </div>
+                <div class="input-field">
+                    <input placeholder="1" id="age" type="number" class="validate">
+                    <label for="name">Age</label>
+                </div>
+                <div class="input-field">
+                    <select id="edit-breed">
+                        <option id="breed" value="" disabled selected>Choose species</option>
+                        <option value="Crested Gecko">Crested Gecko</option>
+                        <option value="Bearded Dragon">Bearded Dragon</option>
+                        <option value="Leopard Gecko">Leopard Gecko</option>
+                    </select>
+                    <label>Species</label>
+                </div>
+                <br>
+                <div class="input-field center">
+                    <button class="btn-small teal accent-4">Add</button>
+                </div>
+            </form>
         </div>
-    </div>
-
-
-    <!-- add pet side nav -->
-    <div id="side-form" class="sidenav side-form">
-        <form class="container section green-text darken-1" id="add-pet">
-            <h6>New Pet</h6>
-            <div class="divider"></div>
-            <div class="input-field">
-                <input placeholder="e.g. Gaz" id="name" type="text" class="validate">
-                <label for="name">Pet Name</label>
-            </div>
-            <div class="input-field">
-                <input placeholder="1" id="age" type="number" class="validate">
-                <label for="name">Age</label>
-            </div>
-            <div class="input-field">
-                <select id="edit-breed">
-                    <option id="breed" value="" disabled selected>Choose species</option>
-                    <option value="Crested Gecko">Crested Gecko</option>
-                    <option value="Bearded Dragon">Bearded Dragon</option>
-                    <option value="Leopard Gecko">Leopard Gecko</option>
-                </select>
-                <label>Species</label>
-            </div>
-            <br>
-            <div class="input-field center">
-                <button class="btn-small teal accent-4">Add</button>
-            </div>
-        </form>
-    </div>
-    <div id="loader" class="modal z-depth-0">
-        <div class="modal-content center">
-            <div class="preloader-wrapper large active">
-                <div class="spinner-layer spinner-green-only">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="gap-patch">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
+        <div id="loader" class="modal z-depth-0">
+            <div class="modal-content center">
+                <div class="preloader-wrapper large active">
+                    <div class="spinner-layer spinner-green-only">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <div class="end green darken-1">
         <div class="container">
             <div class="row">
                 <ul class="center">
                     <li class="col s3">
-                        <a class="btn-floating disabled teal accent-4 waves-effect"><i class="material-icons">home</i></a>
+                        <a class="btn-floating disabled teal accent-4 waves-effect"><i
+                                class="material-icons">home</i></a>
                     </li>
                     <li class="col s3">
                         <a href="./care-sheets.html" class="btn-floating teal accent-4 waves-effect"><i

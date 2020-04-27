@@ -19,7 +19,7 @@
 
 <body>
     <!-- TOP NAV -->
-    <nav class="z-depth-0">
+    <nav class="top z-depth-0">
         <ul id="top-bar" class="center row text-green">
             <li class="col s3">
                 <a href="./main.html"  class="green-text text-darken-1">REP<span>TOOL</span></a>
@@ -33,76 +33,69 @@
     </nav>
 
     <!-- MAIN -->
-    <div class="container grey lighten-3 z-depth-2 center grey-text text-darken-3" style="padding:15px;margin:15px;">
-        <h4>Care Sheets</h4>
-        <div class="divider"></div>
-        <br>
-        <div id="icon-container" class="row">
-
-            <div class="card light-green lighten-1 z-depth-1">
-                <a href="./care-sheet-types.html?crocs">
-                    <div class="card-content">
-                        <h5 class="white-text">Alligators and Crocodiles</h5>
-                    </div>
-                </a>
-            </div>
-
-            <div class="card light-green lighten-1 z-depth-1">
-                <a href="./care-sheet-types.html?Lizards">
-                    <div class="card-content">
-                        <h5 class="white-text">Lizards</h5>
-                    </div>
-                </a>
-            </div>
-
-            <div class="card light-green lighten-1 z-depth-1">
-                <a href="./care-sheet-types.html?snakes">
-                    <div class="card-content">
-                        <h5 class="white-text">Snakes</h5>
-                    </div>
-                </a>
-            </div>
-
-            <div class="card light-green lighten-1 z-depth-1">
-                <a href="./care-sheet-types.html?turtles">
-                    <div class="card-content">
-                        <h5 class="white-text">Tortoises and Turtles</h5>
-                    </div>
-                </a>
-            </div>
-
-            
-            <!--
-            <div class="preloader-wrapper active">
-                <div class="spinner-layer spinner-green-only">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="gap-patch">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
+    <div class="page-content">
+        <div class="container grey lighten-3 z-depth-2 center grey-text text-darken-3" style="padding:15px;margin:15px;">
+            <h4>Care Sheets</h4>
+            <div class="divider"></div>
+            <br>
+            <div id="icon-container" class="row">
+    
+                <div class="card light-green lighten-1 z-depth-1">
+                    <a href="./care-sheet-types.html?crocs">
+                        <div class="card-content">
+                            <h5 class="white-text">Alligators and Crocodiles</h5>
+                        </div>
+                    </a>
+                </div>
+    
+                <div class="card light-green lighten-1 z-depth-1">
+                    <a href="./care-sheet-types.html?Lizards">
+                        <div class="card-content">
+                            <h5 class="white-text">Lizards</h5>
+                        </div>
+                    </a>
+                </div>
+    
+                <div class="card light-green lighten-1 z-depth-1">
+                    <a href="./care-sheet-types.html?snakes">
+                        <div class="card-content">
+                            <h5 class="white-text">Snakes</h5>
+                        </div>
+                    </a>
+                </div>
+    
+                <div class="card light-green lighten-1 z-depth-1">
+                    <a href="./care-sheet-types.html?turtles">
+                        <div class="card-content">
+                            <h5 class="white-text">Tortoises and Turtles</h5>
+                        </div>
+                    </a>
+                </div>
+    
+                
+                <!--
+                <div class="preloader-wrapper active">
+                    <div class="spinner-layer spinner-green-only">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
                     </div>
                 </div>
+                -->
             </div>
-            -->
+        </div>
+        <div id="care-sheet-data" class="modal">
+            <div class="modal-content center">
+                <p>Content</p>
+            </div>
         </div>
     </div>
-    <div id="care-sheet-data" class="modal">
-        <div class="modal-content center">
-            <p>Content</p>
-        </div>
-    </div>
-    <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-storage.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-auth.js"></script>
-
-    <script src="../js/app.js"></script>
-    <script src="../js/ui.js"></script>
-    <script src="../js/db.js"></script>
-
     <!-- BOTTOM NAV -->
     <div class="end green darken-1">
         <div class="container">
@@ -126,6 +119,15 @@
             </div>
         </div>
     </div>
+
+    <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-auth.js"></script>
+
+    <script src="../js/app.js"></script>
+    <script src="../js/ui.js"></script>
+    <script src="../js/db.js"></script>
 
 </body>
 </html>

@@ -15,10 +15,30 @@
     <!-- link to manifest -->
     <link rel="manifest" href="../manifest.json">
     <meta name="theme-color" content="#FFE1C4">
+    <link href='../fullcalendar/core/main.css' rel='stylesheet' />
+    <link href='../fullcalendar/daygrid/main.css' rel='stylesheet' />
+
+    <script src='../fullcalendar/core/main.js'></script>
+    <script src='../fullcalendar/daygrid/main.js'></script>
+
+    <script>
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          plugins: [ 'dayGrid' ]
+        });
+
+        calendar.render();
+      });
+
+    </script>
 </head>
 
 <body>
     <p>this is a test!</p>
+    <div id="calendar"></div>
     <script>
         $(document).ready(() => {
             var data = new Array();

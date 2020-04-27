@@ -42,11 +42,10 @@ function openModal(id) {
 function displayPet(data, id) {
     const pets = document.querySelector('.pets');
 
-
     //this is a template html
     const html = `
         <div class="card-panel pet light-green lighten-1 row waves-effect" onclick="petClicked('${id}')" data-id="${id}">
-            <img src="../img/lizard.png" alt="recipe thumb">
+            <img class="pet-pfp circle responsive-img">
             <div class="pet-details grey-text text-lighten-3 right-align">
                 <div class="pet-title">${data.name}</div>
                 <div class="pet-flavour-text">${data.breed} <br> ${data.age} | SEX | WEIGHT</div>
@@ -55,7 +54,7 @@ function displayPet(data, id) {
         <div id="pet-modal-${id}" class="modal">
             <div class="modal-content">
                 <h4><b>${data.name}</b></h4>
-                <img class="pet-pfp" alt="recipe thumb" class="circle z-depth-2" style="width:100px;height:auto">
+                <img alt="recipe thumb" class="circle z-depth-2 pet-pfp" id="modal-pet-pfp" style="width:100px;height:auto">
                 <h6><b>Breed:</b> ${data.breed}</h6>
                 <h6><b>Age:</b> ${data.age}</h6>
                 <h6><b>User:</b> ${data.user}</h6>
@@ -145,6 +144,7 @@ function saveEdit(id) {
     if (keys.includes("file")) {
         const user = JSON.parse(sessionStorage.getItem("user"));
         var url = "images/" + user.uid + "/" + id + "/pfp";
+        console.log(url);
         upload($("#edit-pet-form")[0].file.files[0], url, () => { });
     }
     delete newData.file;
@@ -154,6 +154,7 @@ function saveEdit(id) {
             removePet(id);
             db.collection("pets").doc(id).update(newData).then(() => {
                 closeModal("loader");
+                getSnapshot();
             });
         }, 2000);
 }
