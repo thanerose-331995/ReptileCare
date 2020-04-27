@@ -22,11 +22,12 @@
     <nav class="top z-depth-0">
         <ul id="top-bar" class="center row text-green">
             <li class="col s3">
-                <a href="./main.html"  class="green-text text-darken-1">REP<span>TOOL</span></a>
+                <a href="./main.html" class="green-text text-darken-1">REP<span>TOOL</span></a>
             </li>
             <li class="col s9 right-align">
                 <div id="logout">
-                    <i style="padding: 0px" id="logout-btn" class="btn-flat material-icons red-text text-darken-4">exit_to_app</i>
+                    <i style="padding: 0px" id="logout-btn"
+                        class="btn-flat material-icons red-text text-darken-4">exit_to_app</i>
                 </div>
             </li>
         </ul>
@@ -34,46 +35,8 @@
 
     <!-- MAIN -->
     <div class="page-content">
-        <div class="container grey lighten-3 z-depth-2 center grey-text text-darken-3" style="padding:15px;margin:15px;">
-            <h4>Care Sheets</h4>
-            <div class="divider"></div>
-            <br>
-            <div id="icon-container" class="row">
-    
-                <div class="card light-green lighten-1 z-depth-1">
-                    <a href="./care-sheet-types.html?crocs">
-                        <div class="card-content">
-                            <h5 class="white-text">Alligators and Crocodiles</h5>
-                        </div>
-                    </a>
-                </div>
-    
-                <div class="card light-green lighten-1 z-depth-1">
-                    <a href="./care-sheet-types.html?Lizards">
-                        <div class="card-content">
-                            <h5 class="white-text">Lizards</h5>
-                        </div>
-                    </a>
-                </div>
-    
-                <div class="card light-green lighten-1 z-depth-1">
-                    <a href="./care-sheet-types.html?snakes">
-                        <div class="card-content">
-                            <h5 class="white-text">Snakes</h5>
-                        </div>
-                    </a>
-                </div>
-    
-                <div class="card light-green lighten-1 z-depth-1">
-                    <a href="./care-sheet-types.html?turtles">
-                        <div class="card-content">
-                            <h5 class="white-text">Tortoises and Turtles</h5>
-                        </div>
-                    </a>
-                </div>
-    
-                
-                <!--
+        <div class="container center">
+            <div class="" id="preload" style="margin-top: 50px;">
                 <div class="preloader-wrapper active">
                     <div class="spinner-layer spinner-green-only">
                         <div class="circle-clipper left">
@@ -87,14 +50,35 @@
                         </div>
                     </div>
                 </div>
-                -->
             </div>
+            <ul class="collapsible" id="data">
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">filter_drama</i>Alligators and Crocs</div>
+                    <div class="collapsible-body">
+                        <ul id="Alligators-and-Crocs"></ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">place</i>Lizards</div>
+                    <div class="collapsible-body">
+                        <ul id="Lizards"></ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">whatshot</i>Snakes</div>
+                    <div class="collapsible-body">
+                        <ul id="Snakes"></ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">whatshot</i>Turtles and Tortoises</div>
+                    <div class="collapsible-body">
+                        <ul id="Turtles-and-Tortoises"></ul>
+                    </div>
+                </li>
+            </ul>
         </div>
-        <div id="care-sheet-data" class="modal">
-            <div class="modal-content center">
-                <p>Content</p>
-            </div>
-        </div>
+
     </div>
     <!-- BOTTOM NAV -->
     <div class="end green darken-1">
@@ -102,7 +86,8 @@
             <div class="row">
                 <ul class="center">
                     <li class="col s3">
-                        <a href="./main.html" class="btn-floating teal accent-4 waves-effect"><i class="material-icons">home</i></a>
+                        <a href="./main.html" class="btn-floating teal accent-4 waves-effect"><i
+                                class="material-icons">home</i></a>
                     </li>
                     <li class="col s3">
                         <a href="./care-sheets.html" class="disabled btn-floating teal accent-4 waves-effect"><i
@@ -129,5 +114,37 @@
     <script src="../js/ui.js"></script>
     <script src="../js/db.js"></script>
 
+    <script>
+        $(document).ready(function () {
+            $('.collapsible').collapsible();
+            $(".collapsible").hide();
+
+            db.collection("care_sheets").get().then(snapshot => {
+                snapshot.forEach(doc => {
+                    var url = doc.data().breed;
+                    url = url.replace(" ", "-");
+                    var html = `
+                    <li class="waves-effect waves-light btn">
+                        <a href="./care-sheet.html?${url}" style="color:white">${doc.data().breed}</a>
+                    </li>
+                    `;
+                    $("#" + doc.data().type).append(html);
+                })
+
+                $($(".collapsible").find("ul")).each(i => {
+                    //if element is empty add err message
+                    if (!$($(".collapsible").find("ul")[i]).children().length) {
+                        $($(".collapsible").find("ul")[i]).html("Sorry! No care sheets were found.");
+                    }
+                })
+
+                $("#preload").fadeOut(() => {
+                    $(".collapsible").fadeIn();
+                });
+
+            });
+        });
+    </script>
 </body>
+
 </html>
