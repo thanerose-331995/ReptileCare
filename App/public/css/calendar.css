@@ -1,0 +1,24 @@
+.calendar{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 5px;
+}
+.cal-head{
+    display: flex;
+    width: 100%;
+}
+#title{
+    flex-grow: 1;
+}
+#title h5{
+    font-weight: bold;
+    margin: 0px;
+}
+#title p{
+    margin: 0px;
+    font-weight: lighter;
+}
+.weekday{
+    font-weight: 600;
+    background-color: lightblue;
+}

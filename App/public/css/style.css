@@ -83,3 +83,14 @@ form .input-field {
 .container {
   border-radius: 8px;
 }
+
+.fc span{
+  font-size: 16px;
+  font-weight: 100;
+}
+.fc-center h2, .fc-day-header span{
+  font-weight: 400;
+}
+.fc-center h2{
+  font-size: 20px;
+}
