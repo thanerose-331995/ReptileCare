@@ -28,13 +28,16 @@ $("#signup").submit(e => {
     //formatting name
     user.first_name = user.first_name.replace(user.first_name[0], user.first_name[0].toUpperCase());
     user.last_name = user.last_name.replace(user.last_name[0], user.last_name[0].toUpperCase());
-    console.log(user.email, user.password);
+    // console.log(user.email, user.password);
     auth.createUserWithEmailAndPassword(user.email, user.password).then(cred => {
         delete user.password;
         return db.collection("users").doc(cred.user.uid).set(user);
     }).then(() => {
         const modal = $("#modal-signup");
         M.Modal.getInstance(modal).close();
+    }).catch(err =>{
+        $("#signup-err").html(err.message);
+        throw new Error(err);
     });
 })
 
@@ -42,8 +45,13 @@ $("#signup").submit(e => {
 $("#login").submit(e => {
     e.preventDefault();
     const user = objectifyForm($("#login").serializeArray());
-    auth.signInWithEmailAndPassword(user.email, user.password).then(cred => {
+    auth.signInWithEmailAndPassword(user.email, user.password)
+    .then(cred => {
+        $("#login-err").html("");
         const modal = $("#modal-login");
         M.Modal.getInstance(modal).close();
-    });
+    }).catch(err => {
+        $("#login-err").html(err.message);
+        throw new Error(err);
+    })
 })
