@@ -62,7 +62,7 @@ function displayCalendar(date) {
         <div class="weekday" id="day-${day}">${day}</div>
     `;
         $(".calendar").append(html);
-        $("#day-" + day).css("grid-column-start", (i + 1));
+        $("#day-" + day).css("grid-column-start", i+1);
     })
 
 
@@ -88,7 +88,7 @@ function dateData(date) {
         <div class="date" id="day-${date.getDate()}">${date.getDate()}</div>
     `;
     $(".calendar").append(html);
-    $("#day-" + date.getDate()).css("grid-column-start", (date.getDay() + 1));
+    $("#day-" + date.getDate()).css("grid-column-start", (date.getDay()));
 }
 
 $("#next").click(e => {

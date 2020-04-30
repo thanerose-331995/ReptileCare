@@ -22,3 +22,6 @@
     font-weight: 600;
     background-color: lightblue;
 }
+#next:hover, #prev:hover{
+    cursor: pointer;
+}
