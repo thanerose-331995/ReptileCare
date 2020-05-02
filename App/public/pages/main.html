@@ -34,49 +34,18 @@
         </ul>
     </nav>
     <div class="page-content center">
-
         <div class="container grey lighten-3 z-depth-2 center" style="padding:15px;margin-top:15px;">
-            <div class="pets grey-text text-darken-3 center-align">
+            <div class="grey-text text-darken-3 center-align">
                 <h4>Your Pets</h4>
+                <div id="user-pets"></div>
             </div>
             <div class="center">
                 <!-- as this is identified as a sidenav-trigger it says its hiding and will open whatever the data target is -->
-                <a class="btn-floating btn-small btn-large green darken-3 add-btn sidenav-trigger z-depth-1"
-                    data-target="side-form">
+                <a id="open-form" class="btn-floating btn-small btn-large green darken-3 add-btn z-depth-1">
                     <i class="material-icons teal accent-4">add</i>
                 </a>
                 <br>
             </div>
-        </div>
-
-
-        <!-- add pet side nav -->
-        <div id="side-form" class="sidenav side-form">
-            <form class="container section green-text darken-1" id="add-pet">
-                <h6>New Pet</h6>
-                <div class="divider"></div>
-                <div class="input-field">
-                    <input placeholder="e.g. Gaz" id="name" type="text" class="validate">
-                    <label for="name">Pet Name</label>
-                </div>
-                <div class="input-field">
-                    <input placeholder="1" id="age" type="number" class="validate">
-                    <label for="name">Age</label>
-                </div>
-                <div class="input-field">
-                    <select id="edit-breed">
-                        <option id="breed" value="" disabled selected>Choose species</option>
-                        <option value="Crested Gecko">Crested Gecko</option>
-                        <option value="Bearded Dragon">Bearded Dragon</option>
-                        <option value="Leopard Gecko">Leopard Gecko</option>
-                    </select>
-                    <label>Species</label>
-                </div>
-                <br>
-                <div class="input-field center">
-                    <button class="btn-small teal accent-4">Add</button>
-                </div>
-            </form>
         </div>
         <div id="loader" class="modal z-depth-0">
             <div class="modal-content center">
@@ -96,7 +65,67 @@
             </div>
         </div>
     </div>
-
+    <div id="new-pet-form" class="center pet-form">
+        <form id="add-pet" class="container white row">
+            <!-- title -->
+            <div class="col s12">
+                <h5>New Pet</h5>
+                <div class="divider"></div>
+            </div>
+            <!-- pfp -->
+            <div class="col s12">
+                <br>
+                <img id="new-pet-pfp" src="../img/lizard.png" class="responsive-img circle" style="height: 100px;width: 100px;">
+                <input id="pfp-upload" onchange="pfpUpdate()" type="file" name="file">
+            </div>
+            <!-- name -->
+            <div class="input-field col s12">
+                <input placeholder="e.g. Gaz" id="name" type="text" class="validate" value="">
+                <label for="name">Pet Name</label>
+            </div>
+            <!-- date of birth -->
+            <div class="col s6">
+                <p class="left">Date of Birth</p>
+                <input type="text" class="datepicker">
+            </div>
+            <!-- sex -->
+            <div class="col s6">
+                <div class="input-field">
+                    <select>
+                        <option id="sex" value="" disabled selected>Choose one</option>
+                        <option value="Crested Gecko">Male</option>
+                        <option value="Bearded Dragon">Female</option>
+                    </select>
+                    <label>Sex</label>
+                </div>
+            </div>
+            <!-- breed -->
+            <div class="col s8">
+                <div class="input-field">
+                    <select>
+                        <option id="breed" value="Choose One" disabled selected>Choose one</option>
+                        <option value="Crested Gecko">Crested Gecko</option>
+                        <option value="Bearded Dragon">Bearded Dragon</option>
+                        <option value="Leopard Gecko">Leopard Gecko</option>
+                    </select>
+                    <label>Breed</label>
+                </div>
+            </div>
+            <!-- weight -->
+            <div class="col s4">
+                <div class="input-field">
+                    <input placeholder="1lb" id="weight" type="number" class="validate">
+                    <label for="weigth">Weight</label>
+                </div>
+            </div>
+            <div class="divider col s12"></div>
+            <div class="center col s12">
+                <button id="close-form" class="btn-small teal accent-4">Close</button>
+                <button id="send-form" class="btn-small teal accent-4">Add</button>
+            </div>
+            <p id="add-pet-err"></p>
+        </form>
+    </div>
     <div class="end green darken-1">
         <div class="container">
             <div class="row">
@@ -128,20 +157,27 @@
     <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-auth.js"></script>
 
     <script src="../js/app.js"></script>
-    <script src="../js/ui.js"></script>
+    <script src="../js/pets.js"></script>
     <script src="../js/db.js"></script>
 
 </body>
 <script>
     $(document).ready(() => {
+        $("#new-pet-form").hide();
         $(".modal").modal();
+        $('select').formSelect();
+        $('.datepicker').datepicker({
+            format: "yyyy-mm-dd"
+        });
+
+        getPets();
 
         const user = JSON.parse(sessionStorage.getItem("user"));
         getData("users", user.uid, data => {
             console.log("user:", data);
             $("#welcome-message").append("<b>Welcome, " + data.first_name + "</b>");
         });
-        getSnapshot();
+        // getSnapshot();
     });
 </script>
 

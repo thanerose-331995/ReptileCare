@@ -39,6 +39,21 @@ nav a span {
   font-weight: bold;
 }
 
+.pet-form{
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 100;
+  padding: 20px;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+.pet-form form{
+  padding: 20px;
+}
+
 .card-panel.pet {
   border-radius: 8px;
   padding: 10px;

@@ -1,0 +1,170 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Reptile Care</title>
+    <!-- ccs / materialise -->
+    <link type="text/css" href="../css/materialize.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" href="../css/style.css" rel="stylesheet">
+    <!-- js links -->
+    <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/materialize.min.js"></script>
+    <!-- link to manifest -->
+    <link rel="manifest" href="../manifest.json">
+    <meta name="theme-color" content="#FFE1C4">
+</head>
+
+<body>
+
+    <!-- top nav -->
+    <nav class="top z-depth-0">
+        <ul id="top-bar" class="center row text-green">
+            <li class="col s3">
+                <a href="./main.html" class="green-text text-darken-1"> REP<span>TOOL</span></a>
+            </li>
+            <li class="col s9 right-align">
+                <div id="logout">
+                    <i style="padding: 0px" id="logout-btn"
+                        class="btn-flat material-icons red-text text-darken-4">exit_to_app</i>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <div class="page-content center">
+        <h2>Pet</h2>
+        <div id="pet-data"></div>
+        <div class="center">
+            <a class="btn-floating btn-smallgreen darken-3 z-depth-1" href="main.html">
+                <i class="material-icons teal accent-4">arrow_back</i>
+            </a>
+            <br>
+        </div>
+        <div id="delete-confirm" class="modal">
+            <div class="modal-content">
+              <h4 id="modal-title"></h4>
+              <p>They'll be gone forever!</p>
+            </div>
+            <div class="modal-footer">
+                <a id="confirm-delete" class="modal-close waves-effect waves-green btn left">Yes!</a>
+                <a class="modal-close waves-effect waves-green btn right">No!</a>
+            </div>
+          </div>
+          <div id="edit-pet">
+                <div id="edit-pet-form" class="center">
+                    <form id="edit-pet" class="container white row">
+                        <!-- title -->
+                        <div class="col s12">
+                            <h5>Edit Pet</h5>
+                            <div class="divider"></div>
+                        </div>
+                        <!-- pfp -->
+                        <div class="col s12">
+                            <br>
+                            <img id="new-pet-pfp" src="../img/lizard.png" class="responsive-img circle" style="height: 100px;width: 100px;">
+                            <input id="pfp-upload" onchange="pfpUpdate()" type="file" name="file">
+                        </div>
+                        <!-- name -->
+                        <div class="input-field col s12">
+                            <input placeholder="e.g. Gaz" id="name" type="text" class="validate" value="">
+                            <label for="name">Pet Name</label>
+                        </div>
+                        <!-- date of birth -->
+                        <div class="col s6">
+                            <p class="left">Date of Birth</p>
+                            <input type="text" class="datepicker">
+                        </div>
+                        <!-- sex -->
+                        <div class="col s6">
+                            <div class="input-field">
+                                <select>
+                                    <option id="sex" value="" disabled selected></option>
+                                    <option value="Crested Gecko">Male</option>
+                                    <option value="Bearded Dragon">Female</option>
+                                </select>
+                                <label>Sex</label>
+                            </div>
+                        </div>
+                        <!-- breed -->
+                        <div class="col s8">
+                            <div class="input-field">
+                                <select>
+                                    <option id="breed" value="Choose One" disabled selected></option>
+                                    <option value="Crested Gecko">Crested Gecko</option>
+                                    <option value="Bearded Dragon">Bearded Dragon</option>
+                                    <option value="Leopard Gecko">Leopard Gecko</option>
+                                </select>
+                                <label>Breed</label>
+                            </div>
+                        </div>
+                        <!-- weight -->
+                        <div class="col s4">
+                            <div class="input-field">
+                                <input placeholder="1lb" id="weight" type="number" class="validate">
+                                <label for="weigth">Weight</label>
+                            </div>
+                        </div>
+                        <div class="divider col s12"></div>
+                        <div class="center col s12">
+                            <button id="close-edit-form" class="btn-small teal accent-4">Close</button>
+                            <button id="send-edit-form" class="btn-small teal accent-4">Update</button>
+                        </div>
+                        <p id="add-pet-err"></p>
+                    </form>
+              </div>
+
+          </div>
+    </div>
+    <div class="end green darken-1">
+        <div class="container">
+            <div class="row">
+                <ul class="center">
+                    <li class="col s3">
+                        <a class="btn-floating disabled teal accent-4 waves-effect"><i
+                                class="material-icons">home</i></a>
+                    </li>
+                    <li class="col s3">
+                        <a href="./care-sheets.html" class="btn-floating teal accent-4 waves-effect"><i
+                                class="material-icons">assignment</i></a>
+                    </li>
+                    <li class="col s3">
+                        <a class="btn-floating teal accent-4 waves-effect"><i class="material-icons">chat_bubble</i></a>
+                    </li>
+                    <li class="col s3">
+                        <a href="./profile.html" class="btn-floating teal accent-4 waves-effect"><i
+                                class="material-icons">account_circle</i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-auth.js"></script>
+
+    <script src="../js/app.js"></script>
+    <!-- <script src="../js/ui.js"></script>
+     -->
+    <script src="../js/pets.js"></script>
+    <script src="../js/db.js"></script>
+
+</body>
+<script>
+    $(document).ready(() => {
+        $(".modal").modal();
+        $('select').formSelect();
+        $('.datepicker').datepicker({
+            format: "yyyy-mm-dd"
+        });
+        if (window.location.href.split('?').length > 1) {
+            displayPetPage(window.location.href.split('?')[1]);
+        }
+    });
+</script>
+
+</html>

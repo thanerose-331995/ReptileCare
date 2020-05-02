@@ -19,6 +19,7 @@
 </head>
 
 <body>
+    <!-- ------------ HEADER ------------ -->
     <nav class="top">
         <ul id="top-bar" class="center row text-green">
             <li class="col s3">
@@ -32,25 +33,104 @@
             </li>
         </ul>
     </nav>
+    <!-- ------------ MAIN CONTENT ------ -->
     <div class="page-content">
+        <!-- -------- main page content -->
         <div class="container center grey lighten-3 z-depth-2" style="padding: 10px;margin-top: 30px;">
+            <!-- -------- user profile data -->
             <div id="profile-content"></div>
             <div class="divider"></div>
+            <!-- -------- calendar ----------->
             <div class="container">
                 <h6><b>Upcoming Calendar</b></h6>
                 <div class="divider"></div>
                 <br>
                 <div class="cal-head">
-                    <h5 id="prev"><</h5>
-                    <div id="title"></div>
-                    <h5 id="next">></h5>
+                    <h5 id="prev">
+                        < </h5>
+                            <div id="title"></div>
+                            <h5 id="next">></h5>
                 </div>
                 <div class="calendar"></div>
                 <br>
-                <div class="btn waves-effect" id="go-today">Today</div>
+                <div class="row">
+                    <div class="btn waves-effect col s3" id="go-today">Today</div>
+                    <a id="add-event" class="waves-effect waves-light btn col s3 right"><i
+                            class="material-icons">add</i></a>
+                </div>
             </div>
         </div>
     </div>
+    <!-- -------- new event form ----->
+    <div id="new-event">
+        <div class="modal-content center">
+            <form class="center">
+                <h4>New Event</h4>
+                <div class="input-field">
+                    <input id="event-title" type="text">
+                    <label for="first_name">Event Title</label>
+                </div>
+                <div class="input-field">
+                    <select id="tag">
+                        <option value="" disabled selected>Select One</option>
+                        <option value="1">Vet Appointment</option>
+                        <option value="2">Feeding</option>
+                        <option value="3">Cleaning</option>
+                    </select>
+                    <label>Tag</label>
+                </div>
+                <h6>Date</h6>
+                <input id="datepicker" type="text" class="datepicker">
+                <div class="row">
+                    <div class="col s6">
+                        <h6>Start Time</h6>
+                        <input id="start-time" type="text" class="timepicker">
+                    </div>
+                    <div class="col s6">
+                        <h6>End Time</h6>
+                        <input id="end-time" type="text" class="timepicker">
+                    </div>
+                </div>
+                <a id="submit" class="waves-effect waves-light btn"><i class="material-icons">send</i></a>
+                <p id="event-err"></p>
+            </form>
+        </div>
+    </div>
+    <!-- --------event confirm ------->
+    <div id="event-confirm" class="modal">
+        <div class="modal-content center">
+            <h4 id="e-title">New Event</h4>
+            <div id="event-data"></div>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-close waves-effect waves-green btn-flat">Edit</a>
+            <a id="confirm-submit" class="modal-close waves-effect waves-green btn-flat">Confirm</a>
+        </div>
+    </div>
+    <!-- -------- event info --------->
+    <div id="event-info" class="modal">
+        <div class="modal-content center">
+            <h4 id="e-info-title">New Event</h4>
+            <div class="section" id="e-info-data"></div>
+            <div class="divider"></div>
+            <div class="section">
+                <a id="delete-event" class="waves-effect waves-light flat-btn right"><i
+                        class="material-icons">delete</i></a>
+            </div>
+
+        </div>
+    </div>
+    <!-- -------- confirm delete ----->
+    <div id="confirm-delete" class="modal">
+        <div class="modal-content center">
+            <h4 id="e-info-title">Delete this event?</h4>
+        </div>
+        <div class="modal-footer" style="padding: 0px 30%;">
+            <a class="modal-close waves-effect waves-light btn left" onclick="deleteEvent()">Yes</a>
+            <a class="modal-close waves-effect waves-light btn right">No</a>
+        </div>
+    </div>
+    <!-- ------------ FOOTER ------------ -->
     <div class="end grey lighten-3">
         <div class="container">
             <div class="row">
@@ -75,25 +155,26 @@
         </div>
     </div>
 
+    <!-- ------------ SDK LINKS --------- -->
     <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-storage.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-auth.js"></script>
 
-
-
-    <script src='https://fullcalendar.io/js/fullcalendar-3.1.0/lib/moment.min.js'></script>
-    <script src='https://fullcalendar.io/js/fullcalendar-3.1.0/fullcalendar.min.js'></script>
-
-
-
-
+    <!-- ------------ JS LINKS ---------- -->
     <script src="../js/calendar.js"></script>
     <script src="../js/app.js"></script>
     <script src="../js/ui.js"></script>
     <script src="../js/db.js"></script>
     <script>
         $(document).ready(() => {
+            $('.modal').modal();
+            $("#new-event").hide();
+            $('.datepicker').datepicker({
+                format: 'yyyy-mm-dd'
+            });
+            $('.timepicker').timepicker();
+            $('select').formSelect();
             const user = JSON.parse(sessionStorage.getItem("user"));
             getData("users", user.uid, (data) => {
                 $("#profile-content").append(`<h4>${data.first_name} ${data.last_name}</h4><h6>Pets<h6><div id="pet-data" />`);

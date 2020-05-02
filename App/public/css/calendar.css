@@ -1,3 +1,6 @@
+
+/* MAIN CALENDAR STYLE */
+
 .calendar{
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -22,6 +25,41 @@
     font-weight: 600;
     background-color: lightblue;
 }
-#next:hover, #prev:hover{
+
+/* INTERACTION */
+
+#next:hover, #prev:hover, .date:hover{
     cursor: pointer;
+}
+
+/* EVENT STYLE  */
+
+#new-event{
+    height: 100%;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    z-index: 10;
+    background-color: rgba(0,0,0,0.5);
+    padding: 15px;
+}
+#new-event form{
+    background-color: white;
+    padding: 15px;
+}
+
+/* EVENT INFO MODAL */
+
+#e-info-data{
+    padding: 5px;
+}
+.Vet-Appointment{
+    background-color: lightpink;
+}
+.Feeding{
+    background-color: lightsteelblue;
+}
+.Cleaning{
+    background-color: lightcoral;
 }

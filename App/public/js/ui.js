@@ -51,45 +51,46 @@ function displayPet(data, id) {
                 <div class="pet-flavour-text">${data.breed} <br> ${data.age} | SEX | WEIGHT</div>
             </div>
         </div>
-        <div id="pet-modal-${id}" class="modal">
-            <div class="modal-content">
-                <h4><b>${data.name}</b></h4>
-                <img alt="recipe thumb" class="circle z-depth-2 pet-pfp" id="modal-pet-pfp" style="width:100px;height:auto">
-                <h6><b>Breed:</b> ${data.breed}</h6>
-                <h6><b>Age:</b> ${data.age}</h6>
-                <h6><b>User:</b> ${data.user}</h6>
-                <br>
-                <p>ANY MORE PET INFO CAN GO HERE</p>                
-                <a class="btn-floating btn-small green darken-3 pet-delete" onclick="deletePet('${id}')"><i class="material-icons">delete_outline</i></a>
-                <a class="btn-floating btn-small green darken-3" onclick="editPet('${id}')"><i class="material-icons">edit</i></a>
-            </div>
-        </div>
-        <div id="pet-edit-modal-${id}" class="modal">
-            <div class="modal-content">
-                <form id="edit-pet-form">
-                    <div class="input-field">
-                        <input placeholder="${data.name}" name="name" type="text" value="" class="validate">
-                    </div>
-                    <img id="edit-pet-profile-pic" class="circle pet-pfp" style="width:50px;height:50px;background-size:cover;">
-                    <input id="pfp-upload" onchange="pfpUpdate()" type="file" name="file">
-                    <div class="input-field">
-                        <input placeholder="${data.age}" name="age" type="number" value="" class="validate">
-                    </div>
-                    <div class="input-field">
-                        <select name="breed">
-                            <option id="breed" value="" disabled selected>Choose your option</option>
-                            <option value="Crested Gecko">Crested Gecko</option>
-                            <option value="Bearded Dragon">Bearded Dragon</option>
-                            <option value="Leopard Gecko">Leopard Gecko</option>
-                        </select>
-                        <label>Breed</label>
-                    </div>
-                    <a class="btn btn-small green darken-3" onclick="saveEdit('${id}')"><i class="material-icons">done</i></a>
-                    <a class="btn btn-small green darken-3" onclick="closeEdit('${id}')"><i class="material-icons">close</i></a>
-                </form>
-            </div>
-        </div>
     `;
+    //     <div id="pet-modal-${id}" class="modal">
+    //         <div class="modal-content">
+    //             <h4><b>${data.name}</b></h4>
+    //             <img alt="recipe thumb" class="circle z-depth-2 pet-pfp" id="modal-pet-pfp" style="width:100px;height:auto">
+    //             <h6><b>Breed:</b> ${data.breed}</h6>
+    //             <h6><b>Age:</b> ${data.age}</h6>
+    //             <h6><b>User:</b> ${data.user}</h6>
+    //             <br>
+    //             <p>ANY MORE PET INFO CAN GO HERE</p>                
+    //             <a class="btn-floating btn-small green darken-3 pet-delete" onclick="deletePet('${id}')"><i class="material-icons">delete_outline</i></a>
+    //             <a class="btn-floating btn-small green darken-3" onclick="editPet('${id}')"><i class="material-icons">edit</i></a>
+    //         </div>
+    //     </div>
+    //     <div id="pet-edit-modal-${id}" class="modal">
+    //         <div class="modal-content">
+    //             <form id="edit-pet-form">
+    //                 <div class="input-field">
+    //                     <input placeholder="${data.name}" name="name" type="text" value="" class="validate">
+    //                 </div>
+    //                 <img id="edit-pet-profile-pic" class="circle pet-pfp" style="width:50px;height:50px;background-size:cover;">
+    //                 <input id="pfp-upload" onchange="pfpUpdate()" type="file" name="file">
+    //                 <div class="input-field">
+    //                     <input placeholder="${data.age}" name="age" type="number" value="" class="validate">
+    //                 </div>
+    //                 <div class="input-field">
+    //                     <select name="breed">
+    //                         <option id="breed" value="" disabled selected>Choose your option</option>
+    //                         <option value="Crested Gecko">Crested Gecko</option>
+    //                         <option value="Bearded Dragon">Bearded Dragon</option>
+    //                         <option value="Leopard Gecko">Leopard Gecko</option>
+    //                     </select>
+    //                     <label>Breed</label>
+    //                 </div>
+    //                 <a class="btn btn-small green darken-3" onclick="saveEdit('${id}')"><i class="material-icons">done</i></a>
+    //                 <a class="btn btn-small green darken-3" onclick="closeEdit('${id}')"><i class="material-icons">close</i></a>
+    //             </form>
+    //         </div>
+    //     </div>
+    // `;
 
     pets.innerHTML += html;
 
@@ -120,7 +121,10 @@ function removePet(id) {
 
 //open pet modal
 function petClicked(id) {
-    openModal("pet-modal-" + id);
+    console.log(id);
+    // ./pet.html?${id}
+    window.location.href = ("./pet.html?" + id);
+    // openModal("pet-modal-" + id);
 }
 
 //open edit page
