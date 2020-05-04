@@ -39,7 +39,7 @@ nav a span {
   font-weight: bold;
 }
 
-.pet-form{
+.pet-form, #edit-pet-popup{
   height: 100%;
   width: 100%;
   position: fixed;
@@ -50,7 +50,7 @@ nav a span {
   overflow: auto;
   background-color: rgba(0,0,0,0.4);
 }
-.pet-form form{
+.pet-form form, #edit-pet{
   padding: 20px;
 }
 

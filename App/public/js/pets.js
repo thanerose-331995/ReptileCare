@@ -1,7 +1,7 @@
 //ALL PET DATA HANDLING
 
 $(document).ready(() => {
-    // getPets();
+    console.log("pet.js loaded");
 })
 
 // -------- SETUP ------------
@@ -36,10 +36,15 @@ function petClicked(id) {
 }
 // DISPLAY PAGE
 function displayPetPage(data){
+    $("#pet-data").empty();
     data = data.replace("-", " ");
     db.collection("pets").doc(data).get().then(snapshot => {
-        for (var key in snapshot.data()) {
-            $("#pet-data").append(`<p>${key}: ${snapshot.data()[key]}</p>`);
+        var pet = Object.assign(snapshot.data());
+        $("#pet-data").append(`<img id="pet-pfp" src="../img/lizard.png" class="responsive-img circle" style="height: 100px;width: 100px;">`);
+        delete pet.user;
+        for (var key in pet) {
+            //generatively adding p tag with data
+            $("#pet-data").append(`<p>${key}: ${pet[key]}</p>`);
         }
         $("#pet-data").append(`
         <a class="btn" onclick="deletePet('${snapshot.id}')">
@@ -48,6 +53,17 @@ function displayPetPage(data){
         <a class="btn" onclick="editPet('${snapshot.id}')">
             <i class="material-icons">edit</i>
         </a>`);
+        $("#pet-data").attr("pet-id", snapshot.id);
+        const user = JSON.parse(sessionStorage.user);
+        download("images/" + user.uid + "/" + snapshot.id + "/pfp", url => {
+            if (url.code == null) {
+                $("#pet-pfp").attr("src", url);
+                $("#edit-pet-pfp").attr("src", url);
+            }
+            $("#preload").fadeOut(() => {
+                $("#pet-data").fadeIn();
+            });
+        })
     })
 }
 
@@ -127,13 +143,20 @@ function addPet(){
     }
 };
 // PROFILE IMAGE UPLOAD
-function pfpUpdate() {
+function pfpUpdate(type) {
+    if(type=="edit"){
+        var form = $("#edit-pet");
+        var output = $("#edit-pet-pfp");
+    }
+    else{
+        var form = $("#add-pet");
+        var output = $("#new-pet-pfp");
+    }
     const user = JSON.parse(sessionStorage.getItem("user"));
-
-    upload($("#add-pet")[0].file.files[0], 'temp/' + user.uid, () => {
+    upload(form[0].file.files[0], 'temp/' + user.uid, () => {
         download('temp/' + user.uid, url => {
-            $("#new-pet-pfp").attr("src", url);
-            $("#new-pet-pfp").css("background-size", "cover");
+            output.attr("src", url);
+            output.css("background-size", "cover");
         })
     })
 }
@@ -143,16 +166,43 @@ function pfpUpdate() {
 // OPEN EDIT FORM
 function editPet(id){
     db.collection("pets").doc(id).get().then(snapshot => {
-        // console.log(snapshot.data());
         var pet = Object.assign(snapshot.data());
-        delete pet.user;
-        // console.log(pet);
-        // console.log($("#edit-pet input"));
-        $("#edit-pet input").each(i => {
-            console.log($($("#edit-pet input")[i]).val(pet.name));
-        })
+        $($("#edit-pet input")[1])[0].value = pet.name;
+        $($("#edit-pet input")[2])[0].value = pet.dob;
+        $($("#edit-pet input")[3])[0].value = pet.sex;
+        $($("#edit-pet input")[4])[0].value = pet.breed;
+        $($("#edit-pet input")[5])[0].value = pet.weight;
+        $("#edit-pet-popup").fadeIn();
     })
 }
+// CLOSE EDIT FORM
+$("#close-edit-form").click(e => {
+    e.preventDefault();
+    $("#edit-pet-popup").fadeOut();
+})
+// SAVE EDIT
+$("#send-edit-form").click(e => {
+    e.preventDefault();
+    var values = $("#edit-pet input");
+    var newPet = {name: "", dob: "", sex: "", breed: "", weight: ""};
+    var x = 1;
+    for(var key in newPet) {
+        if(key == "name"){
+            var name = values[x].value;
+            name = name.replace(name[0], name[0].toUpperCase());
+            newPet[key] = name;
+        }
+        else{
+            newPet[key] = values[x].value;
+        }
+        x ++;
+    };
+    console.log(newPet);
+    var id = $("#pet-data").attr("pet-id");
+    db.collection("pets").doc(id).update(newPet).then(() => {
+        displayPetPage(window.location.href.split('?')[1]);
+    });
+})
 
 // --> DELETE
 

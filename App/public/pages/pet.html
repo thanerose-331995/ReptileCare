@@ -35,7 +35,22 @@
     </nav>
     <div class="page-content center">
         <h2>Pet</h2>
-        <div id="pet-data"></div>
+        <div id="preload">
+            <div class="preloader-wrapper active">
+                <div class="spinner-layer spinner-green-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="pet-data" style="display: none;"></div>
         <div class="center">
             <a class="btn-floating btn-smallgreen darken-3 z-depth-1" href="main.html">
                 <i class="material-icons teal accent-4">arrow_back</i>
@@ -51,71 +66,71 @@
                 <a id="confirm-delete" class="modal-close waves-effect waves-green btn left">Yes!</a>
                 <a class="modal-close waves-effect waves-green btn right">No!</a>
             </div>
-          </div>
-          <div id="edit-pet">
-                <div id="edit-pet-form" class="center">
-                    <form id="edit-pet" class="container white row">
-                        <!-- title -->
-                        <div class="col s12">
-                            <h5>Edit Pet</h5>
-                            <div class="divider"></div>
-                        </div>
-                        <!-- pfp -->
-                        <div class="col s12">
-                            <br>
-                            <img id="new-pet-pfp" src="../img/lizard.png" class="responsive-img circle" style="height: 100px;width: 100px;">
-                            <input id="pfp-upload" onchange="pfpUpdate()" type="file" name="file">
-                        </div>
-                        <!-- name -->
-                        <div class="input-field col s12">
-                            <input placeholder="e.g. Gaz" id="name" type="text" class="validate" value="">
-                            <label for="name">Pet Name</label>
-                        </div>
-                        <!-- date of birth -->
-                        <div class="col s6">
-                            <p class="left">Date of Birth</p>
-                            <input type="text" class="datepicker">
-                        </div>
-                        <!-- sex -->
-                        <div class="col s6">
-                            <div class="input-field">
-                                <select>
-                                    <option id="sex" value="" disabled selected></option>
-                                    <option value="Crested Gecko">Male</option>
-                                    <option value="Bearded Dragon">Female</option>
-                                </select>
-                                <label>Sex</label>
-                            </div>
-                        </div>
-                        <!-- breed -->
-                        <div class="col s8">
-                            <div class="input-field">
-                                <select>
-                                    <option id="breed" value="Choose One" disabled selected></option>
-                                    <option value="Crested Gecko">Crested Gecko</option>
-                                    <option value="Bearded Dragon">Bearded Dragon</option>
-                                    <option value="Leopard Gecko">Leopard Gecko</option>
-                                </select>
-                                <label>Breed</label>
-                            </div>
-                        </div>
-                        <!-- weight -->
-                        <div class="col s4">
-                            <div class="input-field">
-                                <input placeholder="1lb" id="weight" type="number" class="validate">
-                                <label for="weigth">Weight</label>
-                            </div>
-                        </div>
-                        <div class="divider col s12"></div>
-                        <div class="center col s12">
-                            <button id="close-edit-form" class="btn-small teal accent-4">Close</button>
-                            <button id="send-edit-form" class="btn-small teal accent-4">Update</button>
-                        </div>
-                        <p id="add-pet-err"></p>
-                    </form>
-              </div>
+        </div>
+    </div>
+    <div id="edit-pet-popup" style="display: none;">
+          <div id="edit-pet-form" class="center">
+              <form id="edit-pet" class="container white row">
+                  <!-- title -->
+                  <div class="col s12">
+                      <h5>Edit Pet</h5>
+                      <div class="divider"></div>
+                  </div>
+                  <!-- pfp -->
+                  <div class="col s12">
+                      <br>
+                      <img id="edit-pet-pfp" src="../img/lizard.png" class="responsive-img circle" style="height: 100px;width: 100px;">
+                      <input id="pfp-upload" onchange="pfpUpdate('edit')" type="file" name="file">
+                  </div>
+                  <!-- name -->
+                  <div class="input-field col s12">
+                      <input placeholder="e.g. Gaz" id="name" type="text" class="validate" value="">
+                      <label for="name">Pet Name</label>
+                  </div>
+                  <!-- date of birth -->
+                  <div class="col s6">
+                      <p class="left">Date of Birth</p>
+                      <input type="text" class="datepicker">
+                  </div>
+                  <!-- sex -->
+                  <div class="col s6">
+                      <div class="input-field">
+                          <select>
+                              <option id="sex" value="" disabled selected></option>
+                              <option value="Crested Gecko">Male</option>
+                              <option value="Bearded Dragon">Female</option>
+                          </select>
+                          <label>Sex</label>
+                      </div>
+                  </div>
+                  <!-- breed -->
+                  <div class="col s8">
+                      <div class="input-field">
+                          <select>
+                              <option id="breed" value="Choose One" disabled selected></option>
+                              <option value="Crested Gecko">Crested Gecko</option>
+                              <option value="Bearded Dragon">Bearded Dragon</option>
+                              <option value="Leopard Gecko">Leopard Gecko</option>
+                          </select>
+                          <label>Breed</label>
+                      </div>
+                  </div>
+                  <!-- weight -->
+                  <div class="col s4">
+                      <div class="input-field">
+                          <input placeholder="1lb" id="weight" type="number" class="validate">
+                          <label for="weigth">Weight</label>
+                      </div>
+                  </div>
+                  <div class="divider col s12"></div>
+                  <div class="center col s12">
+                      <button id="close-edit-form" class="btn-small teal accent-4">Close</button>
+                      <button id="send-edit-form" class="btn-small teal accent-4">Update</button>
+                  </div>
+                  <p id="add-pet-err"></p>
+              </form>
+        </div>
 
-          </div>
     </div>
     <div class="end green darken-1">
         <div class="container">
@@ -141,15 +156,12 @@
         </div>
     </div>
 
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-storage.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-auth.js"></script>
 
     <script src="../js/app.js"></script>
-    <!-- <script src="../js/ui.js"></script>
-     -->
     <script src="../js/pets.js"></script>
     <script src="../js/db.js"></script>
 
@@ -163,6 +175,9 @@
         });
         if (window.location.href.split('?').length > 1) {
             displayPetPage(window.location.href.split('?')[1]);
+        }
+        else{
+            $("#pet-data").append("Sorry! No pet data found");
         }
     });
 </script>

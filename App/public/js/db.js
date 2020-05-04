@@ -32,60 +32,6 @@ db.enablePersistence()
         }
     })
 
-//realtime listener
-// function getSnapshot() {
-//     db.collection('pets').onSnapshot((snapshot) => {
-//         //gets a snapshot of this collection whenever theres a change
-//         console.log(snapshot.docChanges());
-//         snapshot.docChanges().forEach(change => {
-//             if (change.type === 'added' || change.type === 'modified') {
-//                 var user = JSON.parse(sessionStorage.getItem("user"));
-//                 if (user.uid == change.doc.data().user) {
-//                     //add data
-//                     displayPet(change.doc.data(), change.doc.id);
-//                 }
-//             }
-//             if (change.type === 'removed') {
-//                 //remove data
-//                 removePet(change.doc.id);
-//             }
-//         });
-//     })
-// }
-
-// ------- PET DATA -------
-
-//add pet
-// $("#add-pet").on("submit", e => {
-//     e.preventDefault();
-//     var form = $("#add-pet")[0];
-//     var elems = $("#breed");
-//     console.log(elems[0]);
-//     const name = form.name.value.replace(form.name.value[0], form.name.value[0].toUpperCase());
-//     const pet = {
-//         name: name,
-//         age: form.age.value,
-//         breed: elems[0].value
-//     }
-//     var user = JSON.parse(sessionStorage.getItem("user"));
-//     pet.user = user.uid;
-
-//     var sidenav = M.Sidenav.getInstance($('#side-form'));
-//     sidenav.close();
-//     db.collection('pets').add(pet)
-//         .catch(err => { console.log(err) });
-
-//     form.name.value = "";
-//     form.age.value = "";
-// })
-
-//delete pet
-// function deletePet(id) {
-//     console.log("deleting: ", id);
-//     db.collection('pets').doc(id).delete();
-//     const modal = $("#pet-modal-" + id);
-//     M.Modal.getInstance(modal).close();
-// }
 
 // ------- EVENTS ---------
 
@@ -116,10 +62,6 @@ function getData(collection, data, callback) {
     db.collection(collection).doc(data).get().then(snapshot => {
         callback(snapshot.data());
     })
-}
-
-function update(collection, id, data){
-    db.ref(collection + '/' + id).set(data);
 }
 
 //format form to obj

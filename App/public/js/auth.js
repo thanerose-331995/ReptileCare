@@ -1,6 +1,15 @@
-//----------- STATE CHANGE
 
+//----------------------------
+//ALL AUTHENTICATION HANDLING
+//----------------------------
 
+$(document).ready(() => {
+    console.log("auth.js loaded");
+})
+
+//--------- STATE CHANGE -----
+
+// DETECT CHANGE
 auth.onAuthStateChanged(user => {
     console.log(user);
     if (user) {
@@ -8,18 +17,24 @@ auth.onAuthStateChanged(user => {
         console.log("User Logged In:", user);
         sessionStorage.setItem("user", JSON.stringify(user));
         var state = window.location.href.indexOf("http") != 0 ? "live" : "dev";
-        console.log("state:", state);
         window.location.href = state == "live" ? "https://petapp-616ba.web.app/pages/main.html" : "./pages/main.html";
     }
     else {
         console.log("User Logged Out");
     }
 })
+// LOGOUT
+$("#logout-btn").click(e => {
+    e.preventDefault();
+    auth.signOut().then(() => {
+        console.log("User Signed Out");
+        window.location.href = "../";
+    })
+})
 
+//--------- FORM HANDLES -----
 
-//---------- FORM HANDLING
-
-//SIGN UP
+// SIGN UP
 $("#signup").submit(e => {
     e.preventDefault();
     const user = objectifyForm($("#signup").serializeArray());
@@ -40,8 +55,7 @@ $("#signup").submit(e => {
         throw new Error(err);
     });
 })
-
-//LOGIN
+// LOGIN
 $("#login").submit(e => {
     e.preventDefault();
     const user = objectifyForm($("#login").serializeArray());

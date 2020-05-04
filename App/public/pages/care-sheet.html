@@ -33,7 +33,6 @@
         </ul>
     </nav>
     <div class="page-content">
-        <!-- MAIN -->
         <div class="container grey lighten-3 z-depth-2 center grey-text text-darken-3 center"
             style="padding:15px;margin-top:15px;">
             <h4 id="title"></h4>
@@ -55,13 +54,12 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="center">
-            <a class="btn-floating btn-smallgreen darken-3 z-depth-1" href="care-sheets.html">
-                <i class="material-icons teal accent-4">arrow_back</i>
-            </a>
-            <br>
+            <div class="center">
+                <a class="btn-floating btn-smallgreen darken-3 z-depth-1" href="care-sheets.html">
+                    <i class="material-icons teal accent-4">arrow_back</i>
+                </a>
+                <br>
+            </div>
         </div>
     </div>
     <div class="end green darken-1">
@@ -94,7 +92,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-auth.js"></script>
 
     <script src="../js/app.js"></script>
-    <script src="../js/ui.js"></script>
+    <script src="../js/care-sheets.js"></script>
     <script src="../js/db.js"></script>
 </body>
 
@@ -104,56 +102,10 @@
         //check route is correct
         if (window.location.href.split('?').length > 1) {
             //get data req
-            var data = window.location.href.split('?')[1];
-            data = data.replace("-", " ");
-
-            //get data
-            $("#title").html(data);
-            db.collection("care_sheets").where("breed", "==", data).get().then(snapshot => {
-                snapshot.forEach(snap => {
-
-                    //DATA
-                    var html = `
-                    <div class="">
-                        <div class="card light-green lighten-1 z-depth-1">
-                            <a class="white-text">
-                            <div class="card-content">
-                    `;
-
-                    // HI JOEL
-                    // json objects look like this:
-                    // key: value,
-                    // key2: value
-                    // ie ->
-                    // name: kevin
-                    // breed: crested gecko
-                    // this lil for statement cycles through each key in the object so the page can be generated easily
-                    // if you wanna style the data mybe a list here would be cool? idk
-                    // lemme kno if you need a hand with this bit
-
-                    for (let [key, value] of Object.entries(snap.data())) {
-                        var name = key.replace(key[0], key[0].toUpperCase());
-                        html += `<p><b>${name}:</b> ${value}</p>`;
-                    }
-
-                    html += `
-                        </div>
-                        </a>
-                        </div>
-                    </div>`;
-
-                    //append
-                    $("#data-container").append(html);
-
-                })
-                //preload hide
-                $("#preload").fadeOut(() => {
-                    $("#data-container").fadeIn();
-                });
-            })
+            getCareSheetData(window.location.href.split('?')[1]);
         }
         else {
-            console.log("err");
+            $("#data-container").append("Sorry! No pet data found");
         }
     });
 </script>
