@@ -44,7 +44,11 @@ function displayPetPage(data) {
         delete pet.user;
         for (var key in pet) {
             //generatively adding p tag with data
-            $("#pet-data").append(`<p>${key}: ${pet[key]}</p>`);
+            if(key == "name"){
+                $("#name").html(pet[key]);
+            }else{
+                $("#pet-data").append(`<p>${key}: ${pet[key]}</p>`);
+            }
         }
         $("#pet-data").append(`
     <a class="btn" onclick="deletePet('${snapshot.id}')">
