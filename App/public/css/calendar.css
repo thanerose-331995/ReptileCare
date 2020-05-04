@@ -34,7 +34,7 @@
 
 /* EVENT STYLE  */
 
-#new-event{
+#new-event, #edit-event{
     height: 100%;
     position: fixed;
     left: 0px;
@@ -44,7 +44,7 @@
     background-color: rgba(0,0,0,0.5);
     padding: 15px;
 }
-#new-event form{
+#new-event form, #edit-event form{
     background-color: white;
     padding: 15px;
 }

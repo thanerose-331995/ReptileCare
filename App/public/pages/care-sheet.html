@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <!-- TOP/BOTTOM NAV -->
+    <!-- ------------ HEADER ------------ -->
     <nav class="top z-depth-0">
         <ul id="top-bar" class="center row text-green">
             <li class="col s3">
@@ -32,6 +32,7 @@
             </li>
         </ul>
     </nav>
+    <!-- ------------ MAIN CONTENT ------ -->
     <div class="page-content">
         <div class="container grey lighten-3 z-depth-2 center grey-text text-darken-3 center"
             style="padding:15px;margin-top:15px;">
@@ -62,6 +63,7 @@
             </div>
         </div>
     </div>
+    <!-- ------------ FOOTER ------------ -->
     <div class="end green darken-1">
         <div class="container">
             <div class="row">
@@ -86,29 +88,28 @@
         </div>
     </div>
 
+    <!-- ------------ SDK LINKS --------- -->
     <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-storage.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-auth.js"></script>
 
+    <!-- ------------ JS LINKS ---------- -->
     <script src="../js/app.js"></script>
     <script src="../js/care-sheets.js"></script>
     <script src="../js/db.js"></script>
+    <script>
+        $(document).ready(() => {
+            $("#data-container").hide();
+            //check route is correct
+            if (window.location.href.split('?').length > 1) {
+                //get data req
+                getCareSheetData(window.location.href.split('?')[1]);
+            }
+            else {
+                $("#data-container").append("Sorry! No pet data found");
+            }
+        });
+    </script>
 </body>
-
-<script>
-    $(document).ready(() => {
-        $("#data-container").hide();
-        //check route is correct
-        if (window.location.href.split('?').length > 1) {
-            //get data req
-            getCareSheetData(window.location.href.split('?')[1]);
-        }
-        else {
-            $("#data-container").append("Sorry! No pet data found");
-        }
-    });
-</script>
-
-
 </html>

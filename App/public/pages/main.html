@@ -18,8 +18,7 @@
 </head>
 
 <body>
-
-    <!-- top nav -->
+    <!-- ------------ HEADER ------------ -->
     <nav class="top z-depth-0">
         <ul id="top-bar" class="center row text-green">
             <li class="col s3">
@@ -33,6 +32,7 @@
             </li>
         </ul>
     </nav>
+    <!-- ------------ MAIN CONTENT ------ -->
     <div class="page-content center">
         <div class="container grey lighten-3 z-depth-2 center" style="padding:15px;margin-top:15px;">
             <div class="grey-text text-darken-3 center-align">
@@ -65,7 +65,8 @@
             </div>
         </div>
     </div>
-    <div id="new-pet-form" class="center pet-form">
+    <!-- -------- new pet form ------->
+    <div id="new-pet-form" class="center pet-form" style="display: none;">
         <form id="add-pet" class="container white row">
             <!-- title -->
             <div class="col s12">
@@ -126,6 +127,7 @@
             <p id="add-pet-err"></p>
         </form>
     </div>
+    <!-- ------------ FOOTER ------------ -->
     <div class="end green darken-1">
         <div class="container">
             <div class="row">
@@ -150,35 +152,33 @@
         </div>
     </div>
 
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <!-- ------------ SDK LINKS --------- -->
     <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-storage.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-auth.js"></script>
 
+     <!-- ------------ JS LINKS ---------- -->
     <script src="../js/app.js"></script>
     <script src="../js/pets.js"></script>
     <script src="../js/db.js"></script>
-
+    <script>
+        $(document).ready(() => {
+            $(".modal").modal();
+            $('select').formSelect();
+            $('.datepicker').datepicker({
+                format: "yyyy-mm-dd"
+            });
+    
+            getPets();
+    
+            const user = JSON.parse(sessionStorage.getItem("user"));
+            getData("users", user.uid, data => {
+                console.log("user:", data);
+                $("#welcome-message").append("<b>Welcome, " + data.first_name + "</b>");
+            });
+            // getSnapshot();
+        });
+    </script>
 </body>
-<script>
-    $(document).ready(() => {
-        $("#new-pet-form").hide();
-        $(".modal").modal();
-        $('select').formSelect();
-        $('.datepicker').datepicker({
-            format: "yyyy-mm-dd"
-        });
-
-        getPets();
-
-        const user = JSON.parse(sessionStorage.getItem("user"));
-        getData("users", user.uid, data => {
-            console.log("user:", data);
-            $("#welcome-message").append("<b>Welcome, " + data.first_name + "</b>");
-        });
-        // getSnapshot();
-    });
-</script>
-
 </html>

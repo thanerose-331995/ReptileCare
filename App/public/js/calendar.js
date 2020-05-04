@@ -187,7 +187,54 @@ $("#new-event").click(e => {
 
 // --> EDIT
 
-
+// EDIT CLICKED
+$("#edit-event-btn").click(() => {
+    var modal = M.Modal.getInstance($("#event-info"));
+    modal.close();
+    var event = JSON.parse($("#e-info-data").attr("event"));
+    var formInputs = $("#edit-event input");
+    formInputs[0].value = event.title;
+    formInputs[1].value = event.tag;
+    formInputs[2].value = event.date;
+    formInputs[3].value = event.start;
+    formInputs[4].value = event.end;
+    $("#edit-event").fadeIn();
+});
+// SAVE EDIT 
+$("#save-edit").click(() => {
+    var values = $("#edit-event input");
+    var newEvent = { title: "", tag: "", date: "", start: "", end: "" };
+    var x = 0;
+    for (var key in newEvent) {
+        if(values[x].value == ""){
+            delete newEvent[key];
+        }
+        else{
+            if (key == "title") {
+                var name = values[x].value;
+                name = name.replace(name[0], name[0].toUpperCase());
+                newEvent[key] = name;
+            }
+            else {
+                newEvent[key] = values[x].value;
+            }
+        }
+        x++;
+    };
+    
+    var event = JSON.parse($("#e-info-data").attr("event"));
+    db.collection("calendar").doc(event.id).update(newEvent).then(() => {
+        displayCalendar(new Date($("#title").attr("class")));
+        $("#edit-event").fadeOut();
+    });
+})
+// CLOSE EDIT
+$("#close-edit").click(() => {
+    $("#edit-event").fadeOut(() => {
+        var modal = M.Modal.getInstance($("#event-info"));
+        modal.open();
+    });
+})
 
 // --> DELETE
 
@@ -196,7 +243,6 @@ $("#delete-event").click(() => {
     var modal = M.Modal.getInstance($("#confirm-delete"));
     modal.open();
 })
-
 // DELETE CONFIRM
 function deleteEvent(){
     var event = JSON.parse($("#e-info-data").attr("event"));

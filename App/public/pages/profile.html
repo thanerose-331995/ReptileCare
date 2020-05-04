@@ -62,8 +62,8 @@
         </div>
     </div>
     <!-- -------- new event form ----->
-    <div id="new-event">
-        <div class="modal-content center">
+    <div id="new-event" style="display: none;">
+        <div class="center container">
             <form class="center">
                 <h4>New Event</h4>
                 <div class="input-field">
@@ -114,6 +114,8 @@
             <div class="section" id="e-info-data"></div>
             <div class="divider"></div>
             <div class="section">
+                <a id="edit-event-btn" class="waves-effect waves-light flat-btn right"><i
+                        class="material-icons">edit</i></a>
                 <a id="delete-event" class="waves-effect waves-light flat-btn right"><i
                         class="material-icons">delete</i></a>
             </div>
@@ -128,6 +130,41 @@
         <div class="modal-footer" style="padding: 0px 30%;">
             <a class="modal-close waves-effect waves-light btn left" onclick="deleteEvent()">Yes</a>
             <a class="modal-close waves-effect waves-light btn right">No</a>
+        </div>
+    </div>
+    <!-- -------- edit event --------->
+    <div id="edit-event" style="display: none;">
+        <div class="center container">
+            <form class="center">
+                <h4>Edit Event</h4>
+                <div class="input-field">
+                    <input id="event-title" type="text">
+                    <label for="first_name">Event Title</label>
+                </div>
+                <div class="input-field">
+                    <select id="tag">
+                        <option value="" disabled selected>Select One</option>
+                        <option value="1">Vet Appointment</option>
+                        <option value="2">Feeding</option>
+                        <option value="3">Cleaning</option>
+                    </select>
+                    <label>Tag</label>
+                </div>
+                <h6>Date</h6>
+                <input id="datepicker" type="text" class="datepicker">
+                <div class="row">
+                    <div class="col s6">
+                        <h6>Start Time</h6>
+                        <input id="start-time" type="text" class="timepicker">
+                    </div>
+                    <div class="col s6">
+                        <h6>End Time</h6>
+                        <input id="end-time" type="text" class="timepicker">
+                    </div>
+                </div>
+                <a id="close-edit" class="waves-effect waves-light btn"><i class="material-icons">close</i></a>
+                <a id="save-edit" class="waves-effect waves-light btn"><i class="material-icons">send</i></a>
+            </form>
         </div>
     </div>
     <!-- ------------ FOOTER ------------ -->
@@ -164,12 +201,10 @@
     <!-- ------------ JS LINKS ---------- -->
     <script src="../js/calendar.js"></script>
     <script src="../js/app.js"></script>
-    <script src="../js/ui.js"></script>
     <script src="../js/db.js"></script>
     <script>
         $(document).ready(() => {
             $('.modal').modal();
-            $("#new-event").hide();
             $('.datepicker').datepicker({
                 format: 'yyyy-mm-dd'
             });

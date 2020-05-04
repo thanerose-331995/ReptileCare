@@ -12,21 +12,21 @@ function displayPetCard(data, id, user) {
 
     //display card
     const html = `
-        <div class="card-panel pet light-green lighten-1 row waves-effect" onclick="petClicked('${id}')" data-id="${id}">
-            <img id="pet-pfp-${id}" src="../img/lizard.png" class="pet-pfp circle responsive-img">
-            <div class="pet-details grey-text text-lighten-3 right-align">
-                <div class="pet-title">${data.name}</div>
-                <div class="pet-flavour-text">${data.breed} <br> ${data.age} | SEX | WEIGHT</div>
-            </div>
+    <div class="card-panel pet light-green lighten-1 row waves-effect" onclick="petClicked('${id}')" data-id="${id}">
+        <img id="pet-pfp-${id}" src="../img/lizard.png" class="pet-pfp circle responsive-img">
+        <div class="pet-details grey-text text-lighten-3 right-align">
+            <div class="pet-title">${data.name}</div>
+            <div class="pet-flavour-text">${data.breed} <br> ${data.age} | SEX | WEIGHT</div>
         </div>
-    `;
+    </div>
+`;
 
     $("#user-pets").append(html);
 
     //retrieve icon
     download("images/" + user.uid + "/" + id + "/pfp", url => {
         if (url.code == null) {
-            $("#pet-pfp-"+id).attr("src", url);
+            $("#pet-pfp-" + id).attr("src", url);
         }
     })
 }
@@ -35,7 +35,7 @@ function petClicked(id) {
     window.location.href = ("./pet.html?" + id);
 }
 // DISPLAY PAGE
-function displayPetPage(data){
+function displayPetPage(data) {
     $("#pet-data").empty();
     data = data.replace("-", " ");
     db.collection("pets").doc(data).get().then(snapshot => {
@@ -47,12 +47,12 @@ function displayPetPage(data){
             $("#pet-data").append(`<p>${key}: ${pet[key]}</p>`);
         }
         $("#pet-data").append(`
-        <a class="btn" onclick="deletePet('${snapshot.id}')">
-            <i class="material-icons">delete</i>
-        </a>
-        <a class="btn" onclick="editPet('${snapshot.id}')">
-            <i class="material-icons">edit</i>
-        </a>`);
+    <a class="btn" onclick="deletePet('${snapshot.id}')">
+        <i class="material-icons">delete</i>
+    </a>
+    <a class="btn" onclick="editPet('${snapshot.id}')">
+        <i class="material-icons">edit</i>
+    </a>`);
         $("#pet-data").attr("pet-id", snapshot.id);
         const user = JSON.parse(sessionStorage.user);
         download("images/" + user.uid + "/" + snapshot.id + "/pfp", url => {
@@ -76,12 +76,12 @@ function getPets() {
     $("#user-pets").empty();
     const user = JSON.parse(sessionStorage.user);
     db.collection("pets").where("user", "==", user.uid).get().then(snapshot => {
-        if(snapshot.size > 0){
+        if (snapshot.size > 0) {
             snapshot.forEach(snap => {
                 displayPetCard(snap.data(), snap.id, user);
             })
         }
-        else{
+        else {
             $("#user-pets").append(`No Pets Yet!`);
         }
     })
@@ -101,13 +101,13 @@ $("#close-form").click(e => {
     $("#new-pet-form").fadeOut();
 })
 // FORM SEND
-$("#send-form").click(e =>{
+$("#send-form").click(e => {
     e.preventDefault();
     addPet();
 })
 
 // ADD PET
-function addPet(){
+function addPet() {
 
     //get form data
     var values = $("#add-pet input");
@@ -149,11 +149,11 @@ function addPet(){
 };
 // PROFILE IMAGE UPLOAD
 function pfpUpdate(type) {
-    if(type=="edit"){
+    if (type == "edit") {
         var form = $("#edit-pet");
         var output = $("#edit-pet-pfp");
     }
-    else{
+    else {
         var form = $("#add-pet");
         var output = $("#new-pet-pfp");
     }
@@ -169,7 +169,7 @@ function pfpUpdate(type) {
 // --> UPDATE
 
 // OPEN EDIT FORM
-function editPet(id){
+function editPet(id) {
     db.collection("pets").doc(id).get().then(snapshot => {
         var pet = Object.assign(snapshot.data());
         $($("#edit-pet input")[1])[0].value = pet.name;
@@ -189,20 +189,24 @@ $("#close-edit-form").click(e => {
 $("#send-edit-form").click(e => {
     e.preventDefault();
     var values = $("#edit-pet input");
-    var newPet = {name: "", dob: "", sex: "", breed: "", weight: ""};
+    var newPet = { name: "", dob: "", sex: "", breed: "", weight: "" };
     var x = 1;
-    for(var key in newPet) {
-        if(key == "name"){
-            var name = values[x].value;
-            name = name.replace(name[0], name[0].toUpperCase());
-            newPet[key] = name;
+    for (var key in newPet) {
+        if(values[x].value == ""){
+            delete newPet[key];
         }
         else{
-            newPet[key] = values[x].value;
+            if (key == "name") {
+                var name = values[x].value;
+                name = name.replace(name[0], name[0].toUpperCase());
+                newPet[key] = name;
+            }
+            else {
+                newPet[key] = values[x].value;
+            }
         }
-        x ++;
+        x++;
     };
-    console.log(newPet);
     var id = $("#pet-data").attr("pet-id");
     db.collection("pets").doc(id).update(newPet).then(() => {
         displayPetPage(window.location.href.split('?')[1]);
@@ -212,7 +216,7 @@ $("#send-edit-form").click(e => {
 // --> DELETE
 
 // DELETE MODAL
-function deletePet(id){
+function deletePet(id) {
     db.collection("pets").doc(id).get().then(snapshot => {
         console.log(snapshot.data());
         $("#modal-title").html(`Are you sure you want to delete ${snapshot.data().name}?`)
@@ -222,7 +226,7 @@ function deletePet(id){
 }
 // DELETE CONFIRM
 $("#confirm-delete").click(() => {
-    
+
     db.collection('pets').doc(id).delete();
     window.location.href = "./main.html";
 })
