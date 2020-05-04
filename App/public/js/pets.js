@@ -76,9 +76,14 @@ function getPets() {
     $("#user-pets").empty();
     const user = JSON.parse(sessionStorage.user);
     db.collection("pets").where("user", "==", user.uid).get().then(snapshot => {
-        snapshot.forEach(snap => {
-            displayPetCard(snap.data(), snap.id, user);
-        })
+        if(snapshot.size > 0){
+            snapshot.forEach(snap => {
+                displayPetCard(snap.data(), snap.id, user);
+            })
+        }
+        else{
+            $("#user-pets").append(`No Pets Yet!`);
+        }
     })
 }
 
