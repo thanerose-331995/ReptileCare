@@ -84,10 +84,18 @@
                 <input placeholder="e.g. Gaz" id="name" type="text" class="validate" value="">
                 <label for="name">Pet Name</label>
             </div>
-            <!-- date of birth -->
+            
+            <!-- breed -->
             <div class="col s6">
-                <p class="left">Date of Birth</p>
-                <input type="text" class="datepicker">
+                <div class="input-field">
+                    <select>
+                        <option id="breed" value="Choose One" disabled selected>Choose one</option>
+                        <option value="Crested Gecko">Crested Gecko</option>
+                        <option value="Bearded Dragon">Bearded Dragon</option>
+                        <option value="Leopard Gecko">Leopard Gecko</option>
+                    </select>
+                    <label>Breed</label>
+                </div>
             </div>
             <!-- sex -->
             <div class="col s6">
@@ -100,22 +108,15 @@
                     <label>Sex</label>
                 </div>
             </div>
-            <!-- breed -->
-            <div class="col s8">
-                <div class="input-field">
-                    <select>
-                        <option id="breed" value="Choose One" disabled selected>Choose one</option>
-                        <option value="Crested Gecko">Crested Gecko</option>
-                        <option value="Bearded Dragon">Bearded Dragon</option>
-                        <option value="Leopard Gecko">Leopard Gecko</option>
-                    </select>
-                    <label>Breed</label>
-                </div>
+            <!-- date of birth -->
+            <div class="col s6">
+                <p class="left grey-text" style="font-size: smaller;">Date of Birth</p>
+                <input type="text" class="datepicker">
             </div>
             <!-- weight -->
-            <div class="col s4">
+            <div class="col s6">
                 <div class="input-field">
-                    <input placeholder="1lb" id="weight" type="number" class="validate">
+                    <input placeholder="(1kg)" id="weight" type="number" class="validate">
                     <label for="weigth">Weight</label>
                 </div>
             </div>

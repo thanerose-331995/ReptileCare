@@ -34,25 +34,28 @@
     </nav>
     <!-- ------------ MAIN CONTENT ------ -->
     <div class="page-content center">
-        <h2 id="name">Pet</h2>
-        <div id="preload">
-            <div class="preloader-wrapper active">
-                <div class="spinner-layer spinner-green-only">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="gap-patch">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
+        <div class="container white">
+            <h2 id="name">Pet</h2>
+            <div id="preload">
+                <div class="preloader-wrapper active">
+                    <div class="spinner-layer spinner-green-only">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div id="pet-data" style="display: none;"></div>
         </div>
-        <div id="pet-data" style="display: none;"></div>
+        <br>
         <div class="center">
-            <a class="btn-floating btn-smallgreen darken-3 z-depth-1" href="main.html">
+            <a class="btn-floating btn-small z-depth-1" href="main.html">
                 <i class="material-icons teal accent-4">arrow_back</i>
             </a>
             <br>
@@ -61,10 +64,11 @@
             <div class="modal-content">
               <h4 id="modal-title"></h4>
               <p>They'll be gone forever!</p>
-            </div>
-            <div class="modal-footer">
-                <a id="confirm-delete" class="modal-close waves-effect waves-green btn left">Yes!</a>
-                <a class="modal-close waves-effect waves-green btn right">No!</a>
+              <br>
+                  <a id="confirm-delete" class="modal-close waves-effect red darken-4 btn center">Delete</a>
+                <a class="modal-close waves-effect teal accent-4 btn center">Cancel</a>
+              
+                <br>
             </div>
         </div>
     </div>

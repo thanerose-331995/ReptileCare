@@ -15,8 +15,14 @@ function getCareSheets(){
             var url = doc.data().breed;
             url = url.replace(" ", "-");
             var html = `
-            <li class="waves-effect waves-light btn">
-                <a href="./care-sheet.html?${url}" style="color:white">${doc.data().breed}</a>
+            <li class="">
+                <a href="./care-sheet.html?${url}" style="color: black;">
+                    <div class="card">
+                        <div class="card-content">
+                            ${doc.data().breed}
+                        </div>
+                    </div>
+                </a>
             </li>
             `;
             $("#" + doc.data().type).append(html);
