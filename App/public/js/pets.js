@@ -51,12 +51,14 @@ function displayPetPage(data) {
             }
         }
         $("#pet-data").append(`
-    <a class="btn" onclick="deletePet('${snapshot.id}')">
+    <br>
+    <a class="btn-floating red darken-4 center" onclick="deletePet('${snapshot.id}')">
         <i class="material-icons">delete</i>
     </a>
-    <a class="btn" onclick="editPet('${snapshot.id}')">
+    <a class="btn-floating teal accent-4 center" onclick="editPet('${snapshot.id}')">
         <i class="material-icons">edit</i>
-    </a>`);
+    </a>
+    <br><br>`);
         $("#pet-data").attr("pet-id", snapshot.id);
         const user = JSON.parse(sessionStorage.user);
         download("images/" + user.uid + "/" + snapshot.id + "/pfp", url => {
