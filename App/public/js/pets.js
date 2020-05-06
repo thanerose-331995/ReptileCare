@@ -52,10 +52,10 @@ function displayPetPage(data) {
         }
         $("#pet-data").append(`
     <br>
-    <a class="btn-floating red darken-4 center" onclick="deletePet('${snapshot.id}')">
+    <a class="btn-floating red darken-4" onclick="deletePet('${snapshot.id}')">
         <i class="material-icons">delete</i>
     </a>
-    <a class="btn-floating teal accent-4 center" onclick="editPet('${snapshot.id}')">
+    <a class="btn-floating teal accent-4" onclick="editPet('${snapshot.id}')">
         <i class="material-icons">edit</i>
     </a>
     <br><br>`);
