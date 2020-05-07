@@ -17,7 +17,7 @@ function displayPetCard(data, id, user) {
         <div class="pet-details grey-text text-lighten-3 right-align">
             <div class="pet-title">${data.name}</div>
             <div class="pet-flavour-text">${data.breed} <br> ${data.dob} | ${data.sex} | ${data.weight}</div>
-        </div>
+    </div>
     </div>
 `;
 
@@ -44,9 +44,9 @@ function displayPetPage(data) {
         delete pet.user;
         for (var key in pet) {
             //generatively adding p tag with data
-            if(key == "name"){
+            if (key == "name") {
                 $("#name").html(pet[key]);
-            }else{
+            } else {
                 $("#pet-data").append(`<p>${key}: ${pet[key]}</p>`);
             }
         }
@@ -86,6 +86,9 @@ function getPets() {
             snapshot.forEach(snap => {
                 displayPetCard(snap.data(), snap.id, user);
             })
+            $("#preload").fadeOut(() => {
+                $("#user-pets").fadeIn();
+            })
         }
         else {
             $("#user-pets").append(`No Pets Yet!`);
@@ -117,32 +120,33 @@ function addPet() {
 
     //get form data
     var values = $("#add-pet input");
-    if (values[2].value != "") {
-        values.splice(2, 2);
-    }
-    var name = values[1].value;
-    var pet = {
-        name: values[1].value,
-        dob: values[2].value,
-        sex: values[3].value,
-        breed: values[4].value,
-        weight: values[5].value,
-    }
 
-    //validation
-    var valid = true;
-    for (var key in pet) {
-        valid = (pet[key] == "" || pet[key] == "Choose One") ? false : true;
+    var valid = false;
+    for (var x = 0; x < values.length; x++) {
+        valid = (values[x].value == "" || values[x].value == "Choose One") ? false : true;
     }
     // valid = true;
     if (!valid) {
         $("#add-pet-err").html("Please fill out all data!");
     }
+
     else {
+        var name = values[1].value;
+        name = name.replace(name[0], name[0].toUpperCase());
+        var pet = {
+            name: name,
+            breed: values[2].value,
+            sex: values[3].value,
+            dob: values[6].value,
+            weight: values[7].value,
+        }
+    
+        //validation
+    
         const user = JSON.parse(sessionStorage.user);
         pet.user = user.uid;
         console.log(pet);
-
+    
         db.collection('pets').add(pet).then(snapshot => {
             if (values[0].value != "") {
                 var url = "images/" + user.uid + "/" + snapshot.id + "/pfp";
@@ -151,7 +155,8 @@ function addPet() {
             getPets();
             $("#new-pet-form").fadeOut();
         }).catch(err => { console.log(err) });
-    }
+    }    
+
 };
 // PROFILE IMAGE UPLOAD
 function pfpUpdate(type) {
@@ -198,10 +203,10 @@ $("#send-edit-form").click(e => {
     var newPet = { name: "", dob: "", sex: "", breed: "", weight: "" };
     var x = 1;
     for (var key in newPet) {
-        if(values[x].value == ""){
+        if (values[x].value == "") {
             delete newPet[key];
         }
-        else{
+        else {
             if (key == "name") {
                 var name = values[x].value;
                 name = name.replace(name[0], name[0].toUpperCase());
@@ -214,6 +219,7 @@ $("#send-edit-form").click(e => {
         x++;
     };
     var id = $("#pet-data").attr("pet-id");
+    console.log(newPet);
     db.collection("pets").doc(id).update(newPet).then(() => {
         displayPetPage(window.location.href.split('?')[1]);
         $("#edit-pet-popup").fadeOut();
@@ -227,13 +233,14 @@ function deletePet(id) {
     db.collection("pets").doc(id).get().then(snapshot => {
         console.log(snapshot.data());
         $("#modal-title").html(`Are you sure you want to delete ${snapshot.data().name}?`)
+        $("#confirm-delete").attr("pet", id);
         var modal = M.Modal.getInstance($("#delete-confirm"));
         modal.open();
     })
 }
 // DELETE CONFIRM
 $("#confirm-delete").click(() => {
-
+    var id = $("#confirm-delete").attr("pet");
     db.collection('pets').doc(id).delete();
     window.location.href = "./main.html";
 })

@@ -35,7 +35,8 @@
     <!-- ------------ MAIN CONTENT ------ -->
     <div class="page-content">
         <div class="container center">
-            <div class="" id="preload" style="margin-top: 50px;">
+            <h3>Feeds</h3>
+            <div id="preload" style="margin-top: 50px;">
                 <div class="preloader-wrapper active">
                     <div class="spinner-layer spinner-green-only">
                         <div class="circle-clipper left">
@@ -50,34 +51,15 @@
                     </div>
                 </div>
             </div>
-            <ul class="collapsible" id="data">
-                <li>
-                    <div class="collapsible-header"><i class="material-icons">filter_drama</i>Alligators and Crocs</div>
-                    <div class="collapsible-body grey lighten-2">
-                        <ul id="Alligators-and-Crocs"></ul>
-                    </div>
-                </li>
-                <li>
-                    <div class="collapsible-header"><i class="material-icons">place</i>Lizards</div>
-                    <div class="collapsible-body grey lighten-2">
-                        <ul id="Lizards"></ul>
-                    </div>
-                </li>
-                <li>
-                    <div class="collapsible-header"><i class="material-icons">whatshot</i>Snakes</div>
-                    <div class="collapsible-body grey lighten-2">
-                        <ul id="Snakes"></ul>
-                    </div>
-                </li>
-                <li>
-                    <div class="collapsible-header"><i class="material-icons">whatshot</i>Turtles and Tortoises</div>
-                    <div class="collapsible-body grey lighten-2">
-                        <ul id="Turtles-and-Tortoises"></ul>
-                    </div>
-                </li>
-            </ul>
+            <div class="container row white" id="feeds" style="padding: 20px;margin-top: 20px;display:none;">
+            </div>
         </div>
-
+        <div id="feed-info" class="modal">
+            <div class="modal-content center">
+                <h4 id="feed-name">Name</h4>
+                <div class="section" id="feed-data"></div>
+            </div>
+        </div>
     </div>
     <!-- ------------ FOOTER ------------ -->
     <div class="end green darken-1">
@@ -89,11 +71,11 @@
                                 class="material-icons">home</i></a>
                     </li>
                     <li class="col s3">
-                        <a href="./care-sheets.html" class="disabled btn-floating teal accent-4 waves-effect"><i
+                        <a href="./care-sheets.html" class="btn-floating teal accent-4 waves-effect"><i
                                 class="material-icons">assignment</i></a>
                     </li>
                     <li class="col s3">
-                        <a href="./feeds.html" class="btn-floating teal accent-4 waves-effect"><i class="material-icons">bug_report</i></a>
+                        <a href="./feeds.html" class="disabled btn-floating teal accent-4 waves-effect"><i class="material-icons">bug_report</i></a>
                     </li>
                     <li class="col s3">
                         <a href="./profile.html" class="btn-floating teal accent-4 waves-effect"><i
@@ -111,15 +93,63 @@
 
     <!-- ------------ JS LINKS ---------- -->
     <script src="../js/app.js"></script>
-    <script src="../js/care-sheets.js"></script>
     <script src="../js/db.js"></script>
     <script>
         $(document).ready(function () {
-            $('.collapsible').collapsible();
-            $(".collapsible").hide();
 
-            getCareSheets();
+            $(".modal").modal();
+
+            db.collection("feeds").get().then(snapshot => {
+                snapshot.forEach(snap => {
+                    var html = `
+                    <div class="col s4">
+                        <a class="waves-effect waves-light btn-floating btn-large" onClick="openModal('${snap.id}')"><i class="material-icons">cloud</i></a>
+                        <h6 style="margin-top: 2px;font-weight: bold;"><i>${snap.data().name}</i></h6>
+                    </div>
+                    `;
+                    $("#feeds").append(html);
+                    $("#preload").fadeOut(() => {
+                        $("#feeds").fadeIn();
+                    })
+                })
+            })
         });
+
+        function openModal(id) {
+            $("#feed-data").empty();
+            db.collection("feeds").doc(id).get().then(snapshot => {
+                for (var key in snapshot.data()) {
+                    var name = formatName(key);
+                    if (key != "name") {
+                        if (!isNaN(snapshot.data()[key])) {
+                            var html = `<p>${name}: ${snapshot.data()[key]} / 5<p>`;
+                        }
+                        else {
+                            var html = `<p>${name}: ${snapshot.data()[key]}<p>`;
+                        }
+                        $("#feed-data").append(html);
+                    }
+                    else {
+                        var title = snapshot.data()[key].replace(snapshot.data()[key][0], snapshot.data()[key][0].toUpperCase());
+                        $("#feed-name").html(title);
+                    }
+                }
+                var modal = M.Modal.getInstance($("#feed-info"));
+                modal.open();
+            })
+        }
+
+        function formatName(key) {
+            key = key.split("-");
+            var name = "";
+            for (var x = 0; x < key.length; x++) {
+                name += key[x].replace(key[x][0], key[x][0].toUpperCase());
+                name += " ";
+            }
+            name = name.substring(0, name.length - 1);
+            return name;
+        }
     </script>
 </body>
+
 </html>
