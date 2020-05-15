@@ -17,7 +17,7 @@ function getCareSheets(){
             var html = `
             <li class="">
                 <a href="./care-sheet.html?${url}" style="color: black;">
-                    <div class="card">
+                    <div class="card light-green lighten-1 white-text" style="border-radius: 8px;">
                         <div class="card-content">
                             ${doc.data().breed}
                         </div>
@@ -52,9 +52,6 @@ function getCareSheetData(id){
             //DATA
             var html = `
             <div class="">
-                <div class="card light-green lighten-1 z-depth-1">
-                    <a class="white-text">
-                    <div class="card-content">
             `;
 
             // HI JOEL
@@ -70,13 +67,17 @@ function getCareSheetData(id){
 
             for (let [key, value] of Object.entries(snap.data())) {
                 var name = key.replace(key[0], key[0].toUpperCase());
-                html += `<p><b>${name}:</b> ${value}</p>`;
+                html += `<div class="card light-green lighten-1 z-depth-1">
+                            <div class="card-content white-text">
+                                <b>${name}</b>
+                                <p>${value}</p>
+                            </div>
+                        </div>`;
+                                
             }
 
             html += `
-                </div>
-                </a>
-                </div>
+                
             </div>`;
 
             //append
