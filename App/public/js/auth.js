@@ -11,13 +11,14 @@ $(document).ready(() => {
 
 // DETECT CHANGE
 auth.onAuthStateChanged(user => {
-    console.log(user);
     if (user) {
         //user is logged in
         console.log("User Logged In:", user);
         sessionStorage.setItem("user", JSON.stringify(user));
         var state = window.location.href.indexOf("http") != 0 ? "live" : "dev";
-        window.location.href = state == "live" ? "https://petapp-616ba.web.app/pages/main.html" : "./pages/main.html";
+        if(!((window.location.href).indexOf("pages") > 1)){
+            window.location.href = state == "live" ? "https://petapp-616ba.web.app/pages/main.html" : "./pages/main.html";
+        }
     }
     else {
         console.log("User Logged Out");
@@ -27,7 +28,7 @@ auth.onAuthStateChanged(user => {
 $("#logout-btn").click(e => {
     e.preventDefault();
     auth.signOut().then(() => {
-        console.log("User Signed Out");
+        sessionStorage.removeItem("user");
         window.location.href = "../";
     })
 })

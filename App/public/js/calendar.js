@@ -1,7 +1,7 @@
 // ALL CALENDAR FUNCTIONALITY
 
 $(document).ready(() => {
-    displayCalendar(new Date());
+    // displayCalendar(new Date());
 
 })
 
@@ -18,7 +18,6 @@ function displayCalendar(date) {
             event.id = snap.id;
             events.push(event);
         });
-        console.log(events);
         // SET UP CALENDAR UI
         $(".calendar").empty();
         const months = ["January", "February", "March", "April", "May", "June",
@@ -63,6 +62,11 @@ function displayCalendar(date) {
             var day = today.getDate().toString();
             $("#day-" + day).css("background-color", "lightblue");
         }
+
+
+        $("#preload").fadeOut(()=>{
+            $("#content").fadeIn();
+        });
     })
     // console.log(events);
 

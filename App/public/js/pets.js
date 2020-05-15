@@ -219,7 +219,6 @@ $("#send-edit-form").click(e => {
         x++;
     };
     var id = $("#pet-data").attr("pet-id");
-    console.log(newPet);
     db.collection("pets").doc(id).update(newPet).then(() => {
         displayPetPage(window.location.href.split('?')[1]);
         $("#edit-pet-popup").fadeOut();

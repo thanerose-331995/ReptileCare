@@ -22,10 +22,10 @@
     <!-- ------------ HEADER ------------ -->
     <nav class="top">
         <ul id="top-bar" class="center row text-green">
-            <li class="col s3">
+            <li class="col s10 left-align">
                 <a href="./main.html" class="green-text text-darken-1">REP<span>TOOL</span></a>
             </li>
-            <li class="col s9 right-align">
+            <li class="col s2 right-align">
                 <div id="logout">
                     <i style="padding: 0px" id="logout-btn"
                         class="btn-flat material-icons red-text text-darken-4">exit_to_app</i>
@@ -36,29 +36,73 @@
     <!-- ------------ MAIN CONTENT ------ -->
     <div class="page-content">
         <!-- -------- main page content -->
-        <div class="container center grey lighten-3 z-depth-2" style="padding: 10px;margin-top: 30px;">
-            <!-- -------- user profile data -->
-            <div id="profile-content"></div>
-            <div class="divider"></div>
-            <!-- -------- calendar ----------->
-            <div class="container">
-                <h6><b>Upcoming Calendar</b></h6>
+        <div class="container center grey lighten-3 z-depth-2" style="padding: 10px;margin: 30px auto;">
+            <div id="content" style="display: none;">
+                <!-- -------- user profile data -->
+                <div id="profile-content"></div>
                 <div class="divider"></div>
-                <br>
-                <div class="cal-head">
-                    <h5 id="prev">
-                        < </h5>
-                            <div id="title"></div>
-                            <h5 id="next">></h5>
-                </div>
-                <div class="calendar"></div>
-                <br>
-                <div class="row">
-                    <div class="btn waves-effect col s3" id="go-today">Today</div>
-                    <a id="add-event" class="waves-effect waves-light btn col s3 right"><i
-                            class="material-icons">add</i></a>
+                <!-- -------- calendar ----------->
+                <div class="container">
+                    <h6><b>Upcoming Calendar</b></h6>
+                    <div class="divider"></div>
+                    <br>
+                    <div class="cal-head">
+                        <h5 id="prev">
+                            < </h5>
+                                <div id="title"></div>
+                                <h5 id="next">></h5>
+                    </div>
+                    <div class="calendar"></div>
+                    <br>
+                    <div class="row">
+                        <div class="btn waves-effect col s3" id="go-today">Today</div>
+                        <a id="add-event" class="waves-effect waves-light btn col s3 right"><i
+                                class="material-icons">add</i></a>
+                    </div>
+                    <div class="divider"></div>
+                    <br>
+                    <a id="delete-acc" class="waves-effect waves-light btn cyan">Delete Account</a>
                 </div>
             </div>
+            <div id="preload" style="margin: 50px 0px;">
+                <div class="preloader-wrapper active">
+                    <div class="spinner-layer spinner-green-only">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- -------- edit profile ------->
+    <div id="edit-profile" class="modal">
+        <div class="modal-content center" style="padding:0px">
+            <div id="header-edit-img">
+                <h5 class="white-text"><b>Edit Profile</b></h5>
+            </div>
+            <form class="row" style="padding: 10px;">
+                <div class="input-field col s6">
+                    <input id="first_name" type="text" class="validate">
+                    <label for="first_name" class="active">First Name</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="last_name" type="text" class="validate">
+                    <label for="last_name" class="active">Last Name</label>
+                </div>
+                <div class="divider"></div>
+                <div class="col s12">
+                    <h6 class="left-align">Cover Image</h6>
+                    <input id="file" type="file" onchange="updatePfp()">
+                </div>
+                <a class="waves-effect waves-light btn" onclick="saveEdit()">Save</a>
+            </form>
         </div>
     </div>
     <!-- -------- new event form ----->
@@ -167,6 +211,17 @@
             </form>
         </div>
     </div>
+    <!-- -------- delete acc --------->
+    <div id="confirm-acc-delete" class="modal">
+        <div class="modal-content center">
+            <h4 id="e-info-title">Delete your account?</h4>
+            <p>This will delete all of your, and your pets, data. Are you sure?</p>
+        </div>
+        <div class="modal-footer" style="padding: 0px 30%;">
+            <a class="modal-close waves-effect waves-light btn left" onclick="deleteAccount()">Yes</a>
+            <a class="modal-close waves-effect waves-light btn right">No</a>
+        </div>
+    </div>
     <!-- ------------ FOOTER ------------ -->
     <div class="end grey lighten-3">
         <div class="container">
@@ -181,7 +236,8 @@
                                 class="material-icons">assignment</i></a>
                     </li>
                     <li class="col s3">
-                        <a href="./feeds.html" class="btn-floating green waves-effect"><i class="material-icons">bug_report</i></a>
+                        <a href="./feeds.html" class="btn-floating green waves-effect"><i
+                                class="material-icons">bug_report</i></a>
                     </li>
                     <li class="col s3">
                         <a href="./profile.html" class="disabled btn-floating green waves-effect"><i
@@ -202,6 +258,7 @@
     <script src="../js/calendar.js"></script>
     <script src="../js/app.js"></script>
     <script src="../js/db.js"></script>
+    <script src="../js/auth.js"></script>
     <script>
         $(document).ready(() => {
             $('.modal').modal();
@@ -210,21 +267,132 @@
             });
             $('.timepicker').timepicker();
             $('select').formSelect();
+            displayProfile();
+        });
+
+        function displayProfile() {
             const user = JSON.parse(sessionStorage.getItem("user"));
             getData("users", user.uid, (data) => {
-                $("#profile-content").append(`<h4>${data.first_name} ${data.last_name}</h4><h6>Pets<h6><div id="pet-data" />`);
+                var html = `
+                <div class="row">
+                    <div class="col s12 m6">
+                        <div class="card">
+                            <div class="card-image">
+                                <div id="profile-header"/>
+
+                                <a class="btn-floating halfway-fab waves-effect waves-light cyan" onClick="editProfile()"><i class="material-icons">edit</i></a>
+                                <span class="card-title"><b><i>${data.first_name} ${data.last_name}</i></b></span>
+                            </div>
+                            <div class="card-content" style="padding-top:10px">
+                                <h5>Pets<h5>
+                                <div id="pet-data" class="row" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `;
+
+                $("#profile-content").empty();
+                $("#profile-content").append(html);
+                $("#profile-content").attr("data", JSON.stringify(data));
+                download("images/" + user.uid + "/header", url => {
+                    if (url.code == null) {
+                        $("#profile-header").css("background-image", "url(" + url + ")");
+                        $("#header-edit-img").css("background-image", "url(" + url + ")");
+                    }
+                    else {
+                        $("#header-edit-img").css("background-image", "url(../img/default-header.jpg)");
+                    }
+                })
                 db.collection("pets").where("user", "==", user.uid).get().then(snapshot => {
                     snapshot.forEach(doc => {
                         var html = `
-                        <div style="background-color:red;">
-                            <p>${doc.data().name}<p>
-                            </div>
+                        <div class="col s6" style="padding:5px;font-size:15px">
+                            <p class="green lighten-2">${doc.data().name}<p>
+                        </div>
                         `;
                         $("#pet-data").append(html);
                     });
                 })
+                setTimeout(function () { displayCalendar(new Date()) }, 1000);
             })
+        }
+
+        function editProfile() {
+            const data = JSON.parse($("#profile-content").attr("data"));
+            const form = $("#edit-profile form");
+            $($(form).find("input"))[0].value = data.first_name;
+            $($(form).find("input"))[1].value = data.last_name;
+            M.updateTextFields();
+            var modal = M.Modal.getInstance($("#edit-profile"));
+            modal.open();
+        }
+
+        function updatePfp() {
+            const form = $("#edit-profile form");
+            const user = JSON.parse(sessionStorage.user);
+            upload(form[0].file.files[0], 'temp/' + user.uid, () => {
+                download('temp/' + user.uid, url => {
+                    console.log(url);
+                    $("#header-edit-img").css("background-image", "url(" + url + ")");
+                })
+            })
+        }
+
+        function saveEdit() {
+            const form = $("#edit-profile form");
+            const user = JSON.parse(sessionStorage.user);
+            const update = {
+                first_name: $($(form).find("input"))[0].value,
+                last_name: $($(form).find("input"))[1].value
+            }
+            if (form[0].file.files.length > 0) {
+                upload(form[0].file.files[0], 'images/' + user.uid + '/header', () => { })
+            }
+            setTimeout(function () {
+                db.collection("users").doc(user.uid).update(update).then(() => {
+                    displayProfile();
+                    var modal = M.Modal.getInstance($("#edit-profile"));
+                    modal.close();
+                });
+            }, 1000);
+
+
+        }
+
+
+        $("#delete-acc").on("click", () => {
+            var modal = M.Modal.getInstance($("#confirm-acc-delete"));
+            modal.open();
         });
+
+        function deleteAccount() {
+            console.log("account will be deleted!");
+            const user = JSON.parse(sessionStorage.user);
+            //delete pets
+            db.collection("pets").where('user', "==", user.uid).get().then((snap => {
+                snap.forEach(s => {
+                    db.collection('pets').doc(s.id).delete();
+                })
+                //delete events
+                db.collection("calendar").where('user', "==", user.uid).get().then((snap => {
+                    snap.forEach(s => {
+                        db.collection('calendar').doc(s.id).delete();
+                    })
+                    var user = firebase.auth().currentUser;
+                    user.delete().then(function () {
+                        sessionStorage.removeItem("user");
+                        window.location.href = "../";
+                    }).catch(function (error) {
+                        // An error happened.
+                    });
+                }))
+            }))
+
+        }
+
+
+
     </script>
 </body>
 
