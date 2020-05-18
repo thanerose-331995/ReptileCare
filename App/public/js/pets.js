@@ -47,7 +47,14 @@ function displayPetPage(data) {
             if(key == "name"){
                 $("#name").html(pet[key]);
             }else{
-                $("#pet-data").append(`<p>${key}: ${pet[key]}</p>`);
+                $("#pet-data").append(`
+                    <div class="col s12 l12 white-text">
+                        <div class="card light-green lighten-1">
+                            <div class="card-content">
+                                <p><b><h6>${key}</h6></b>${pet[key]}</p>
+                            </div>
+                        </div>
+                </div>`);
             }
         }
         $("#pet-data").append(`
