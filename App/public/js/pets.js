@@ -14,7 +14,7 @@ function displayPetCard(data, id, user) {
     const html = `
     <div class="card-panel pet light-green lighten-1 row waves-effect" onclick="petClicked('${id}')" data-id="${id}">
         <img id="pet-pfp-${id}" src="../img/lizard.png" class="pet-pfp circle responsive-img">
-        <div class="pet-details grey-text text-lighten-3 right-align">
+        <div class="pet-details grey-text text-lighten-3 left-align">
             <div class="pet-title">${data.name}</div>
             <div class="pet-flavour-text">${data.breed} <br> ${data.dob} | ${data.sex} | ${data.weight}</div>
     </div>

@@ -16,20 +16,24 @@
     <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#FFE1C4">
 </head>
-<body style="background: rgb(165,214,167);background: linear-gradient(137deg, rgba(165,214,167,1) 0%, rgba(102,187,106,1) 71%);">
+
+<body
+    style="background: #f5f5f5;">
     <div class="container">
-        <div class="row valign-wrapper" style="height: 90%">
+        <div class="row valign-wrapper" style="height: 94%">
             <div class="col s12">
-                <div class="card white hoverable">
-                    <div class="card-content center">
-                        <h5 style="margin: 0px;">Welcome to Reptool</h5>
-                        <br>
-                        <button data-target="modal-login" class="btn green darken-2 modal-trigger">Login</button>
-                        <button data-target="modal-signup" class="btn green darken-2 modal-trigger">Sign Up</button>
-                    </div>
-                </div>
+                <img class="responsive-img center" src="./img/icons/icon-512x512.png" alt="">
+                <br><br>
+                <button data-target="modal-login" class="col s12 l12 btn teal accent-4 modal-trigger">Login</button>
+                <br><br>
+                <button data-target="modal-signup" class="col s12 l12 btn teal accent-4 modal-trigger">Sign Up</button>
             </div>
         </div>
+
+        <div class="row">
+            
+        </div>
+
         <div id="modal-login" class="modal">
             <div class="modal-content">
                 <h4>Login</h4>
@@ -90,4 +94,5 @@
         M.Modal.init(elems);
     });
 </script>
+
 </html>

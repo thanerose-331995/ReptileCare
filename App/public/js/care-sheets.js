@@ -70,7 +70,8 @@ function getCareSheetData(id){
                 html += `<div class="card light-green lighten-1 z-depth-1">
                             <div class="card-content white-text">
                                 <b>${name}</b>
-                                <p>${value}</p>
+                                <br><br>
+                                <p style="text-align: left;">${value}</p>
                             </div>
                         </div>`;
                                 
