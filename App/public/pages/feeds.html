@@ -130,10 +130,20 @@
                     var name = formatName(key);
                     if (key != "name") {
                         if (!isNaN(snapshot.data()[key])) {
-                            var html = `<p>${name}: ${snapshot.data()[key]} / 5<p>`;
+                            var html = `
+                            <div class="card light-green lighten-1 white-text">
+                                <div class="card-content">
+                                    <h6>${name}</h6> <p>${snapshot.data()[key]} / 5</p>
+                                </div>    
+                            </div>`;
                         }
                         else {
-                            var html = `<p>${name}: ${snapshot.data()[key]}<p>`;
+                            var html = `
+                            <div class="card light-green lighten-1 white-text">
+                                <div class="card-content">
+                                    <h6>${name}</h6> <p>${snapshot.data()[key]}</p>
+                                </div>    
+                            </div>`;
                         }
                         $("#feed-data").append(html);
                     }

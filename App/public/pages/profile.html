@@ -55,13 +55,13 @@
                     <div class="calendar"></div>
                     <br>
                     <div class="row">
-                        <div class="btn waves-effect col s3" id="go-today">Today</div>
-                        <a id="add-event" class="waves-effect waves-light btn col s3 right"><i
+                        <div class="btn waves-effect teal accent-4 col s3" id="go-today">Today</div>
+                        <a id="add-event" class="waves-effect waves-light teal accent-4 btn col s3 right"><i
                                 class="material-icons">add</i></a>
                     </div>
                     <div class="divider"></div>
                     <br>
-                    <a id="delete-acc" class="waves-effect waves-light btn cyan">Delete Account</a>
+                    <a id="delete-acc" class="waves-effect waves-light btn red darken-4">Delete Account</a>
                 </div>
             </div>
             <div id="preload" style="margin: 50px 0px;">
@@ -280,7 +280,7 @@
                             <div class="card-image">
                                 <div id="profile-header"/>
 
-                                <a class="btn-floating halfway-fab waves-effect waves-light cyan" onClick="editProfile()"><i class="material-icons">edit</i></a>
+                                <a class="btn-floating halfway-fab waves-effect waves-light teal accent-4" onClick="editProfile()"><i class="material-icons">edit</i></a>
                                 <span class="card-title"><b><i>${data.first_name} ${data.last_name}</i></b></span>
                             </div>
                             <div class="card-content" style="padding-top:10px">
@@ -308,7 +308,9 @@
                     snapshot.forEach(doc => {
                         var html = `
                         <div class="col s6" style="padding:5px;font-size:15px">
-                            <p class="green lighten-2">${doc.data().name}<p>
+                            <div class="card light-green lighten-1 white-text">
+                                <p>${doc.data().name}<p>
+                            </div>
                         </div>
                         `;
                         $("#pet-data").append(html);
