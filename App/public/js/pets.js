@@ -47,7 +47,14 @@ function displayPetPage(data) {
             if (key == "name") {
                 $("#name").html(pet[key]);
             } else {
-                $("#pet-data").append(`<p>${key}: ${pet[key]}</p>`);
+                $("#pet-data").append(`
+                <div class="col s12 l12">
+                        <div class="card light-green lighten-1 white-text">
+                            <div class="card-content">
+                                <h6><b>${key}</b></h6><p>${pet[key]}</p>
+                            </div>
+                        </div>
+                    </div>`);
             }
         }
         $("#pet-data").append(`
@@ -57,8 +64,7 @@ function displayPetPage(data) {
     </a>
     <a class="btn-floating teal accent-4" onclick="editPet('${snapshot.id}')">
         <i class="material-icons">edit</i>
-    </a>
-    <br><br>`);
+    </a>`);
         $("#pet-data").attr("pet-id", snapshot.id);
         const user = JSON.parse(sessionStorage.user);
         download("images/" + user.uid + "/" + snapshot.id + "/pfp", url => {
