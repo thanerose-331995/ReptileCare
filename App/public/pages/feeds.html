@@ -34,9 +34,9 @@
     </nav>
     <!-- ------------ MAIN CONTENT ------ -->
     <div class="page-content">
-        <div class="container center">
-            <h3>Feeds</h3>
-            <div id="preload" style="margin-top: 50px;">
+        <div class="container grey lighten-3 z-depth-2 center grey-text text-darken-3" style="padding:15px;margin-top:15px;">
+            <h4>Feeds</h4>
+            <div id="preload">
                 <div class="preloader-wrapper active">
                     <div class="spinner-layer spinner-green-only">
                         <div class="circle-clipper left">
@@ -51,7 +51,8 @@
                     </div>
                 </div>
             </div>
-            <div class="container row white" id="feeds" style="padding: 20px;margin-top: 20px;display:none;">
+            <div class="row" id="feeds">
+                
             </div>
         </div>
         <div id="feed-info" class="modal">
@@ -75,7 +76,7 @@
                                 class="material-icons">assignment</i></a>
                     </li>
                     <li class="col s3">
-                        <a href="./feeds.html" class="disabled btn-floating teal accent-4 waves-effect"><i class="material-icons">bug_report</i></a>
+                        <a href="./feeds.html" class="btn-floating teal accent-4 waves-effect"><i class="material-icons">bug_report</i></a>
                     </li>
                     <li class="col s3">
                         <a href="./profile.html" class="btn-floating teal accent-4 waves-effect"><i
@@ -103,9 +104,15 @@
             db.collection("feeds").get().then(snapshot => {
                 snapshot.forEach(snap => {
                     var html = `
-                    <div class="col s4">
-                        <a class="waves-effect waves-light btn-floating btn-large" onClick="openModal('${snap.id}')"><i class="material-icons">cloud</i></a>
-                        <h6 style="margin-top: 2px;font-weight: bold;"><i>${snap.data().name}</i></h6>
+                    <div class="col s12">
+                        <a class="" onClick="openModal('${snap.id}')">
+                            <div class="card light-green lighten-1 white-text">
+                                <div class="card-content">
+                                    <i class="material-icons left">cloud</i>
+                                    <h6 style="">${snap.data().name}</h6>
+                                </div>
+                            </div>
+                        </a>
                     </div>
                     `;
                     $("#feeds").append(html);
@@ -123,10 +130,20 @@
                     var name = formatName(key);
                     if (key != "name") {
                         if (!isNaN(snapshot.data()[key])) {
-                            var html = `<p>${name}: ${snapshot.data()[key]} / 5<p>`;
+                            var html = `
+                            <div class="card light-green lighten-1 white-text">
+                                <div class="card-content">
+                                    <h6>${name}</h6> <p>${snapshot.data()[key]} / 5</p>
+                                </div>    
+                            </div>`;
                         }
                         else {
-                            var html = `<p>${name}: ${snapshot.data()[key]}<p>`;
+                            var html = `
+                            <div class="card light-green lighten-1 white-text">
+                                <div class="card-content">
+                                    <h6>${name}</h6> <p>${snapshot.data()[key]}</p>
+                                </div>    
+                            </div>`;
                         }
                         $("#feed-data").append(html);
                     }

@@ -14,7 +14,7 @@ function displayPetCard(data, id, user) {
     const html = `
     <div class="card-panel pet light-green lighten-1 row waves-effect" onclick="petClicked('${id}')" data-id="${id}">
         <img id="pet-pfp-${id}" src="../img/lizard.png" class="pet-pfp circle responsive-img">
-        <div class="pet-details grey-text text-lighten-3 right-align">
+        <div class="pet-details grey-text text-lighten-3 left-align">
             <div class="pet-title">${data.name}</div>
             <div class="pet-flavour-text">${data.breed} <br> ${data.dob} | ${data.sex} | ${data.weight}</div>
     </div>
@@ -47,7 +47,14 @@ function displayPetPage(data) {
             if (key == "name") {
                 $("#name").html(pet[key]);
             } else {
-                $("#pet-data").append(`<p>${key}: ${pet[key]}</p>`);
+                $("#pet-data").append(`
+                <div class="col s12 l12">
+                        <div class="card light-green lighten-1 white-text">
+                            <div class="card-content">
+                                <h6><b>${key}</b></h6><p>${pet[key]}</p>
+                            </div>
+                        </div>
+                    </div>`);
             }
         }
         $("#pet-data").append(`
@@ -57,8 +64,7 @@ function displayPetPage(data) {
     </a>
     <a class="btn-floating teal accent-4" onclick="editPet('${snapshot.id}')">
         <i class="material-icons">edit</i>
-    </a>
-    <br><br>`);
+    </a>`);
         $("#pet-data").attr("pet-id", snapshot.id);
         const user = JSON.parse(sessionStorage.user);
         download("images/" + user.uid + "/" + snapshot.id + "/pfp", url => {
