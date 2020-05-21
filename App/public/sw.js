@@ -1,8 +1,8 @@
 //these two only run once per session, can be useful for caching
 
 //a new cache
-const staticCache = 'site-static-v11';
-const dynamicCache = 'site-dynamic-v10';
+const staticCache = 'site-static-v12';
+const dynamicCache = 'site-dynamic-v12';
 
 //asset array, in this case 'asset' means anything requested from the server (in url form)
 //these are called 'shell assets'

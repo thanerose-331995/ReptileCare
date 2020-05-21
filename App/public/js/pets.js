@@ -92,13 +92,13 @@ function getPets() {
             snapshot.forEach(snap => {
                 displayPetCard(snap.data(), snap.id, user);
             })
-            $("#preload").fadeOut(() => {
-                $("#user-pets").fadeIn();
-            })
         }
         else {
             $("#user-pets").append(`No Pets Yet!`);
         }
+        $("#preload").fadeOut(() => {
+            $("#user-pets").fadeIn();
+        })
     })
 }
 

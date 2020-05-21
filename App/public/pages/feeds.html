@@ -34,33 +34,54 @@
     </nav>
     <!-- ------------ MAIN CONTENT ------ -->
     <div class="page-content">
-        <div class="container grey lighten-3 z-depth-2 center grey-text text-darken-3" style="padding:15px;margin-top:15px;">
-            <h4>Feeds</h4>
-            <div id="preload">
-                <div class="preloader-wrapper active">
-                    <div class="spinner-layer spinner-green-only">
-                        <div class="circle-clipper left">
-                            <div class="circle"></div>
+        <div class="container grey lighten-3 center grey-text text-darken-3" style="padding:15px;margin:15px auto;">
+            <div class="card z-depth-0">
+                <div class="card-tabs">
+                    <ul class="tabs tabs-fixed-width tabs-green">
+                        <li class="tab"><a class="active green-text" href="#test4"><b>Feeds</b></a></li>
+                        <li class="tab"><a class="green-text" href="#test5"><b>Substrates</b></a></li>
+                    </ul>
+                </div>
+                <div id="preload">
+                    <div class="preloader-wrapper active" style="margin: 20px auto;">
+                        <div class="spinner-layer spinner-green-only">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="gap-patch">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
                         </div>
-                        <div class="gap-patch">
-                            <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="card-content grey lighten-3" style="padding: 5px;padding-bottom: 0px; display: none;">
+                    <div id="test4">
+                        <div class="row" id="feeds" style="margin: 0px;">
                         </div>
-                        <div class="circle-clipper right">
-                            <div class="circle"></div>
+                    </div>
+                    <div id="test5">
+                        <div class="row" id="substrates" style="margin: 0px;">
+                        </div>
+                    </div>
+                    <div class="">
+                        <h5>Bonus Info</h5>
+                        <div id="bonus">
+
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row" id="feeds">
-                
-            </div>
         </div>
-        <div id="feed-info" class="modal">
+        <div id="data" class="modal">
             <div class="modal-content center">
-                <h4 id="feed-name">Name</h4>
-                <div class="section" id="feed-data"></div>
+                <h4 id="data-name">Name</h4>
+                <div class="section" id="data-text"></div>
             </div>
         </div>
+
     </div>
     <!-- ------------ FOOTER ------------ -->
     <div class="end green darken-1">
@@ -76,7 +97,8 @@
                                 class="material-icons">assignment</i></a>
                     </li>
                     <li class="col s3">
-                        <a href="./feeds.html" class="btn-floating teal accent-4 waves-effect"><i class="material-icons">bug_report</i></a>
+                        <a href="./feeds.html" class="btn-floating teal accent-4 waves-effect"><i
+                                class="material-icons">bug_report</i></a>
                     </li>
                     <li class="col s3">
                         <a href="./profile.html" class="btn-floating teal accent-4 waves-effect"><i
@@ -100,12 +122,13 @@
         $(document).ready(function () {
 
             $(".modal").modal();
-
+            M.AutoInit();
+            $(".indicator").addClass("green");
             db.collection("feeds").get().then(snapshot => {
                 snapshot.forEach(snap => {
                     var html = `
                     <div class="col s12">
-                        <a class="" onClick="openModal('${snap.id}')">
+                        <a class="feed" id="${snap.id}" onClick="openModal('${snap.id}')">
                             <div class="card light-green lighten-1 white-text">
                                 <div class="card-content">
                                     <i class="material-icons left">cloud</i>
@@ -116,16 +139,55 @@
                     </div>
                     `;
                     $("#feeds").append(html);
-                    $("#preload").fadeOut(() => {
-                        $("#feeds").fadeIn();
+                })
+                db.collection("substrates").get().then(snapshot => {
+                    snapshot.forEach(snap => {
+                        var html = `
+                            <div class="col s12">
+                                <a class="substrate" id="${snap.id}" onClick="openModal('${snap.id}')">
+                                    <div class="card light-green lighten-1 white-text">
+                                        <div class="card-content">
+                                            <i class="material-icons left">cloud</i>
+                                            <h6 style="">${snap.data().name}</h6>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            `;
+                        $("#substrates").append(html);
+                    })
+                    db.collection("flavour-text").get().then(snapshot => {
+                        var html = `
+                        <ul class="collapsible">
+                            </ul>
+                        `;
+                        $("#bonus").append(html);
+                        snapshot.forEach(snap => {
+                            console.log(snap.data());
+                            var html = `
+                                <li>
+                                    <div class="collapsible-header"><i class="material-icons">filter_drama</i>${snap.data().name}
+                                    </div>
+                                    <div class="collapsible-body left-align"><span>${snap.data().text}</span></div>
+                                </li>
+                            `;
+                            $(".collapsible").append(html);
+                        })
+                        M.AutoInit();
+                        $(".indicator").addClass("green");
+                        $("#preload").fadeOut(() => {
+                            $(".card-content").fadeIn();
+                        })
                     })
                 })
             })
         });
 
         function openModal(id) {
-            $("#feed-data").empty();
-            db.collection("feeds").doc(id).get().then(snapshot => {
+            var collection = $("#" + id).attr("class");
+            collection += "s";
+            $("#data-text").empty();
+            db.collection(collection).doc(id).get().then(snapshot => {
                 for (var key in snapshot.data()) {
                     var name = formatName(key);
                     if (key != "name") {
@@ -133,7 +195,7 @@
                             var html = `
                             <div class="card light-green lighten-1 white-text">
                                 <div class="card-content">
-                                    <h6>${name}</h6> <p>${snapshot.data()[key]} / 5</p>
+                                    <h6>${name}</h6> <p>${snapshot.data()[key]}g</p>
                                 </div>    
                             </div>`;
                         }
@@ -145,14 +207,14 @@
                                 </div>    
                             </div>`;
                         }
-                        $("#feed-data").append(html);
+                        $("#data-text").append(html);
                     }
                     else {
                         var title = snapshot.data()[key].replace(snapshot.data()[key][0], snapshot.data()[key][0].toUpperCase());
-                        $("#feed-name").html(title);
+                        $("#data-name").html(title);
                     }
                 }
-                var modal = M.Modal.getInstance($("#feed-info"));
+                var modal = M.Modal.getInstance($("#data"));
                 modal.open();
             })
         }
