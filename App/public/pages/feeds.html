@@ -67,7 +67,8 @@
                         </div>
                     </div>
                     <div class="">
-                        <h5>Bonus Info</h5>
+                        <h5>Additional Information</h5>
+                        <br>
                         <div id="bonus">
 
                         </div>
@@ -158,7 +159,7 @@
                     })
                     db.collection("flavour-text").get().then(snapshot => {
                         var html = `
-                        <ul class="collapsible">
+                        <ul class="collapsible z-depth-0" style="border-color: transparent;">
                             </ul>
                         `;
                         $("#bonus").append(html);
@@ -166,10 +167,11 @@
                             console.log(snap.data());
                             var html = `
                                 <li>
-                                    <div class="collapsible-header"><i class="material-icons">filter_drama</i>${snap.data().name}
+                                    <div class="collapsible-header light-green lighten-1 white-text" style="border-radius: 8px;"><i class="material-icons">filter_drama</i>${snap.data().name}
                                     </div>
-                                    <div class="collapsible-body left-align"><span>${snap.data().text}</span></div>
+                                    <div class="collapsible-body"><span>${snap.data().text}</span></div>
                                 </li>
+                                <br>
                             `;
                             $(".collapsible").append(html);
                         })

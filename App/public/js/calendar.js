@@ -60,7 +60,7 @@ function displayCalendar(date) {
         var today = new Date();
         if (date.getMonth() == today.getMonth() && date.getFullYear() == today.getFullYear()) {
             var day = today.getDate().toString();
-            $("#day-" + day).css("background-color", "lightblue");
+            $("#day-" + day).css("background-color", "lightgreen");
         }
 
 
