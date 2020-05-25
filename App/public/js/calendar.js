@@ -84,6 +84,7 @@ function dateData(date, event) {
         // console.log(event.tag);
         $("#day-" + (date.getDate())).attr("event", JSON.stringify(event));
         $("#day-" + (date.getDate())).addClass("z-depth-1");
+        $("#day-" + (date.getDate())).css("border-radius", "20px");
         var tag = (event.tag).replace(" ", "-");
         $("#day-" + (date.getDate())).addClass(tag);
     }

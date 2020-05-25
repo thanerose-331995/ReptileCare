@@ -12,12 +12,12 @@ function displayPetCard(data, id, user) {
 
     //display card
     const html = `
-    <div class="card-panel pet light-green lighten-1 row waves-effect" onclick="petClicked('${id}')" data-id="${id}">
-        <img id="pet-pfp-${id}" src="../img/lizard.png" class="pet-pfp circle responsive-img">
+    <div class="card-panel pet light-green lighten-1 waves-effect" onclick="petClicked('${id}')" data-id="${id}">
+        <div id="pet-pfp-${id}" class="pet-pfp" />
         <div class="pet-details grey-text text-lighten-3 left-align">
             <div class="pet-title">${data.name}</div>
             <div class="pet-flavour-text">${data.breed} <br> ${data.dob} | ${data.sex} | ${data.weight}</div>
-    </div>
+        </div>
     </div>
 `;
 
@@ -26,7 +26,7 @@ function displayPetCard(data, id, user) {
     //retrieve icon
     download("images/" + user.uid + "/" + id + "/pfp", url => {
         if (url.code == null) {
-            $("#pet-pfp-" + id).attr("src", url);
+            $("#pet-pfp-" + id).css("background-image", "url("+url+")");
         }
     })
 }
@@ -40,7 +40,7 @@ function displayPetPage(data) {
     data = data.replace("-", " ");
     db.collection("pets").doc(data).get().then(snapshot => {
         var pet = Object.assign(snapshot.data());
-        $("#pet-data").append(`<img id="pet-pfp" src="../img/lizard.png" class="responsive-img circle" style="height: 100px;width: 100px;">`);
+        $("#pet-data").append(`<div class="pet-pfp" style="margin:auto;height:100px;width:100px" />`);
         delete pet.user;
         for (var key in pet) {
             //generatively adding p tag with data
@@ -69,7 +69,7 @@ function displayPetPage(data) {
         const user = JSON.parse(sessionStorage.user);
         download("images/" + user.uid + "/" + snapshot.id + "/pfp", url => {
             if (url.code == null) {
-                $("#pet-pfp").attr("src", url);
+                $(".pet-pfp").css("background-image", "url("+url+")");
                 $("#edit-pet-pfp").attr("src", url);
             }
             $("#preload").fadeOut(() => {
@@ -146,22 +146,25 @@ function addPet() {
             dob: values[6].value,
             weight: values[7].value,
         }
-    
+
         //validation
-    
+
         const user = JSON.parse(sessionStorage.user);
         pet.user = user.uid;
         console.log(pet);
-    
+
         db.collection('pets').add(pet).then(snapshot => {
             if (values[0].value != "") {
                 var url = "images/" + user.uid + "/" + snapshot.id + "/pfp";
                 upload($("#add-pet")[0].file.files[0], url, () => { });
             }
-            getPets();
-            $("#new-pet-form").fadeOut();
+            //wait for img to upload
+            setTimeout(() => {
+                getPets();
+                $("#new-pet-form").fadeOut();
+            }, 1000);
         }).catch(err => { console.log(err) });
-    }    
+    }
 
 };
 // PROFILE IMAGE UPLOAD

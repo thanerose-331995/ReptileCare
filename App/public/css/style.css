@@ -65,18 +65,21 @@ nav a span {
   position: relative;
 }
 
-.pet img {
+.card-panel .pet-pfp{
   grid-area: image;
   max-width: 60px;
+}
+
+.pet-pfp {
+  background-color: green;
+  border-radius: 50px;
+  background-size: cover;
+  background-position: center;
 }
 
 .pet-details {
   grid-area: details;
   margin-top: 6px;
-}
-
-.pet-delete i {
-  font-size: 18px;
 }
 
 .pet-title {
