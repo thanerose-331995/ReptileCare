@@ -1,6 +1,6 @@
 {
-    "name": "ReptileCare",
-    "short_name": "Repcare",
+    "name": "RepTool",
+    "short_name": "RepTool",
     "start_url": "/index.html",
     "display": "standalone",
     "background_color": "#000000",
